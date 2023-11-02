@@ -49,7 +49,7 @@ div#google_translate_element {
     font-size: 0;
   }
 
-  div[id=':0.targetLanguage'] {
+  div[id=":0.targetLanguage"] {
     display: inline;
   }
 
@@ -78,7 +78,7 @@ div#google_translate_element {
 
     &:before {
       content: "\f1ab  \f0d7";
-      font-family: FontAwesome;
+      font-family: $base-font-family;
       font-size: initial;
       color: #fefefe;
       border: 1px solid #fefefe85;
@@ -108,7 +108,6 @@ body {
 }
 
 /* OVERRIDE GOOGLE TRANSLATE WIDGET CSS END */
-
 
 // Main look
 
@@ -144,7 +143,7 @@ body {
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid rgba(0, 0, 0, .04);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     }
 
     a {
@@ -184,13 +183,12 @@ body {
       margin-top: 8px;
       max-height: 10000px;
       visibility: visible;
-      box-shadow: 0 0 9px 3px rgba(0, 0, 0, .06);
+      box-shadow: 0 0 9px 3px rgba(0, 0, 0, 0.06);
     }
   }
 
   &:before {
     content: "\f1ab  \f0d7";
-    font-family: FontAwesome;
+    font-family: $base-font-family;
   }
 }
-

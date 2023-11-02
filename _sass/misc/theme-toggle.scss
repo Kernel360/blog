@@ -4,15 +4,16 @@
   margin-top: 10px;
   margin-right: 60px;
   margin-left: auto;
-  transition: .3s cubic-bezier(.4,.03,0,1);
+  transition: 0.3s cubic-bezier(0.4, 0.03, 0, 1);
 
-  label, .toggle {
+  label,
+  .toggle {
     border-radius: 100px;
   }
 
   label {
     display: block;
-    background-color: rgba(120,120,120,.15);
+    background-color: rgba(120, 120, 120, 0.15);
     cursor: pointer;
   }
 
@@ -21,8 +22,8 @@
     width: 50%;
     height: 100%;
     background-color: #fff;
-    box-shadow: 0 2px 15px rgba(0,0,0,.15);
-    transition: transform .2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .names {
@@ -39,7 +40,7 @@
   .names p {
     margin-bottom: 0;
     line-height: 24px;
-    opacity: .5;
+    opacity: 0.5;
   }
 
   label .light {
@@ -58,7 +59,7 @@
   /* Toggle */
   [type="checkbox"]:checked ~ label .toggle {
     transform: translateX(100%);
-    background-color: #34323D;
+    background-color: #34323d;
   }
 
   [type="checkbox"]:checked ~ label .dark {
@@ -78,7 +79,7 @@
     margin-right: 20px;
 
     .names {
-      font-size: .85em;
+      font-size: 0.85em;
     }
   }
 }
