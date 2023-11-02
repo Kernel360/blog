@@ -1,4 +1,28 @@
 <a class="site-brand-inner" rel="author" href="{{ "/" | relative_url }}">
-  <img class="site-favicon" title="{{ site.title | escape }}" src="{{ site.favicon }}" onerror="this.style.display='none'">
-  {{ site.title | escape }}
+  <div class="logo-container">
+    <img class="site-favicon" title="{{ site.title | escape }}" src="{{ site.favicon }}" onerror="this.style.display='none'">
+    <img style="position: relative; width: 250px;"  src='/assets/images/banners/kernel360-white.png' alt='Kernel360 Crew Tech Blog' />
+  </div>
 </a>
+
+<style>
+  .logo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .site-brand-inner {
+    text-decoration: none;
+    color: #333;
+  }
+
+  .site-favicon {
+    width: 50px;
+    margin-right: 10px;
+  }
+</style>
