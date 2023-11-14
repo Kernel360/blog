@@ -27,6 +27,9 @@ and header_transparent -%} {%- assign header_transparent_class =
         </label>
 
         <div class="trigger">
+          <!-- 추가: about.md 페이지에 대한 링크 -->
+          <a class="page-link" href="{{ '/about' | relative_url }}">ABOUT</a>
+
           {%- for path in page_paths -%} {%- assign my_page = site.pages |
           where: "path", path | first -%} {%- if my_page.title -%}
 

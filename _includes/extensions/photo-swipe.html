@@ -1,7 +1,11 @@
 <script
-  src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+  src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js"
+  async
+></script>
 <script
-  src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+  src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js"
+  async
+></script>
 <link
   href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css"
   rel="stylesheet"
@@ -55,20 +59,25 @@
       return;
     }
 
+    // imgEls.forEach((imgEl) => {
+    //   imgEl.outerHTML = `
+    //   <a class="photo-swipe"
+    //     href="${imgEl.src}"
+    //     data-pswp-width="${
+    //       Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+    //     }"
+    //     data-pswp-height="${
+    //       Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+    //     }"
+    //     data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+    //     target="_blank">
+    //     ${imgEl.outerHTML}
+    //   </a>`;
+    // });
     imgEls.forEach((imgEl) => {
       imgEl.outerHTML = `
-      <a class="photo-swipe"
-        href="${imgEl.src}"
-        data-pswp-width="${
-          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
-        }"
-        data-pswp-height="${
-          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
-        }"
-        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
-        target="_blank">
         ${imgEl.outerHTML}
-      </a>`;
+      `;
     });
 
     // Initialize PhotoSwipe 5
