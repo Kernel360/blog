@@ -4,7 +4,7 @@ title: 시간 복잡도
 author: 문찬욱
 categories: 기술세미나
 banner:
-  image: time-complexity.jpg
+  image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2023/1116/thumb.jpg
   background: "#000"
   height: "100vh"
   min_height: "38vh"
@@ -22,6 +22,8 @@ banner:
 
 시간 복잡도에 대해 이야기 하기 전에 알고리즘에 대해 간단히 설명드리겠습니다.
 
+<br>
+
 ## 1. 알고리즘
 어떤 문제나 목적을 달성하기 위해 거쳐야 하는 여러 과정들을 의미합니다.
 
@@ -36,13 +38,15 @@ banner:
 
 하지만 메모리의 발전으로 인해 시간 복잡도에 비해 공간 복잡도의 중요성이 상대적으로 낮아졌습니다.
 
+<br>
+
 ## 2. 시간 복잡도
 입력 데이터 크기에 대한 실행 시간의 증가율을 나타낸 것입니다.
 
 알고리즘 실행시간에 중요하지 않은 상수와 항을 제외하고 가장 차수가 높은 항을 고려한 점근적 표기법을 사용합니다.
 
 ### 점근적 표기법
-[1.png]
+![1](https://github.com/Kernel360/blog-image/assets/97713997/97938a75-1dd1-4b08-aa4e-31f4d1351245)
 
 위 예시를 보시면 알고리즘 실행 시간이 2n^2+3n+1이라면 가장 높은 차수 항인 2n^2을 고려하는 것입니다.
 
@@ -63,7 +67,8 @@ Big-O가 다른 표기법에 비해 다음과 같은 이점이 있기 때문입�
 - 알고리즘의 성능이 항상 이 값 이하임을 보장할 수 있습니다.
 - 최악의 경우에 대한 시간 복잡도를 비교함으로써 다양한 알고리즘을 쉽게 비교할 수 있습니다.
 
-[2.png]
+![2](https://github.com/Kernel360/blog-image/assets/97713997/7e2ed745-0540-4778-9da8-b5641c375d8d)
+
 위 그림은 입력 데이터 크기에 대한 실행시간을 나타낸 그래프입니다.
 
 그래프에 나와있는 Big-O는 **O(1)**, **O(log n)**, **O(n)**, **O(n log n)**, **O(n^2)**, **O(2^n)**, **O(n!)** 가 있습니다.
@@ -117,7 +122,7 @@ public int binarySearch(int key, int[] arr, int start, int end) {
 
 코드만 봐서는 이해하기 힘드실 수 도 있을거 같아서 이진 탐색과 순차 탐색을 비교할겸 gif 하나를 가져왔습니다.
 
-[3.png]
+<img src="https://github.com/Kernel360/blog-image/assets/97713997/593124cd-9ece-4011-a3d2-5f267eceb2f4"  width="200%" height="200%"/>
 
 두 알고리즘 모두 숫자 37을 찾는 알고리즘이고 위에가 이진 탐색, 밑에가 순차 탐색입니다.
 
@@ -154,10 +159,14 @@ public void nestedLoop(int[] n) {
 
 예를 들어 위와 같이 같은 입력 데이터의 크기를 갖는 이중 for문이 있다고 한다면, 시간복잡도는 n과 n을 곱해서 O(n^2)이 되는 것입니다.
 
+<br>
+
 ## 3. 마무리
 시간 복잡도에 대해 알고 알고리즘을 비교할 수 있게 된다면,
 
 이 gif 파일처럼 같은 문제를 푸는 것이여도 시간 복잡도가 더 나은 알고리즘을 사용해서 더 나은 성능을 낼 수 있습니다.
+
+<br>
 
 ## 4. 참고 블로그
 [[알고리즘] Time Complexity (시간 복잡도)](https://hanamon.kr/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-time-complexity-%EC%8B%9C%EA%B0%84-%EB%B3%B5%EC%9E%A1%EB%8F%84/)
