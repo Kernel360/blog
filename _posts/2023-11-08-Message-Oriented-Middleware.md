@@ -1,16 +1,17 @@
 ---
-layout: post  
-title: 메시지 지향 미들웨어
-author: 고병룡
-categories: middleware
+layout: post
+title: `메시지 지향 미들웨어`
+author: `고병룡`
+categories: `기술세미나`
 banner:
-  image: `https://docs.oracle.com/cd/E19340-01/820-6424/images/to_MOM.gif`
+  image: `[썸네일로 넣고 싶은 이미지 링크](https://docs.oracle.com/cd/E19340-01/820-6424/images/to_MOM.gif)`
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: [메시지 지향 미들웨어, 메시지 브로커, 메시지 큐, Kafka, RabbitMQ, Redis, 기술세미나]
+  tags: [`메시지 지향 미들웨어`, `메시지 브로커`, `메시지 큐`, `Kafka`, `RabbitMQ`, `ActiveMQ`, `기술세미나`]
 ---
+
 
 ## 메시지 지향 미들웨어란 ?
 
