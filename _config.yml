@@ -257,7 +257,7 @@ plugins:
   - jekyll-spaceship
 
 analytics:
-  provider: ""google-gtag"
+  provider: "google-gtag"
   google:
     tracking_id: "G-46VP3DPNEN"
     anonymize_ip: false
