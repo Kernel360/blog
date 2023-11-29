@@ -1,17 +1,16 @@
 ---
 layout: post
-title: `메시지 지향 미들웨어`
-author: `고병룡`
-categories: `기술세미나`
+title: 메시지 지향 미들웨어
+author: 고병룡
+categories: 기술세미나
 banner:
-  image: `[썸네일로 넣고 싶은 이미지 링크](https://docs.oracle.com/cd/E19340-01/820-6424/images/to_MOM.gif)`
+  image: https://docs.oracle.com/cd/E19340-01/820-6424/images/to_MOM.gif
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`메시지 지향 미들웨어`, `메시지 브로커`, `메시지 큐`, `Kafka`, `RabbitMQ`, `ActiveMQ`, `기술세미나`]
+  tags: [메시지 지향 미들웨어, 메시지 브로커, 메시지 큐, Kafka, RabbitMQ, ActiveMQ, 기술세미나]
 ---
-
 
 ## 메시지 지향 미들웨어란 ?
 
@@ -33,7 +32,7 @@ _**메시지 지향 미들웨어(Message-Oriented Middleware)**_ 는 시스템�
 
 ### Message Queue (메시지 큐)
 
-![message_queue](https://github.com/Kernel360/blog-image/blob/main/20231108/message_queue.png?raw=true)
+![message_queue](https://github.com/Kernel360/blog-image/blob/main/2023/1108/message_queue.png?raw=true)
 
 메시지 큐에서는  메시지 생산자가 메시지를 만들어서 메시지 큐에 보내면 큐에 메시지를 저장하게 됩니다.
 
@@ -56,7 +55,7 @@ _**메시지 지향 미들웨어(Message-Oriented Middleware)**_ 는 시스템�
 * 큐에 과도하게 많은 양의 메시지가 들어오거나 과부하가 걸리면 성능에 제한이 걸립니다.
 
 ### Pub / Sub (게시 / 구독)
-![pub/sub](https://github.com/Kernel360/blog-image/blob/main/20231108/pub-sub.png?raw=true)
+![pub/sub](https://github.com/Kernel360/blog-image/blob/main/2023/1108/pub-sub.png?raw=true)
 
 게시 구독 모델에서는 ``토픽``이라는 단위를 사용합니다. 
 
@@ -85,7 +84,7 @@ _**메시지 지향 미들웨어(Message-Oriented Middleware)**_ 는 시스템�
 
 ### [Apache ActiveMQ](https://activemq.apache.org/components/artemis/)
 
-![apache_activemq](https://github.com/Kernel360/blog-image/blob/main/20231108/activemq.png?raw=true)
+![apache_activemq](https://github.com/Kernel360/blog-image/blob/main/2023/1108/activemq.png?raw=true)
 
 
 Apache ActiveMQ는 오픈 소스이자 멀티프로토콜인 메시지 지향 미들웨어(Message Oriented Middleware, MOM)로서, Java Message Service (JMS) 스펙을 구현한 프로젝트 중 하나입니다. 
@@ -99,7 +98,7 @@ JavaScript, C, C++, Python, .NET 등 다양한 언어로 된 클라이언트를 
 현재 제공하는 버전은 좀 더 전통적인 버전인 ApacheMQ Classic과 ActiveMQ Artemis가 있으며 Classic 버전 만큼의 기능성을 갖게 된다면 Artemis가 ActiveMQ Classic을 대체할 예정입니다.
 
 ### [RabbitMQ](https://www.rabbitmq.com/)
-![rabbitmq](https://github.com/Kernel360/blog-image/blob/main/20231108/rabbit_mq.png?raw=true)
+![rabbitmq](https://github.com/Kernel360/blog-image/blob/main/2023/1108/rabbit_mq.png?raw=true)
 
 RabbitMQ는 Erlang으로 개발된 오픈 소스 지향 미들웨어로서 AMQP를 구현하여 다양한 어플리케이션 간의 비동기적인 통신을 지원합니다. 
 
@@ -119,7 +118,7 @@ RabbitMQ는 Erlang으로 개발된 오픈 소스 지향 미들웨어로서 AMQP�
 
 ### [Apache Kafka](https://kafka.apache.org/)
 
-![apache_kafka](https://github.com/Kernel360/blog-image/blob/main/20231108/apache_kafka.png?raw=true)
+![apache_kafka](https://github.com/Kernel360/blog-image/blob/main/2023/1108/apache_kafka.png?raw=true)
 
 Kafka는 게시 / 구독 모델을 기반으로 한 분산형 이벤트 스트리밍 플랫폼입니다.  
 
