@@ -1,10 +1,10 @@
 ---
 layout: post
-title:
+title: 스프링과 데이터 영속성(Persistence)
 author: 김원상
 categories: 기술세미나
 banner:
-  image: https://drive.google.com/file/d/1YPzRPEiXw7EnpVcEgpaukrDMSHQ49FJ5/view?usp=drive_link
+  image: /assets/images/database_picture.jpg
   background: "#000"
   height: "100vh"
   min_height: "38vh"
