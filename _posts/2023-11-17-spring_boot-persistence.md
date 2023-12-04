@@ -4,7 +4,7 @@ title: 스프링과 데이터 영속성(Persistence)
 author: 김원상
 categories: 기술세미나
 banner:
-  image: "이미지 첨부 필요 blog-image"
+  image: https://github.com/Kernel360/blog-image/blob/main/2023/1117/database_picture.jpg?raw=true
   background: "#000"
   height: "100vh"
   min_height: "38vh"
@@ -12,7 +12,7 @@ banner:
   tags: [java, 데이터영속성, JDBC, SQLMapper, ORM, 기술세미나]
 ---
 
-안녕하세요. 저는 이번 Kernel360의 기술세미나에서 자바진영에서의 데이터 영속성 라는 주제로 발표하게된 김원상입니다.
+안녕하세요. 저는 이번 Kernel360의 기술세미나에서 자바진영에서의 데이터 영속성이라는 주제로 발표하게된 김원상입니다.
 
 데이터 영속성은 Layered-Architecture의 가장 밑단의 Data Layer와 Domain Model사이를 잇는 Persistence계층에 대한 내용이라 보시면 되겠습니다.
 
@@ -24,7 +24,7 @@ banner:
 
 간단하게 말씀드리자면, 세션의 열고 닫음 사이에도 어플리케이션에서 생성된 데이터가 DB와 같은 영속적인 저장소에 입력되어 다음 세션에서도 이를 확인하고 활용할 수 있다는 뜻이 되겠습니다.
 
-이를 위한 기술로 Java 진영에는 API와 Persistence Framework를 지원한다고 볼 수 있는데, 가장 많이 활용되는 각각의 범주로 JDBC API와 SQL Mapper(예, MyBatis), Object Relational Mapper(예, Hiberate)가 있다고 볼 수 있겠습니다.
+이를 위한 기술로 Java 진영에는 API와 Persistence Framework를 지원한다고 볼 수 있는데, 가장 많이 활용되는 각각의 범주로 JDBC API와 SQL Mapper(예, MyBatis), Object Relational Mapper(예, Hibenate)가 있다고 볼 수 있겠습니다.
 
 ![영속성 개념도](https://github.com/Kernel360/blog-image/blob/main/2023/1117/02_blog_image.png?raw=true)
 
