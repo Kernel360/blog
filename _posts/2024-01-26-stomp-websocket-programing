@@ -38,15 +38,14 @@ Http는 클라이언트가 요청을 보낼 때마다 연결을 맺고 응답을
 
 그리고 양 쪽에서 데이터를 주고 받을 수 있는 양방향 통신입니다.
 
-
-이미지1
+![1](https://github.com/Kernel360/blog/assets/97713997/2d25b3e0-d31f-426b-b69d-001cbcf00d3a)
 
 ### 실시간 측면에서는...?
 http는 비 연결성이기 때문에 데이터를 주기 위해선 매번 연결해야 하고 그만큼 연결 비용이 발생하게 됩니다.
 
 즉, 오버헤드가 커집니다.
 
-이미지2
+![2](https://github.com/Kernel360/blog/assets/97713997/580a3e5c-29bc-429e-85c5-8e248e4db002)
 
 위 이미지에서 왼쪽은 일반적인 http로 주고받는 데이터양이고, 오른쪽 위는 웹소켓 연결요청할 때의 데이터양이고, 그 아래는 연결 이후의 데이터양입니다.
 
@@ -55,7 +54,7 @@ http는 비 연결성이기 때문에 데이터를 주기 위해선 매번 연�
 이러한 점들에서 웹소켓이 http 보다 실시간성에 더 유리합니다.
 
 ## 3. 웹소켓 동작 방식
-이미지3
+![3](https://github.com/Kernel360/blog/assets/97713997/344e5c48-0ead-40f7-bc5c-bc3a9b3f4c4b)
 
 웹소켓의 동작 방식은 크게 3가지로 나눌 수 있는데요,
 
@@ -66,7 +65,7 @@ http는 비 연결성이기 때문에 데이터를 주기 위해선 매번 연�
 보라 박스는 Closing Handshake에 해당됩니다.
 
 ### Opening Handshake
-이미지4
+![4](https://github.com/Kernel360/blog/assets/97713997/5995bac3-ca2c-4ad7-83d0-ad1d5cce8ad8)
 
 빨간 박스 부분인 Opening Handshake는 먼저 웹소켓 클라이언트에서 http 프로토콜을 통해 웹소켓으로 Upgrade 해달라는 요청을 보냅니다.
 
@@ -75,12 +74,12 @@ http는 비 연결성이기 때문에 데이터를 주기 위해선 매번 연�
 그 다음 웹소켓 서버는 101 응답과 함께 웹소켓 프로토콜로의 전환을 승인했음을 알립니다.
 
 ### Data Transfer
-이미지5
+![5](https://github.com/Kernel360/blog/assets/97713997/61f2f6b2-c9e7-4436-ba0c-34a75d78e5bb)
 
 노란 박스 부분인 Data Transfer는 Opening Handshake가 끝나서 전환된 웹소켓 프로토콜을 통해 클라이언트와 서버 간 실시간 전이중 통신을 하는 부분입니다.
 
 ### Closing Handshake
-이미지6
+![6](https://github.com/Kernel360/blog/assets/97713997/50c700a8-ff7f-4b4a-a5a3-635d0d016a11)
 
 보라 박스 부분인 Closing Handshake는 서로 간의 커넥션을 종료하는 부분입니다.
 
@@ -110,7 +109,7 @@ STOMP 프로토콜은 메시지 내용을 구조화 할 수 있어서 효과적�
 
 또한 연결된 클라이언트 주소마다 메시지 핸들러를 구현해야 합니다.
 
-이미지7
+![7](https://github.com/Kernel360/blog/assets/97713997/527a4717-9c58-4402-8441-9c4ae7455555)
 
 STOMP는 이미지처럼 
 
@@ -125,7 +124,7 @@ send 전송했음을
 
 또 다른 이점은 STOMP는 pub/sub 구조로 되어있다는 것입니다.
 
-이미지8
+![8](https://github.com/Kernel360/blog/assets/97713997/23a3e3f0-b8f9-4156-a15a-76bf8cef85bf)
 
 pub/sub 구조란 이 이미지처럼 publisher에서 메시지 브로커의 Topic1이라는 특정 토픽에 메시지를 보내면, Topic1을 구독하고 있는 subscribe들에게 메세지를 전달하는 구조를 말합니다.
 
