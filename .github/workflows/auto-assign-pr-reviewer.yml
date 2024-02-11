@@ -13,4 +13,4 @@ jobs:
       with:
         token: ${{ secrets.TOKEN }}
         users: "anso33" # comma-separated (example: "itsOliverBott, SantaClaus, b4tman, sp0derman")
-        ignore-drafts: true # defaults to false if not provided
+        ignore-drafts: true 
