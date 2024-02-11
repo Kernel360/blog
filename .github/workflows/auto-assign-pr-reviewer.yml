@@ -1,0 +1,16 @@
+name: "Assign Reviewers to PR"
+
+on:  
+  pull_request:
+    types: [opened, ready_for_review, reopened, review_requested, review_request_removed]
+     
+jobs:
+  assign-pr-reviewers:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Assign Reviewers to PR"
+      uses: itsOliverBott/assign-pr-reviewers@release
+      with:
+        token: ${{ secrets.TOKEN }}
+        users: "anso33" # comma-separated (example: "itsOliverBott, SantaClaus, b4tman, sp0derman")
+        ignore-drafts: true # defaults to false if not provided
