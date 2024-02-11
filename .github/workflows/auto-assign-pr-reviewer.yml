@@ -1,4 +1,4 @@
-name: "Assign Reviewers to PR"
+name: "Assign Reviewer"
 
 on:  
   pull_request:
@@ -8,9 +8,6 @@ jobs:
   assign-pr-reviewers:
     runs-on: ubuntu-latest
     steps:
-    - name: "Assign Reviewers to PR"
-      uses: itsOliverBott/assign-pr-reviewers@release
-      with:
-        token: ${{ secrets.TOKEN }}
-        users: "anso33" # comma-separated (example: "itsOliverBott, SantaClaus, b4tman, sp0derman")
-        ignore-drafts: true # defaults to false if not provided
+      - uses: kentaro-m/auto-assign-action@v1.2.4
+        with:
+          configuration-path: ".github/auto_assign.yml"

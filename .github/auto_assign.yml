@@ -1,0 +1,11 @@
+addReviewers: true
+
+
+addAssignees: author
+
+
+reviewers:
+  - anso33
+
+
+numberOfReviewers: 1
