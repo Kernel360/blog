@@ -4,7 +4,7 @@ title: 주저하는 개발자들을 위해 - 코딩 테스트
 author: 고병룡
 categories: 기술세미나
 banner:
-  image: https://docs.oracle.com/cd/E19340-01/820-6424/images/to_MOM.gif
+  image: https://www.hanbit.co.kr/data/editor/20200918163925_xyypndmo.png
   background: "#000"
   height: "100vh"
   min_height: "38vh"
@@ -139,11 +139,9 @@ banner:
 
 
 ## 참고 자료
-이것이 코딩 테스트다
+이것이 코딩 테스트다, 나동빈 저, pg 46 - 50
 
 [개발자 취업을 위한 코딩 테스트 준비 방법](https://katfun.tistory.com/192)
 
 [알고리즘 분류 참고 - 백준 온라인 저지 알고리즘 별 문제 분류](https://www.acmicpc.net/problem/tags)
 
-
-헤더 이미지 붙이고 글 내용 읽고 수정해서 오늘 업로드 할 것
