@@ -54,7 +54,7 @@ banner:
 착각하는 분들이 있는데 우리는 대회를 나가자고 하는 게 아니다. 코테를 쳐보는 것만으로도 소중한 자산이다. 이걸로 상을 타는 게 아니라 우리는 취업이 목적이기에....
 >7. 어떻게 준비해야 될지 모르겠다.
 
-그러면 이제부터 알아보자! 만약 필자가 뭐하는 사람인지 의심이 간다면.. 그래도 나름 [열심히(?)](https://solved.ac/profile/hodako97) 준비해오고 [알고리즘을 좋아하고](https://github.com/fingersdanny/PS_note), [알고리즘 스터디](https://github.com/Kernel360-cell1/algorithm-study)를 운영 중인 사람 중 하나로써 여러분들이 코테에서 더 행복해지길 바라는 마음에서 준비했다.
+그러면 이제부터 알아보자! 만약 필자가 뭐하는 사람인지 의심이 간다면.. 그래도 나름 [열심히(?)](https://solved.ac/profile/hodako97) 준비해오고 [알고리즘을 좋아하고](https://github.com/fingersdanny/PS_note), [알고리즘 스터디](https://github.com/Kernel360-cell1/algorithm-study)를 운영 중인 사람 중 하나로서 여러분들이 코테에서 더 행복해지길 바라는 마음에서 준비했다.
 
 ## 코딩테스트 어떻게 준비해야 할까?
 
