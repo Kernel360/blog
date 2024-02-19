@@ -4,7 +4,7 @@ title: Github Actions
 author: 이종찬
 categories: 기술세미나
 banner:
-  image: ![](https://github.com/Kernel360/blog-image/blob/main/1208/1.png)
+  image: ![](https://github.com/Kernel360/blog-image/blob/main/2023/1208/1.png)
   background: "#000"
   height: "100vh"
   min_height: "38vh"
@@ -32,7 +32,7 @@ CI/CD는 Continuous Integration과 Continuous Delivery 또는 Continuous Deploym
 
 ### 1-1. Continuous Integration
 
-![](https://github.com/Kernel360/blog-image/blob/main/1208/2.png)
+![](https://github.com/Kernel360/blog-image/blob/main/2023/1208/2.png)
 
 CI는 지속적인 통합이라는 뜻으로, 개발자들이 코드를 자주 병합하고, 빌드하고, 테스트하는 과정을 말합니다. CI를 통해 코드의 품질을 높이고, 버그를 줄이고, 협업을 쉽게 할 수 있습니다.
 
@@ -40,16 +40,16 @@ CI는 지속적인 통합이라는 뜻으로, 개발자들이 코드를 자주 �
 
 CD는 지속적인 배포 또는 지속적인 전달이라는 뜻으로, CI의 결과물을 자동으로 배포하거나, 배포 준비 상태로 만드는 과정을 말합니다. CD를 통해 배포의 속도와 안정성을 높이고, 고객의 피드백을 빠르게 반영할 수 있습니다.
 
-![](https://github.com/Kernel360/blog-image/blob/main/1208/3.png)
+![](https://github.com/Kernel360/blog-image/blob/main/2023/1208/3.png)
 
 ### 1-3. 장점
 
 CI / CD 환경이 필요한 이유는 반복 작업의 자동화 및 피드백 루프 단축 등을 통해 소프트웨어 릴리스 프로세스의 속도를 개선하는 것 입니다.
 
-![](https://github.com/Kernel360/blog-image/blob/main/1208/4.png)
+![](https://github.com/Kernel360/blog-image/blob/main/2023/1208/4.png)
 
 짧은주기의 개발단위를 반복하며, 많은 협력과 피드백을 필요로 하는 애자일의 원칙을 실현하는 데 핵심적인 역할을 합니다.
-![](https://github.com/Kernel360/blog-image/blob/main/1208/5.png)
+![](https://github.com/Kernel360/blog-image/blob/main/2023/1208/5.png)
 
 ## 2. Github Action
 
@@ -57,7 +57,7 @@ Github Actions은 Github에서 제공하는 CI/CD 도구입니다.
 
 Github 저장소에서 발생하는 다양한 이벤트에 따라 원하는 작업을 자동화할 수 있으며 workflow라는 단위로 구성되어있습니다.
 
-![](https://github.com/Kernel360/blog-image/blob/main/1208/1.png)
+![](https://github.com/Kernel360/blog-image/blob/main/2023/1208/1.png)
 
 ### 2-1. Workflow
 
