@@ -5,7 +5,7 @@ title: `Github Actions`
 author: `이종찬`
 categories: `기술세미나`
 banner:
-  image: ![image](https://github.com/oxix97/blog/assets/72330632/55c74362-e2c5-4d2a-9ef9-ede0bda7f3f0)
+  image: `![image](https://github.com/oxix97/blog/assets/72330632/55c74362-e2c5-4d2a-9ef9-ede0bda7f3f0)`
   background: "#000"
   height: "100vh"
   min_height: "38vh"
