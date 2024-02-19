@@ -56,7 +56,7 @@ DB replication은 데이터 저장과 백업하는 방법에 관련이 있는 �
 감소시킬 수 있도록 역할을 할 수 있습니다.
 
 <div align="center">
-<img alt="image" src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/4.png">
+<img width="692" alt="image" src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/4.png">
 </div>
 
 다음 사진은 이제 진행할 db replication의 파일 구조입니다.
