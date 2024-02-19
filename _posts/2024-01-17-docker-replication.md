@@ -62,15 +62,7 @@ DB replication은 데이터 저장과 백업하는 방법에 관련이 있는 �
 다음 사진은 이제 진행할 db replication의 파일 구조입니다.
 위 파일 구조는 master-slave가 1 대 1로 되어 있지만 설정에 따라 N 대 N이 될 수도 있습니다.
 
-<div align="center">
-<img width="692" alt="image" src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/5.png">
-</div>
-
-<div align="center">
-<img width="692" alt="image" src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/6.png">
-</div>
-
-![image.jpg1](https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/5.png) |![image.jpg2](https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/6.png)--- |--- |
+![image.jpg1](https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/5.png) ![image.jpg2](https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/6.png)
 
 위의 스크립트는 순서대로 master-db와 slave-db의 Docker-Compose의 내용이다. 위에서 설명하지 않는 옵션은 다음과 같습니다.
 
@@ -107,11 +99,12 @@ my.cnf 파일의 내용입니다.
 <img width="692" alt="image" src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/9.png">
 </div>
 
+성공적으로 build가 되었다면 이제 db로 접속하여 설정을 진행해주어야 합니다.
+
 <div align="center">
 <img width="692" alt="image" src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0117/10.png">
 </div>
 
-성공적으로 build가 되었다면 이제 db로 접속하여 설정을 진행해주어야 합니다.
 replication에 대한 유저를 생성하고 권한을 부여하는 과정입니다.
 
 <div align="center">
