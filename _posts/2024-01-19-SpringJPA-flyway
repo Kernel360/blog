@@ -4,7 +4,7 @@ title: Spring JPA와 Flyway
 author: 송예진
 categories: 기술세미나
 banner:
-  image: 
+  image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0119/0119%20%E1%84%89%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%A8%E1%84%8C%E1%85%B5%E1%86%AB.png
   background: "#000"
   height: "100vh"
   min_height: "38vh"
@@ -44,6 +44,7 @@ Flyway는 데이터베이스 마이그레이션을 도와주는 오픈 소스 �
 따라서 Flyway를 사용하면, 데이터베이스 스키마 변경을 안전하고 효율적으로 관리할 수 있습니다. 이는 특히 팀에서 함께 작업하거나, 프로덕션 환경에서 데이터베이스 변경을 관리해야 할 때 유용합니다.
 
 아래와 같이 SQL 스크립트를 작성하여 FLyway를 사용합니다.
+
 
 
 ## 3. Flyway와 Spring JPA 함께 사용하기
