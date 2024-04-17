@@ -4,7 +4,7 @@ title: 테스트코드에서의 유연한 Fixture 생성 (ObjectMother패턴 적
 author: 김민협
 categories: 기술세미나
 banner:
-  image: https://github.com/Kernel360/blog-image/blob/main/2024/0219/1.png?raw=true
+  image: https://github.com/Kernel360/blog-image/blob/main/2024/0219/3.png?raw=true
   background: "#000"
   height: "100vh"
   min_height: "38vh"
