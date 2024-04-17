@@ -3,13 +3,13 @@ layout: post
 title: 스프링 배치 튜토리얼
 author: 김찬규
 categories: 기술세미나
-banner:
-image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0223/spring-batch-tutorial.jpeg
-background: "#000"
-height: "100vh"
-min_height: "38vh"
-heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: [스프링 배치, 기술세미나]
+banner: 
+  image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0223/spring-batch-tutorial.jpeg
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+  tags: [스프링 배치, 기술세미나]
 ---
 
 
