@@ -12,6 +12,9 @@ heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline
 tags: [스프링 배치]
 ---
 
+
+
+
 안녕하세요, Kernel360 크루 김찬규 입니다. 오늘 포스팅에서는 WashFit 프로젝트에 배치성 작업을 추가하며 알게된 내용을 바탕으로 스프링 배치에 쉽게 입문 하실 수 있도록 도와드리려고 합니다.
 
 ## 배치
@@ -109,7 +112,7 @@ Java 17, Spring Boot 3 버전부터는 Spring Batch 5 를 사용합니다. 이�
 
 `JobParameters`는 `JobInstance` 구별 외에도 `JobInstacne`에 전달되는 매개변수 역할도 하고 있습니다. `JobParameters`는 원래 `String`, `Double`, `Long`, `Date` 4가지 형식만을 지원하고 있었지만, 버전업이 되면서 커스텀이 가능해지게 되었습니다.
 
-### JobRepository?
+### JobRepository
 `JobRepository`는 Spring Batch의 핵심 구성 요소 중 하나로, 배치 작업(Job)의 메타데이터와 실행 상태를 관리하는 영속성 매커니즘을 제공합니다. 이 Repository는 다양한 스테레오타입(예: `Job`, `Step`)에 대한 CRUD(Create, Read, Update, Delete) 작업을 수행합니다.
 
 
