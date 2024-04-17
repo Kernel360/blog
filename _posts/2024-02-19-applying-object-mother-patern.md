@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post  
 title: 테스트코드에서의 유연한 Fixture 생성 (ObjectMother패턴 적용기)
 author: 김민협
 categories: 기술세미나
@@ -9,8 +9,9 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [Java, ObjectMother, TestCode, TestFixture, @Builder, @Setter, Reflection]
+  tags: [Java, ObjectMother, TestCode, TestFixture, Builder, Setter, Reflection]
 ---
+
 
 ## 개요
 
@@ -30,64 +31,64 @@ banner:
 기존의 테스트코드에서 Fixture 생성메서드는 다음과 같이 구현돼있습니다.
 
 ```java
-    private UserDto createUserDto() {
-        return UserDto.of(
-                1L,
-                "test@test.com",
-                "test",
-                "password",
-                1,
-                1,
-                LocalDate.now().minusYears(20),
-                "test.png",
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                UserStatus.ENABLE
-        );
-    }
+  private UserDto createUserDto() {
+      return UserDto.of(
+              1L,
+              "test@test.com",
+              "test",
+              "password",
+              1,
+              1,
+              LocalDate.now().minusYears(20),
+              "test.png",
+              LocalDateTime.now(),
+              LocalDateTime.now(),
+              UserStatus.ENABLE
+      );
+  }
 
 ```
 
 이렇게 작성하면, 테스트 메서드에서 아래와 같이 매번 생성자를 구현할 필요없이 간편하게 UserDto를 생성할 수 있다는 장점이 있습니다.
 
 ```java
-	  @Test
-    void when_UserDto_then_**() {
-        // given
-        UserDto userDto = createUserDto();
+  @Test
+  void when_UserDto_then_**() {
+      // given
+      UserDto userDto = createUserDto();
 
-        ...
-    }
+      ...
+  }
 
 ```
 
 그리고 테스트 메서드에서 Entity나 Dto의 특정 필드에 대한 설정을 확인해야 한다면, 아래와 같이 구현하여 활용했습니다.
 
 ```java
-	  @Test
-    void when_UserDto_then_**() {
-        // given
-        Long userId = 1L;
-        UserDto userDto = createUserDto(userId);
+  @Test
+  void when_UserDto_then_**() {
+      // given
+      Long userId = 1L;
+      UserDto userDto = createUserDto(userId);
 
-        ...
-    }
+      ...
+  }
 
-    private UserDto createUserDto(Long userId) {
-        return UserDto.of(
-                userId,
-                "test@test.com",
-                "test",
-                "password",
-                1,
-                1,
-                LocalDate.now().minusYears(20),
-                "test.png",
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                UserStatus.ENABLE
-        );
-    }
+  private UserDto createUserDto(Long userId) {
+      return UserDto.of(
+              userId,
+              "test@test.com",
+              "test",
+              "password",
+              1,
+              1,
+              LocalDate.now().minusYears(20),
+              "test.png",
+              LocalDateTime.now(),
+              LocalDateTime.now(),
+              UserStatus.ENABLE
+      );
+  }
 ```
 
 테스트 메서드에서 요구하는 인자가 달라지면, 다른 인자에 따른 생성 메서드를 따로 구현해줬습니다.
@@ -95,31 +96,31 @@ banner:
 예를 들어, 테스트코드에서 유저의 id 말고, 이름과 생일에 대해서 설정이 필요하다면 아래와 같이 구현했어야 합니다.
 
 ```java
-	  @Test
-    void when_UserDto_then_**() {
-        // given
-        String userName = "김민협";
-        LocalDate birthday = LocalDate.of(1999, 3, 1);
-        UserDto userDto = createUserDto(userName, birthday);
+	@Test
+  void when_UserDto_then_**() {
+      // given
+      String userName = "김민협";
+      LocalDate birthday = LocalDate.of(1999, 3, 1);
+      UserDto userDto = createUserDto(userName, birthday);
 
-        ...
-    }
+      ...
+  }
 
-    private UserDto createUserDto(String userName, LocalDate birthday) {
-        return UserDto.of(
-                1L,
-                "test@test.com",
-                userName,
-                "password",
-                1,
-                1,
-                birthday,
-                "test.png",
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                UserStatus.ENABLE
-        );
-    }
+  private UserDto createUserDto(String userName, LocalDate birthday) {
+      return UserDto.of(
+              1L,
+              "test@test.com",
+              userName,
+              "password",
+              1,
+              1,
+              birthday,
+              "test.png",
+              LocalDateTime.now(),
+              LocalDateTime.now(),
+              UserStatus.ENABLE
+      );
+  }
 ```
 
 ## 문제 상황
@@ -159,25 +160,25 @@ banner:
 가장 이상적인 해결책은 Entity나 Dto의 필드 값을 변경해줄 수 있게 만드는 것입니다.
 
 ```java
-	  @Test
-    void when_UserDto_then_**() {
-        // given
-        UserDto userDto = createUserDto();
-        userDto.setName("김민협");
-        userDto.setBirthday(LocalDate.of(1999, 3, 1));
+	@Test
+  void when_UserDto_then_**() {
+      // given
+      UserDto userDto = createUserDto();
+      userDto.setName("김민협");
+      userDto.setBirthday(LocalDate.of(1999, 3, 1));
 
-        ...
-    }
+      ...
+  }
     
-	  @Test
-    void when_User_then_**() {
-        // given
-        User user = createUser();
-        user.setName("김민협");
-        user.setBirthday(LocalDate.of(1999, 3, 1));
+	@Test
+  void when_User_then_**() {
+      // given
+      User user = createUser();
+      user.setName("김민협");
+      user.setBirthday(LocalDate.of(1999, 3, 1));
 
-        ...
-    }
+      ...
+  }
 ```
 
 위와 같이 구현할 수 있다면, 테스트코드의 가독성과 유지보수성 모두 향상시킬 수 있을 것으로 생각합니다.
@@ -189,16 +190,16 @@ banner:
 Java에서는 Reflection로 클래스의 정보를 검사하고 동적으로 조작할 수 있는 기능을 제공하고 있습니다. 해당 조작에서 필드값에 대해서도 변경이 가능하기에, User의 name을 변경한다면 아래와 같이 변경할 수 있습니다.
 
 ```java
-	  @Test
-    void when_User_then_**() throws NoSuchFieldException, IllegalAccessException {
-        // given
-        User user = createUser();
-        Field nameField = User.class.getDeclaredField("name");
-        nameField.setAccessible(true);
-        nameField.set(user, "김민협");
+	@Test
+  void when_User_then_**() throws NoSuchFieldException, IllegalAccessException {
+      // given
+      User user = createUser();
+      Field nameField = User.class.getDeclaredField("name");
+      nameField.setAccessible(true);
+      nameField.set(user, "김민협");
 
-        ...
-    }
+      ...
+  }
 ```
 
 코드를 보면, createUser()로 임의의 User를 생성한 다음,
@@ -221,26 +222,26 @@ Field nameField를 갖고 온뒤, 해당 필드의 setter를 가능하게 한 �
 우선, 시작은 테스트 메서드에서 create*() 시, 필요한 인자들을 유연하게 받을 수 있는 메서드가 있으면 좋을 것이라고 생각했습니다. 그래서 가상의 메서드를 상상하며 호출하는 방식 먼저 생각해봤습니다.
 
 ```java
-	  @Test
-    void when_UserDto_then_**() {
-        // given
-        UserDto userDto = createUserDto(List.of(
-                new Object[]{NAME, "김민협"},
-                new Object[]{EMAIL, "gbgreenbravo@gmail.com"}
-        ));
+	@Test
+  void when_UserDto_then_**() {
+      // given
+      UserDto userDto = createUserDto(List.of(
+              new Object[]{NAME, "김민협"},
+              new Object[]{EMAIL, "gbgreenbravo@gmail.com"}
+      ));
 
-        ...
-    }
+      ...
+  }
     
-    @Test
-    void when_UserDto_then_**() {
-        // given
-        UserDto userDto = createUserDto(List.of(
-                new Object[]{BIRTHDAY, LocalDate.now().minusYears(25)}
-        ));
+  @Test
+  void when_UserDto_then_**() {
+      // given
+      UserDto userDto = createUserDto(List.of(
+              new Object[]{BIRTHDAY, LocalDate.now().minusYears(25)}
+      ));
 
-        ...
-    }
+      ...
+  }
 ```
 
 위와 같이, List<Object[]>로 받고 createUserDto() 메서드에서 해당 Object[]에 맞게 값을 생성해주면 되지 않을까? 하고 생각했습니다.
@@ -248,32 +249,32 @@ Field nameField를 갖고 온뒤, 해당 필드의 setter를 가능하게 한 �
 그래서 Enum과 삼항연산자를 활용하여 아래와 같이 인자에 유연한 createUserDto를 구현했습니다.
 
 ```java
-    enum UserDtoField {
-        ID, EMAIL, NAME, PASSWORD, SIGN_UP_TYPE, USER_GENDER, BIRTHDAY, PROFILE_IMAGE, USER_STATUS
-    }
+  enum UserDtoField {
+      ID, EMAIL, NAME, PASSWORD, SIGN_UP_TYPE, USER_GENDER, BIRTHDAY, PROFILE_IMAGE, USER_STATUS
+  }
 
-		createUserDto(List<Object[]> objects) {
-        List<UserDtoField> fields = objects.stream().map(o -> o[0])
-                .map(String::valueOf)
-                .map(UserDtoField::valueOf)
-                .toList();
-        List<Object> values = objects.stream().map(o -> o[1])
-                .toList();
+	createUserDto(List<Object[]> objects) {
+      List<UserDtoField> fields = objects.stream().map(o -> o[0])
+              .map(String::valueOf)
+              .map(UserDtoField::valueOf)
+              .toList();
+      List<Object> values = objects.stream().map(o -> o[1])
+              .toList();
 
-        return UserDto.of(
-                (fields.contains(ID)) ? (Long) values.get(fields.indexOf(ID)) : 1L,
-                (fields.contains(EMAIL)) ? (String) values.get(fields.indexOf(EMAIL)) : "userEmail",
-                (fields.contains(NAME)) ? (String) values.get(fields.indexOf(NAME)) : "userName",
-                (fields.contains(PASSWORD)) ? (String) values.get(fields.indexOf(PASSWORD)) : "userPassword",
-                (fields.contains(SIGN_UP_TYPE)) ? (Integer) values.get(fields.indexOf(SIGN_UP_TYPE)) : 1,
-                (fields.contains(USER_GENDER)) ? (Integer) values.get(fields.indexOf(USER_GENDER)) : NumberConstants.MALE,
-                (fields.contains(BIRTHDAY)) ? (LocalDate) values.get(fields.indexOf(BIRTHDAY)) : LocalDate.of(1999, 3, 1),
-                (fields.contains(PROFILE_IMAGE)) ? (String) values.get(fields.indexOf(PROFILE_IMAGE)) : "userProfileImage",
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                (fields.contains(USER_STATUS)) ? (UserStatus) values.get(fields.indexOf(USER_STATUS)) : UserStatus.ENABLE
-        );
-    }
+      return UserDto.of(
+              (fields.contains(ID)) ? (Long) values.get(fields.indexOf(ID)) : 1L,
+              (fields.contains(EMAIL)) ? (String) values.get(fields.indexOf(EMAIL)) : "userEmail",
+              (fields.contains(NAME)) ? (String) values.get(fields.indexOf(NAME)) : "userName",
+              (fields.contains(PASSWORD)) ? (String) values.get(fields.indexOf(PASSWORD)) : "userPassword",
+              (fields.contains(SIGN_UP_TYPE)) ? (Integer) values.get(fields.indexOf(SIGN_UP_TYPE)) : 1,
+              (fields.contains(USER_GENDER)) ? (Integer) values.get(fields.indexOf(USER_GENDER)) : NumberConstants.MALE,
+              (fields.contains(BIRTHDAY)) ? (LocalDate) values.get(fields.indexOf(BIRTHDAY)) : LocalDate.of(1999, 3, 1),
+              (fields.contains(PROFILE_IMAGE)) ? (String) values.get(fields.indexOf(PROFILE_IMAGE)) : "userProfileImage",
+              LocalDateTime.now(),
+              LocalDateTime.now(),
+              (fields.contains(USER_STATUS)) ? (UserStatus) values.get(fields.indexOf(USER_STATUS)) : UserStatus.ENABLE
+      );
+  }
 ```
 
 설명을 드리자면, UserDtoField로 UserDto의 필드들을 구분해주고,
@@ -288,26 +289,26 @@ fields에 해당 필드가 있다면 values에서 해당 필드에 따른 값을
 위 방식으로도 충분하겠지만, 테스트코드의 가독성을 위해 create*()를 호출할 때 사용되는 불필요한 new Object[]를 지우고 싶었습니다. 아래와 같이 메서드를 호출하고 싶었습니다.
 
 ```java
-	  @Test
-    void when_UserDto_then_**() {
-        // given
-        UserDto userDto = createUserDto(List.of(
-                NAME, "김민협",
-                EMAIL, "gbgreenbravo@gmail.com"
-        ));
+	@Test
+  void when_UserDto_then_**() {
+      // given
+      UserDto userDto = createUserDto(List.of(
+              NAME, "김민협",
+              EMAIL, "gbgreenbravo@gmail.com"
+      ));
 
-        ...
-    }
+      ...
+  }
     
-    @Test
-    void when_UserDto_then_**() {
-        // given
-        UserDto userDto = createUserDto(List.of(
-                BIRTHDAY, LocalDate.now().minusYears(25)
-        ));
+  @Test
+  void when_UserDto_then_**() {
+      // given
+      UserDto userDto = createUserDto(List.of(
+              BIRTHDAY, LocalDate.now().minusYears(25)
+      ));
 
-        ...
-    }
+      ...
+  }
 ```
 
 따라서 메서드 인자를 List<Object[]>가 아닌 List<Object>로 받고,
@@ -318,32 +319,32 @@ fields에 해당 필드가 있다면 values에서 해당 필드에 따른 값을
 #### 2-1. enum 활용
 
 ```java
-    enum UserDtoField {
-        ID, EMAIL, NAME, PASSWORD, SIGN_UP_TYPE, USER_GENDER, BIRTHDAY, PROFILE_IMAGE, USER_STATUS
-    }
+  enum UserDtoField {
+      ID, EMAIL, NAME, PASSWORD, SIGN_UP_TYPE, USER_GENDER, BIRTHDAY, PROFILE_IMAGE, USER_STATUS
+  }
 
-    UserDto createUserDto(List<Object> objects) {
-        List<UserDtoField> fields = objects.stream().filter(o -> objects.indexOf(o) % 2 == 0)
-                .map(String::valueOf)
-                .map(UserDtoField::valueOf)
-                .toList();
-        List<Object> values = objects.stream().filter(o -> objects.indexOf(o) % 2 == 1)
-                .toList();
+  UserDto createUserDto(List<Object> objects) {
+      List<UserDtoField> fields = objects.stream().filter(o -> objects.indexOf(o) % 2 == 0)
+              .map(String::valueOf)
+              .map(UserDtoField::valueOf)
+              .toList();
+      List<Object> values = objects.stream().filter(o -> objects.indexOf(o) % 2 == 1)
+              .toList();
 
-        return UserDto.of(
-                (fields.contains(ID)) ? (Long) values.get(fields.indexOf(ID)) : 1L,
-                (fields.contains(EMAIL)) ? (String) values.get(fields.indexOf(EMAIL)) : "userEmail",
-                (fields.contains(NAME)) ? (String) values.get(fields.indexOf(NAME)) : "userName",
-                (fields.contains(PASSWORD)) ? (String) values.get(fields.indexOf(PASSWORD)) : "userPassword",
-                (fields.contains(SIGN_UP_TYPE)) ? (Integer) values.get(fields.indexOf(SIGN_UP_TYPE)) : 1,
-                (fields.contains(USER_GENDER)) ? (Integer) values.get(fields.indexOf(USER_GENDER)) : NumberConstants.MALE,
-                (fields.contains(BIRTHDAY)) ? (LocalDate) values.get(fields.indexOf(BIRTHDAY)) : LocalDate.of(1999, 3, 1),
-                (fields.contains(PROFILE_IMAGE)) ? (String) values.get(fields.indexOf(PROFILE_IMAGE)) : "userProfileImage",
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                (fields.contains(USER_STATUS)) ? (UserStatus) values.get(fields.indexOf(USER_STATUS)) : UserStatus.ENABLE
-        );
-    }
+      return UserDto.of(
+              (fields.contains(ID)) ? (Long) values.get(fields.indexOf(ID)) : 1L,
+              (fields.contains(EMAIL)) ? (String) values.get(fields.indexOf(EMAIL)) : "userEmail",
+              (fields.contains(NAME)) ? (String) values.get(fields.indexOf(NAME)) : "userName",
+              (fields.contains(PASSWORD)) ? (String) values.get(fields.indexOf(PASSWORD)) : "userPassword",
+              (fields.contains(SIGN_UP_TYPE)) ? (Integer) values.get(fields.indexOf(SIGN_UP_TYPE)) : 1,
+              (fields.contains(USER_GENDER)) ? (Integer) values.get(fields.indexOf(USER_GENDER)) : NumberConstants.MALE,
+              (fields.contains(BIRTHDAY)) ? (LocalDate) values.get(fields.indexOf(BIRTHDAY)) : LocalDate.of(1999, 3, 1),
+              (fields.contains(PROFILE_IMAGE)) ? (String) values.get(fields.indexOf(PROFILE_IMAGE)) : "userProfileImage",
+              LocalDateTime.now(),
+              LocalDateTime.now(),
+              (fields.contains(USER_STATUS)) ? (UserStatus) values.get(fields.indexOf(USER_STATUS)) : UserStatus.ENABLE
+      );
+  }
 ```
 
 우선 enum UserDtoField를 사용한다면, 기존 방식과 비슷하고, stream의 map()을 filter()로 바꿔주기만 하면 됩니다.
@@ -359,41 +360,41 @@ enum을 사용하게 된다면, 나중에 혹시 모를 필드명의 변경에 �
 따라서 getDeclaredFields()를 활용하여 enum말고 런타임 시 해당 Entity/Dto의 필드명을 받아오는 방법을 고안했습니다.
 
 ```java
-    static final List<String> USER_DTO_FIELD_NAMES = Arrays.stream(UserDto.class.getDeclaredFields()).map(Field::getName).toList();
+  static final List<String> USER_DTO_FIELD_NAMES = Arrays.stream(UserDto.class.getDeclaredFields()).map(Field::getName).toList();
 
-    UserDto createUserDto(List<Object> objects) {
-        List<String> fields = objects.stream().filter(o -> objects.indexOf(o) % 2 == 0)
-                .map(String::valueOf)
-                .toList();
-        List<Object> values = objects.stream().filter(o -> objects.indexOf(o) % 2 == 1)
-                .toList();
-        
-        if (!USER_DTO_FIELD_NAMES.containsAll(fields))
-            throw new IllegalArgumentException("Invalid field name in : " + fields);
+  UserDto createUserDto(List<Object> objects) {
+      List<String> fields = objects.stream().filter(o -> objects.indexOf(o) % 2 == 0)
+              .map(String::valueOf)
+              .toList();
+      List<Object> values = objects.stream().filter(o -> objects.indexOf(o) % 2 == 1)
+              .toList();
+      
+      if (!USER_DTO_FIELD_NAMES.containsAll(fields))
+          throw new IllegalArgumentException("Invalid field name in : " + fields);
 
-        return UserDto.of(
-                (fields.contains(USER_DTO_FIELD_NAMES.get(0))) 
-                        ? (Long) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(0))) : 1L,
-                (fields.contains(USER_DTO_FIELD_NAMES.get(1))) 
-                        ? (String) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(1))) : "userEmail",
-                (fields.contains(USER_DTO_FIELD_NAMES.get(2))) 
-                        ? (String) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(2))) : "userNickname",
-                (fields.contains(USER_DTO_FIELD_NAMES.get(3))) 
-                        ? (String) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(3))) : "userPassword",
-                (fields.contains(USER_DTO_FIELD_NAMES.get(4))) 
-                        ? (Integer) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(4))) : 1,
-                (fields.contains(USER_DTO_FIELD_NAMES.get(5))) 
-                        ? (Integer) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(5))) : NumberConstants.MALE,
-                (fields.contains(USER_DTO_FIELD_NAMES.get(6))) 
-                        ? (LocalDate) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(6))) : LocalDate.of(1999, 3, 1),
-                (fields.contains(USER_DTO_FIELD_NAMES.get(7))) 
-                        ? (String) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(7))) : "userProfileImage",
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                (fields.contains(USER_DTO_FIELD_NAMES.get(10))) 
-                        ? (UserStatus) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(10))) : UserStatus.ENABLE
-        );
-    }
+      return UserDto.of(
+              (fields.contains(USER_DTO_FIELD_NAMES.get(0))) 
+                      ? (Long) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(0))) : 1L,
+              (fields.contains(USER_DTO_FIELD_NAMES.get(1))) 
+                      ? (String) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(1))) : "userEmail",
+              (fields.contains(USER_DTO_FIELD_NAMES.get(2))) 
+                      ? (String) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(2))) : "userNickname",
+              (fields.contains(USER_DTO_FIELD_NAMES.get(3))) 
+                      ? (String) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(3))) : "userPassword",
+              (fields.contains(USER_DTO_FIELD_NAMES.get(4))) 
+                      ? (Integer) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(4))) : 1,
+              (fields.contains(USER_DTO_FIELD_NAMES.get(5))) 
+                      ? (Integer) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(5))) : NumberConstants.MALE,
+              (fields.contains(USER_DTO_FIELD_NAMES.get(6))) 
+                      ? (LocalDate) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(6))) : LocalDate.of(1999, 3, 1),
+              (fields.contains(USER_DTO_FIELD_NAMES.get(7))) 
+                      ? (String) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(7))) : "userProfileImage",
+              LocalDateTime.now(),
+              LocalDateTime.now(),
+              (fields.contains(USER_DTO_FIELD_NAMES.get(10))) 
+                      ? (UserStatus) values.get(fields.indexOf(USER_DTO_FIELD_NAMES.get(10))) : UserStatus.ENABLE
+      );
+  }
 ```
 
 우선, UserDto.class.getDeclaredFields()로 Dto의 필드를 가져오고 이를 List<String>으로 변환하여 상수로 지정합니다.
@@ -411,51 +412,51 @@ enum을 사용하게 된다면, 나중에 혹시 모를 필드명의 변경에 �
 아래 코드를 (Object Mother 패턴을 적용하여) 테스트용 FixtureFactory와 같은 클래스로 분리하여 사용한다면, 테스트코드 전반에서 활용할 수 있습니다.
 
 ```java
-    static List<String> extractFields(List<Object> objects) {
-        return objects.stream()
-                .filter(o -> objects.indexOf(o) % 2 == 0)
-                .map(String::valueOf)
-                .toList();
-    }
+  static List<String> extractFields(List<Object> objects) {
+      return objects.stream()
+              .filter(o -> objects.indexOf(o) % 2 == 0)
+              .map(String::valueOf)
+              .toList();
+  }
 
-    static List<Object> extractValues(List<Object> objects) {
-        return objects.stream()
-                .filter(o -> objects.indexOf(o) % 2 == 1)
-                .toList();
-    }
+  static List<Object> extractValues(List<Object> objects) {
+      return objects.stream()
+              .filter(o -> objects.indexOf(o) % 2 == 1)
+              .toList();
+  }
 
-    static void validateFields(List<String> fields, List<String> objectsFields) {
-        if (!fields.containsAll(objectsFields))
-            throw new IllegalArgumentException("Invalid field name in : " + objectsFields);
-    }
+  static void validateFields(List<String> fields, List<String> objectsFields) {
+      if (!fields.containsAll(objectsFields))
+          throw new IllegalArgumentException("Invalid field name in : " + objectsFields);
+  }
 
-    static <T> T extractFieldValue(List<String> fields, List<Object> values, String fieldName, T defaultValue) {
-        int index = fields.indexOf(fieldName);
-        return index != -1 ? (T) values.get(index) : defaultValue;
-    }
+  static <T> T extractFieldValue(List<String> fields, List<Object> values, String fieldName, T defaultValue) {
+      int index = fields.indexOf(fieldName);
+      return index != -1 ? (T) values.get(index) : defaultValue;
+  }
     
-    static final List<String> USER_DTO_FIELD_NAMES = Arrays.stream(UserDto.class.getDeclaredFields()).map(Field::getName).toList();
+  static final List<String> USER_DTO_FIELD_NAMES = Arrays.stream(UserDto.class.getDeclaredFields()).map(Field::getName).toList();
 
-    static UserDto createUserDto(List<Object> objects) {
-        List<String> fields = extractFields(objects);
-        List<Object> values = extractValues(objects);
+  static UserDto createUserDto(List<Object> objects) {
+      List<String> fields = extractFields(objects);
+      List<Object> values = extractValues(objects);
 
-        validateFields(USER_DTO_FIELD_NAMES, fields);
+      validateFields(USER_DTO_FIELD_NAMES, fields);
 
-        return UserDto.of(
-                extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(0), 111L),
-                extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(1), "userEmail"),
-                extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(2), "userName"),
-                extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(3), "userPassword"),
-                extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(4), 1),
-                extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(5), 1),
-                extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(6), LocalDate.now().minusYears(25)),
-                extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(7), "userProfileImage"),
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(10), UserStatus.ENABLE)
-        );
-    }
+      return UserDto.of(
+              extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(0), 111L),
+              extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(1), "userEmail"),
+              extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(2), "userName"),
+              extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(3), "userPassword"),
+              extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(4), 1),
+              extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(5), 1),
+              extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(6), LocalDate.now().minusYears(25)),
+              extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(7), "userProfileImage"),
+              LocalDateTime.now(),
+              LocalDateTime.now(),
+              extractFieldValue(fields, values, USER_DTO_FIELD_NAMES.get(10), UserStatus.ENABLE)
+      );
+  }
 ```
 
 그렇다면 최종적으로, 기존에 enum의 값으로 호출되던 createUserDto()가
@@ -463,26 +464,26 @@ enum을 사용하게 된다면, 나중에 혹시 모를 필드명의 변경에 �
 아래와 같이, 실제 Dto의 필드명으로만 인자에 담겨야 유효한 UserDto를 받을 수 있게 됩니다.
 
 ```java
-	  @Test
-    void when_UserDto_then_**() {
-        // given
-        UserDto userDto = createUserDto(List.of(
-                "name", "김민협",
-                "email", "gbgreenbravo@gmail.com"
-        ));
+  @Test
+  void when_UserDto_then_**() {
+      // given
+      UserDto userDto = createUserDto(List.of(
+              "name", "김민협",
+              "email", "gbgreenbravo@gmail.com"
+      ));
 
-        ...
-    }
+      ...
+  }
     
-    @Test
-    void when_UserDto_then_**() {
-        // given
-        UserDto userDto = createUserDto(List.of(
-				        "id", 31L
-        ));
+  @Test
+  void when_UserDto_then_**() {
+      // given
+      UserDto userDto = createUserDto(List.of(
+		        "id", 31L
+      ));
 
-        ...
-    }
+      ...
+  }
 ```
 
 이제까지의 2번의 방법은 제가 임의로 고안해낸 방법이다보니, 몇 가지 단점이 존재합니다.
@@ -499,31 +500,31 @@ enum을 사용하게 된다면, 나중에 혹시 모를 필드명의 변경에 �
 먼저 최종 코드를 보시겠습니다.
 
 ```java
-    static final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+  static final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-    @Getter
-    @Builder
-    static class TestUser {
-        @Builder.Default Long id = 1L;
-        @Builder.Default String email = "gbgreenbravo@gmail.com";
-        @Builder.Default String name = "김민협";
-        @Builder.Default String password = "비밀~!";
-        @Builder.Default int signUpType = 1;
-        @Builder.Default int gender = NumberConstants.MALE;
-        @Builder.Default LocalDate birthday = LocalDate.now().minusYears(25);
-        @Builder.Default String profileImage = "찰칵~!";
-        @Builder.Default UserStatus status = UserStatus.ENABLE;
-        @Builder.Default LocalDateTime createdAt = LocalDateTime.now();
-        @Builder.Default LocalDateTime updatedAt = LocalDateTime.now();
+  @Getter
+  @Builder
+  static class TestUser {
+      @Builder.Default Long id = 1L;
+      @Builder.Default String email = "gbgreenbravo@gmail.com";
+      @Builder.Default String name = "김민협";
+      @Builder.Default String password = "비밀~!";
+      @Builder.Default int signUpType = 1;
+      @Builder.Default int gender = NumberConstants.MALE;
+      @Builder.Default LocalDate birthday = LocalDate.now().minusYears(25);
+      @Builder.Default String profileImage = "찰칵~!";
+      @Builder.Default UserStatus status = UserStatus.ENABLE;
+      @Builder.Default LocalDateTime createdAt = LocalDateTime.now();
+      @Builder.Default LocalDateTime updatedAt = LocalDateTime.now();
 
-        static TestUser.TestUserBuilder createUser() {
-            return TestUser.builder();
-        }
+      static TestUser.TestUserBuilder createUser() {
+          return TestUser.builder();
+      }
 
-        User get() {
-            return mapper.convertValue(this, User.class);
-        }
-    }
+      User get() {
+          return mapper.convertValue(this, User.class);
+      }
+  }
 ```
 
 2번과 비교했을 때 가독성이나 명확성에서 큰 장점이 있습니다.
@@ -538,26 +539,26 @@ TestUser.TestUserBuilder를 반환하게 됩니다. 이를 그대로 .build()로
 따라서, 위 코드가 테스트코드에서 쓰이면, 아래와 같이 작성될 수 있습니다.
 
 ```java
-	  @Test
-    void when_User_then_**() {
-        // given
-        User user1 = createUser()
-                .id(31L)
-                .name("김민협").build().get();
+  @Test
+  void when_User_then_**() {
+      // given
+      User user1 = createUser()
+              .id(31L)
+              .name("김민협").build().get();
                 
-        User user2 = createUser()
-                .email("gbgreenbravo@gmail.com").build().get();
+      User user2 = createUser()
+              .email("gbgreenbravo@gmail.com").build().get();
 
-        ...
-    }
+      ...
+  }
     
-    @Test
-    void when_UserDto_then_**() {
-        // given
-        UserDto userDto = createUserDto().build().get();
+  @Test
+  void when_UserDto_then_**() {
+      // given
+      UserDto userDto = createUserDto().build().get();
 
-        ...
-    }
+      ...
+  }
 ```
 
 ## 마무리 (w/ 멀티모듈)
