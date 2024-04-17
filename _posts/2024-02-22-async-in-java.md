@@ -1,7 +1,7 @@
 ---
 layout: post  
 title: Asynch in Java
-author: 김현지
+author: 신종민
 categories: 기술세미나
 banner:
   image: 
