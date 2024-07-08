@@ -1,0 +1,15 @@
+---
+layout: post
+title: Internet Protocol을 모르면서 웹 개발자라고 말할 수 있냐?
+author: 박석희
+categories: 프론트엔드
+banner:
+  image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2023/1106/thumb_gc.png
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: [java, GC, 기술세미나]
+---
+
+[이 중에 절반 이상을 모르면 당신은 아직 웹 개발자가 아니다](https://www.google.com/search?q=INTERNEL+PROTOCOL&sourceid=chrome&ie=UTF-8)
