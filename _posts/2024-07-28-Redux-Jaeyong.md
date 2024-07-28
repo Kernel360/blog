@@ -1,5 +1,5 @@
 ---
-layout: `post` 
+layout: post 
 title: `Redux 훑어보기`
 author: `이재용`
 categories: `프론트엔드 기술블로그`
@@ -10,7 +10,6 @@ banner:
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
   tags: [`redux`, `리덕스`, `입문`]
-
 ---
 # 리덕스의 탄생
 
