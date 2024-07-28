@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: `리덕스와 친해지기`
+title: `Redux 훑어보기`
 author: `이재용`
 categories: `프론트엔드 기술블로그`
 banner:
