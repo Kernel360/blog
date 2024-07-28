@@ -9,7 +9,6 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`redux`, `리덕스`, `입문`]
 ---
 # 리덕스의 탄생
 
