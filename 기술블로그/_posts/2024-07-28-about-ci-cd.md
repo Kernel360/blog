@@ -2,7 +2,6 @@
 layout: post
 title: CI/CD의 개념과 필요성
 author: 윤해진
-categories: 기술세미나
 banner:
   image: assets/images/post/2023-11-05.webp
   background: "#000"
