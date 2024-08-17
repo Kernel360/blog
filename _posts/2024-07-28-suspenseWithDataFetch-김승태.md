@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: `Suspense with data fetch`
+title: `Suspense를 사용하여 Data Fetching 처리하기`
 author: `김승태`
 categories: `프론트엔드 기술블로그`
 banner:
@@ -11,7 +11,7 @@ banner:
   tags: [`React`, `Suspense`,]
 ---
 
-# Suspense with data fetching
+# Suspense를 사용하여 Data Fetching 처리하기
 
 ## Suspense란?
 
@@ -28,15 +28,16 @@ Suspense 컴포넌트는 children컴포넌트가 로딩될 때까지 fallback을
 ### 사용법
 
 Suspense는 아래와 같은 상황일 시에 동작합니다.
+(각 케이스에 대해서 조금 더 부가적인 설명을 덧붙여주면 읽는 사람들이 이해하기 쉬울 것 같습니다! => 더 자세하게 설명하기)
 
 - Data fetching with Suspense-enabled한 프레임워크와 같이 사용할 때(Data fetching with Suspense-enabled frameworks like [Relay](https://relay.dev/docs/guided-tour/rendering/loading-states/) and [Next.js](https://nextjs.org/docs/getting-started/react-essentials))
+
   ```tsx
   import { Suspense } from 'react'
 
   function async PostFeed(){
-  	const feed = await getPostFeed(); // something asynchronous action
-
-  	return {feed}; // return value
+    const feed = await getPostFeed(); // something asynchronous action
+    return {feed}; // return value
   }
 
   export default function Posts() {
@@ -49,66 +50,66 @@ Suspense는 아래와 같은 상황일 시에 동작합니다.
     )
   }
   ```
+
 - [`use`](https://react.dev/reference/react/use) 를 이용해 Promise의 값을 읽을 때
+
   ```tsx
-
   function async ChildComponent(){
-  	const value = use(resource);
-
-  	return <div>{value}</div>
+    const value = use(resource);
+    return <div>{value}</div>
   }
 
   function ParentComponent(){
-  	return (
-  		<Suspense fallback={<Loading />}>
-  			<ChildComponent/>
-  		</Suspense>)
+    return (
+      <Suspense fallback={<Loading />}>
+        <ChildComponent/>
+      </Suspense>)
   }
-
   ```
+
 - [`lazy`](https://react.dev/reference/react/lazy) 와 함께 Lazy-loading component를 사용할 때: React.lazy와 함께 쓴다면 동적으로 컴포넌트를 가져올 때, 자연스럽게 로딩 처리를 해줄 수 있습니다.
 
-```tsx
-import { lazy } from "react";
-const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
-function Component() {
-  return (
-    <Suspense fallback={<Loading />}>
-      <h2>Preview</h2>
-      <MarkdownPreview />
-    </Suspense>
-  );
-}
-```
+  ```tsx
+  import { lazy } from "react";
+  const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
+  function Component() {
+    return (
+      <Suspense fallback={<Loading />}>
+        <h2>Preview</h2>
+        <MarkdownPreview />
+      </Suspense>
+    );
+  }
+  ```
 
 ## Suspense를 왜 쓰는가?
 
 먼저 보편적으로 많이 쓰는 방식을 보겠습니다.
 
 ```tsx
-const { data, isLoding } = useGetFetch(url);
+const { data, isLoading } = useGetFetch(url);
 
-if (isLoding) {
-  return <h1>Loding</h1>;
+if (isLoading) {
+  return <h1>Loading</h1>;
 }
 
 return <Card data={data} />;
 ```
 
 ```tsx
-const [isLoding, setIsLoding] = useState(true);
+const [isLoading, setIsLoading] = useState(true);
 const [data, setData] = useState(null);
 
 useEffect(() => {
   const getData = async () => {
     const remoteData = await fetch(url);
-    setIsLoding(false);
+    setIsLoading(false);
     setData(remoteData);
   };
   getData();
 }, []);
 
-if (isLoding) {
+if (isLoading) {
   return <Loading />;
 }
 
@@ -119,17 +120,17 @@ return <Card data={data} />;
 
 ```tsx
 function ChildComponent(){
-	const data = getFetchWithSuspense(url).read();
+  const data = getFetchWithSuspense(url).read();
 
-	return <Card data={data} />
+  return <Card data={data} />
 }
 
 function ParentComponent(){
-	return(
-		<Suspense fallback={<Loading />}>
-			<ChildComponent>
-		</Suspense>
-		)
+  return(
+    <Suspense fallback={<Loading />}>
+      <ChildComponent>
+    </Suspense>
+  )
 }
 ```
 
@@ -139,9 +140,9 @@ function ParentComponent(){
 
 ```tsx
 function B({ data1 }) {
-  const { data, isLoding } = useGetFetch(url + data1);
+  const { data, isLoading } = useGetFetch(url + data1);
 
-  if (isLoding) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -149,9 +150,9 @@ function B({ data1 }) {
 }
 
 function A() {
-  const { data, isLoding } = useGetFetch(url);
+  const { data, isLoading } = useGetFetch(url);
 
-  if (isLoding) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -164,19 +165,19 @@ function A() {
 ```
 
 ```tsx
-const [isLoding, setIsLoding] = useState(true);
+const [isLoading, setIsLoading] = useState(true);
 const [data, setData] = useState(null);
 
 useEffect(() => {
   const getData = async () => {
     const remoteData1 = await fetch(url1);
     const remoteData2 = await fetch(url2);
-    setIsLoding(false);
+    setIsLoading(false);
     setData(remoteData);
   };
 }, []);
 
-if (isLoding) {
+if (isLoading) {
   return <Loading />;
 }
 
@@ -187,18 +188,18 @@ return <Card data={data2} />;
 
 ```tsx
 function ChildComponent(){
-	const data1 = getFetchWithSuspense(url1).read();
-	const data2 = getFetchWithSuspense(url2 + data1).read();
+  const data1 = getFetchWithSuspense(url1).read();
+  const data2 = getFetchWithSuspense(url2 + data1).read();
 
-	return <Card data={data2} />
+  return <Card data={data2} />
 }
 
 function ParentComponent(){
-	return(
-		<Suspense fallback={<Loading />}>
-			<ChildComponent>
-		</Suspense>
-		)
+  return(
+    <Suspense fallback={<Loading />}>
+      <ChildComponent>
+    </Suspense>
+    )
 }
 ```
 
