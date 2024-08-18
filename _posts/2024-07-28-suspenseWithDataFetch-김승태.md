@@ -15,7 +15,7 @@ banner:
 
 ## Suspense란?
 
-Suspense 컴포넌트는 children컴포넌트가 로딩될 때까지 fallback을 보여주는 컴포넌트입니다.
+Suspense 컴포넌트는 children 컴포넌트가 로딩될 때까지 fallback을 보여주는 컴포넌트입니다.
 
 > `<Suspense>` lets you display a fallback until its children have finished loading.
 
@@ -25,19 +25,60 @@ Suspense 컴포넌트는 children컴포넌트가 로딩될 때까지 fallback을
 </Suspense>
 ```
 
-### 사용법
+컴포넌트가 로딩이 필요한 상황은 언제 있을까요?<br>
+제가 생각하기엔 다음과 같을 상황일 때 필요할 것 같습니다.
 
-Suspense는 아래와 같은 상황일 시에 동작합니다.
-(각 케이스에 대해서 조금 더 부가적인 설명을 덧붙여주면 읽는 사람들이 이해하기 쉬울 것 같습니다! => 더 자세하게 설명하기)
+1. 코드를 분할하고 동적으로 로딩 할 때. <br>
+2. 서버에서 data fetching을 하는 동안.
+
+코드를 분할하고 동적으로 로딩 할 때는은 아래와 같이 Suspense를 사용할 수 있습니다.
+
+```tsx
+import { lazy } from "react";
+const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
+function Component() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <h2>Preview</h2>
+      <MarkdownPreview />
+    </Suspense>
+  );
+```
+
+그렇다면 컴포넌트에서 data fetching을 하는 동안에는 Suspense를 어떻게 적용할 수 있을까요?
+
+[공식 문서](https://react.dev/reference/react/Suspense#displaying-a-fallback-while-content-is-loading)에서 아래와 같은 글을 찾을 수 있었습니다.
+
+> Suspense가 가능한 데이터(Suspense-enabled data sources)만이 Suspense 컴포넌트를 활성화합니다. 아래와 같은 것들이 해당됩니다.
+>
+> - Relay와 Next.js 같이 Suspense가 가능한 프레임워크를 사용한 데이터 가져오기<br>
+> - lazy를 활용한 지연 로딩 컴포넌트<br>
+> - use를 사용해서 Promise 값 읽기
+>
+> Suspense는 Effect 또는 이벤트 핸들러 내부에서 가져오는 데이터를 감지하지 않습니다.
+> Suspense가 가능한 프레임워크를 사용하는 경우에 프레임워크의 데이터 불러오기 관련 문서에서 자세한 내용을 확인할 수 있습니다.
+>
+> 독단적인 프레임워크를 사용하지 않는 Suspense가 가능한 데이터 불러오기 기능은 아직 지원되지 않습니다. Suspense 지원 데이터 소스를 구현하기 위한 요구 사항은 불안정하고 문서화되지 않았습니다. 데이터 소스를 Suspense와 통합하기 위한 공식 API는 향후 React 버전에서 출시될 예정입니다.
+
+저는
+
+저는 그중에서 data를 가져올 때 Suspense를 적용할 수 있으면 좋을 것 같다는 생각을 해보
+
+[리액트 공식문서](https://react.dev/reference/react/Suspense#displaying-a-fallback-while-content-is-loading)에 따르면 Suspense는 다양한 사용법이 있지만 저는 data fetching을 할 때, Suspense를 적용해보고 싶었습니다.
+
+아래와 같은 상황일 시에 동작합니다.
+<br>(각 케이스에 대해서 조금 더 부가적인 설명을 덧붙여주면 읽는 사람들이 이해하기 쉬울 것 같습니다! => 더 자세하게 설명하기)
+<br>(실제 용례가 포함되면 좋겠는데, React Router DOM의 loader 인터페이스와 함께 use 훅 통합을 시도해보면 좋겠습니다. => 적용해보자)
 
 - Data fetching with Suspense-enabled한 프레임워크와 같이 사용할 때(Data fetching with Suspense-enabled frameworks like [Relay](https://relay.dev/docs/guided-tour/rendering/loading-states/) and [Next.js](https://nextjs.org/docs/getting-started/react-essentials))
+  <br>(이건 서버 컴포넌트의 기능이지 Suspense의 기능이라고 볼 수 없습니다. 아래와 같이 표현해야합니다.)
 
   ```tsx
-  import { Suspense } from 'react'
+  import { Suspense } from "react";
 
-  function async PostFeed(){
-    const feed = await getPostFeed(); // something asynchronous action
-    return {feed}; // return value
+  function PostFeed() {
+    const feedData = usePostFeedData(); // something asynchronous action
+    return { feedData }; // return value
   }
 
   export default function Posts() {
@@ -47,7 +88,7 @@ Suspense는 아래와 같은 상황일 시에 동작합니다.
           <PostFeed />
         </Suspense>
       </section>
-    )
+    );
   }
   ```
 
