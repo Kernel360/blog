@@ -40,7 +40,7 @@ List<Character> list = new LinkedList<>();
 ![1](https://github.com/user-attachments/assets/a7fc2885-1e9b-4e7f-958d-a28e6b6f67e9)
 
 
-- 이때 반복문으로 복사하는것이 아닌 System.arraycopy(src, srcPos, dest, destPos, length) 함수를 이용한다.
+- 이때 반복문으로 복사하는것이 아닌 System.arraycopy(src, srcPos, dest, destPos, length) 함수를 이용한다.<br>
 (src배열의 srcPos번째부터 length개의 원소를 dest배열의 destPos번째부터 length개의 원소에 복사)
 -> 단순 반복문보다 2배이상 빠르다.
 
