@@ -94,6 +94,7 @@ switch(type) {
 
 ## 인터페이스
 먼저 인터페이스 사용의 교과서를 보실까요?
+
 ```java
 public interface Shape {
 	double area();
