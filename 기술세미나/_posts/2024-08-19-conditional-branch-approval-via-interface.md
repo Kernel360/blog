@@ -82,11 +82,11 @@ switch(type) {
 그럼 무엇이 문제라는 걸까요?
 
 당연히 길어지면 문제가 됩니다. 
-![gif](https://github.com/user-attachments/assets/c41b2a14-05c1-4e6a-9595-ddd7cc109244)
+![gif](https://github.com/Kernel360/blog-image/blob/main/2024/0819/interface2.gif?raw=true)
 
 #### Greawt Power Comes Great Responsibility
 잘 사용하면 좋지만 잘 사용하지 못한다면 제품 자체가 망가질 수 있습니다. 
-![다운로드](https://github.com/user-attachments/assets/df33a4df-ab60-4dfb-8249-b2cccba3a075)
+![다운로드](https://github.com/Kernel360/blog-image/blob/main/2024/0819/interface1.png?raw=true)
 
 그럼 어떻게 잘 다룰 수 있을까요? 
 
