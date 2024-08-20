@@ -107,11 +107,14 @@ Redis는 데이터를 키-값(Key-Value) 형태로 저장하며, 이 키는 문�
 ## Redis의 구조
 Redis는 다양한 구조로 구축할 수 있습니다:
 
-### StandAlone: Redis 서버 하나로 서비스를 운영하는 방식입니다. 간단하지만, 장애가 발생하면 서비스가 중단될 수 있습니다.
+### StandAlone: 
+Redis 서버 하나로 서비스를 운영하는 방식입니다. 간단하지만, 장애가 발생하면 서비스가 중단될 수 있습니다.
 
-### Master/Replica: 하나의 Master 서버와 여러 개의 Replica 서버로 구성됩니다. Master 서버에 장애가 발생하면, Replica 서버가 Master 서버로 승격됩니다.
+### Master/Replica: 
+하나의 Master 서버와 여러 개의 Replica 서버로 구성됩니다. Master 서버에 장애가 발생하면, Replica 서버가 Master 서버로 승격됩니다.
 
-### Cluster: 여러 개의 Master 서버가 데이터를 샤딩하여 분산 저장하고 처리하는 방식입니다. 이 구조는 대량의 데이터를 효율적으로 처리할 수 있습니다.
+### Cluster: 
+여러 개의 Master 서버가 데이터를 샤딩하여 분산 저장하고 처리하는 방식입니다. 이 구조는 대량의 데이터를 효율적으로 처리할 수 있습니다.
 
 ### Redis와 캐시의 관계
 Redis는 자주 캐시로 사용되며, 데이터나 계산 결과를 미리 저장해 빠르게 액세스할 수 있습니다. Redis 외에도 Memcached, Local Memory Cache 등이 캐시로 사용될 수 있습니다. 또한, Redis는 캐시 외에도 임시 작업 큐, 실시간 채팅, 메시지 브로커 등 다양한 용도로 사용될 수 있습니다.
