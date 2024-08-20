@@ -82,4 +82,253 @@ switch(type) {
 그럼 무엇이 문제라는 걸까요?
 
 당연히 길어지면 문제가 됩니다. 
+![gif](https://github.com/user-attachments/assets/c41b2a14-05c1-4e6a-9595-ddd7cc109244)
+
+#### Greawt Power Comes Great Responsibility
+잘 사용하면 좋지만 잘 사용하지 못한다면 제품 자체가 망가질 수 있습니다. 
+![다운로드](https://github.com/user-attachments/assets/df33a4df-ab60-4dfb-8249-b2cccba3a075)
+
+그럼 어떻게 잘 다룰 수 있을까요? 
+
+그건 바로 **인터페이스**입니다. 
+
+## 인터페이스
+먼저 인터페이스 사용의 교과서를 보실까요?
+```java
+public interface Shape {
+	double area();
+}
+
+
+public class RectangleShape implements Shape{
+	private double width;
+	private double height;
+
+	RectangleShape(double width, double height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	@Override
+	public double area() {
+		return width * height;
+	}
+}
+
+public class CircleShape implements Shape{
+	private final double radius;
+
+	public CircleShape(double radius) {
+		this.radius = radius;
+	}
+
+	@Override
+	public double area() {
+		return radius * radius * Math.PI;
+	}
+}
+```
+인터페이스 Shape로 공통의 메소드를 통해 추상화를 해주고 각각의 모양 클래스들이 상속받아 필요한 메서드를 정의하고 있는 모습입니다.
+이렇게 하면 장점이 인터페이스라는 공통인 타입이 존재하기 때문에 같이 모아서 사용할 수 있지요
+*바로 여기서* 아이디어를 떠올라 같은 타입으로 모을 수 있다면 같은 자료구조에 담아 클라이언트의 요청에따라 특정 클래스를 반환할 수 있다는 말이 됩니다!
+
+### 인터페이스로 조건 분기 개선하기 
+```java
+
+		switch (magicType) {
+			case FIRE :
+				name = "퐈이어";
+				costMagicPoint = 2;
+				attackPower = 20 + (int)(member.level * 0.5);
+				costTechnicalPoint = 0;
+				break;
+			case LIGHTING:
+				name = "라이트닝";
+				costMagicPoint = 5 + (int)(member.level * 0.2);
+				attackPower = 50 + (int)(member.agility * 1.5);
+				costTechnicalPoint = 0;
+				break;
+			case HELLFIRE:
+				name = "헬파이어";
+				costMagicPoint = 10;
+				attackPower = 200 + (int)(member.magicAttack * 0.5 + member.vitality * 2);
+				costTechnicalPoint = 20 + (int)(member.level * 0.4);
+				break;
+
+			default:
+				throw new IllegalAccessException();
+		}
+```
+위 코드는 특정 마법을 요청하면 해당 마법의 특징들을 반환하는 조건분기입니다. 
+만약 마법이 추가되거나 캐릭터마다 마법이 10개가 된다면 5개 캐릭터만 해도 50개이지요 
+그럼 case 는 50가지나 됩니다. 후...
+
+#### 인터페이스 정의하기 
+인터페이스로 공통의 타입을 정의해볼까요?
+```java
+
+public interface Magic {
+	String name();
+	MagicPoint costMagicPoint();
+	AttackPower attackPower();
+	TechnicalPoint costTechnicalPoint();
+}
+```
+case마다 작성했던 마법 관련 메소드들을 인터페이스에 정의한 모습입니다. 
+앞으로 이 인터페이스를 구현체로 받은 클래스들은 저 메서드들을 무조건 정의해야되죠. 즉, 실수를 줄이는 겁니다. 
+
+#### 마법 클래스들 구현체 정의하기
+##### 불 마법 
+```java
+public class Fire implements Magic{
+	private final Member member;
+
+	public Fire(Member member) {
+		this.member = member;
+	}
+
+	@Override
+	public String name() {
+		return "파이어";
+	}
+
+	@Override
+	public MagicPoint costMagicPoint() {
+		return new MagicPoint(2);
+	}
+
+	@Override
+	public AttackPower attackPower() {
+		final int value = 20 + (int)(member.level * 0.5);
+		return new AttackPower(value);
+	}
+
+	@Override
+	public TechnicalPoint costTechnicalPoint() {
+		return new TechnicalPoint(0);
+	}
+}
+```
+
+##### 전기마법
+
+```java
+public class Lightning implements Magic{
+	private final Member member;
+
+	public Lightning(Member member) {
+		this.member = member;
+	}
+
+	@Override
+	public String name() {
+		return "라이트닝";
+	}
+
+	@Override
+	public MagicPoint costMagicPoint() {
+		final int value = 5 + (int)(member.level * 0.2);
+		return  new MagicPoint(value);
+	}
+
+	@Override
+	public AttackPower attackPower() {
+			final int value = 50 + (int)(member.agility * 1.5);
+		return new AttackPower(value);
+	}
+
+	@Override
+	public TechnicalPoint costTechnicalPoint() {
+		return new TechnicalPoint(5);
+	}
+}
+```
+
+이렇게 2가지만 정의해보겠습니다. 앞으로 마법이 늘어나면 위와 같이 상속받아서 작성하면 됩니다. 
+아, 해당 마법을 하드코딩하는 대신 enum으로 정의해볼까요?
+```java
+
+public enum MagicType {
+	FIRE,
+	LIGHTING,
+}
+```
+이제 마법을 등록시켜볼까요?
+```java
+public class MagicManager {
+	final Map<MagicType, Magic> magics = new HashMap<>();
+
+	public MagicManager(Member member) {
+		Fire fire = new Fire(member);
+		Lightning lightning = new Lightning(member);
+		HellFire hellFire = new HellFire(member);
+		this.magics.put(MagicType.FIRE, fire);
+		this.magics.put(MagicType.LIGHTING, lightning);
+		this.magics.put(MagicType.HELLFIRE, hellFire);
+	}
+
+	void magicAttack(final MagicType magicType){
+		final Magic magic = magics.get(magicType);
+		showMagicName(magic);
+		consumeMagicPoint(magic);
+		consumeTechnicalPoints(magic);
+		magicDamage(magic);
+	}
+
+	void showMagicName(final Magic magic){
+		final String name = magic.name();
+		System.out.println(name);
+	}
+
+	void consumeMagicPoint(final Magic magic){
+		final MagicPoint costMagicPoints = magic.costMagicPoint();
+		System.out.println(costMagicPoints.getMagicPoint() + "만큼 매직포인트 소모하였습니다.");
+	}
+
+	void consumeTechnicalPoints(final Magic magic){
+		final TechnicalPoint costTechnicalPoints = magic.costTechnicalPoint();
+		System.out.println(costTechnicalPoints.getTechnicalPoint() + "만큼 테크니컬 포인트를 소모하였습니다.");
+	}
+
+	void magicDamage(final Magic magic){
+		final AttackPower attackPower = magic.attackPower();
+		System.out.println(attackPower.getAttackPower()+"만큼 데미지!");
+	}
+
+}
+
+```
+
+각각의 반환하는 값들을 간단히 출력하고 있는 모습입니다. 
+공통의 타입이 생겼기 때문에 위와 같이 추상화되어 사용할 수 가 있는 거지요 
+그리고 공통의 타입으로 묶인 클래스들을 HashMap으로 작성한 모습입니다.
+
+조건 분기로 나누어 정의되었던 메서드들이 분리되고 추상화된 모습을 확인 할 수 있습니다.
+사용부분을 볼까요?
+```java
+
+public class Main {
+	public static void main(String[] args) throws IllegalAccessException {
+		Member member = new Member(10,20, 20,20);
+		MagicManager magicManager = new MagicManager(member);
+
+		magicManager.magicAttack(MagicType.FIRE);
+		System.out.println("-----------------");
+		magicManager.magicAttack(MagicType.LIGHTING);
+
+	}
+}
+
+```
+
+간단하게 사용되고 있는 모습입니다. 
+조건분기가 없어졌죠?
+
+이렇게 작성하면 좋은 점은 실수를 줄이고 코드의 가독성이 올라 생산성이 증가된다는 겁니다. 
+
+## 정리
+모든 조건 분기가 나쁘고 없애야하는 것은 아닙니다. 앞서 말씀드렸듯이 잘 사용하면 좋지만 우리 같은 주니어레벨은 쉽지 않죠.
+그래서 위와 같은 전략패턴을 적용하여 최대한의 휴먼에러를 낮추는 것. 이것이 핵심입니다. 
+결론은 조건분기는 인터페이스를 이용해 개선할 수도 있고 이를 위해서는 분기와 로직을 분리하고 한 곳에 모아두어 코드의 응집도를 높이는 관심사 분리가 뒷받침 되어야 한다는 말을 끝으로 마치겠습니다.
+
 
