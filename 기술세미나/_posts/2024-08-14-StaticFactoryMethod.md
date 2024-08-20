@@ -49,3 +49,4 @@ tags: [`정적 팩토리 메서드 패턴`, `static`, `factory method pattern`]
 따라서 네이밍 컨벤션을 지키고 명확한 목적을 명시해야 한다.
 
 네이밍 컨벤션 참고 => https://docs.oracle.com/javase%2Ftutorial%2F/datetime/overview/naming.html
+<img width="1652" alt="스크린샷 2024-08-20 10 51 20" src="https://github.com/user-attachments/assets/8d1fe8d7-13b7-48e1-a435-3d383bc91171">
