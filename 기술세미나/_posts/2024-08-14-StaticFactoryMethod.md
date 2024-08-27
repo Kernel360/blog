@@ -4,13 +4,14 @@ title: 정적 팩토리 메서드 패턴
 author: 김택준
 categories: 기술세미나
 banner:
-image: assets/images/post/2023-11-05.webp
-background: “#000”
-height: “100vh”
-min_height: “38vh”
-heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: [정적 팩토리 메서드 패턴, static, factory method pattern]
+  image: assets/images/post/2023-11-05.webp
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+  tags: [정적 팩토리 메서드 패턴, static factory method, design pattern]
 ---
+
 
 # Static Factory Method Pattern
 
