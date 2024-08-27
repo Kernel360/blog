@@ -1,3 +1,4 @@
+---
 layout: post
 title: 정적 팩토리 메서드 패턴
 author: 김택준
@@ -7,8 +8,9 @@ image: assets/images/post/2023-11-05.webp
 background: “#000”
 height: “100vh”
 min_height: “38vh”
-heading_style: “font-size: 4.25em; font-weight: bold; text-decoration: underline”
+heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
 tags: [정적 팩토리 메서드 패턴, static, factory method pattern]
+---
 
 # Static Factory Method Pattern
 
@@ -70,6 +72,7 @@ create와 initialize는 메서드의 목적을 명확히 드러내지 않으며,
 
 ### 네이밍 컨벤션 참고 =><br>
 https://docs.oracle.com/javase%2Ftutorial%2F/datetime/overview/naming.html
+<img width="1444" alt="스크린샷 2024-08-27 17 47 52" src="https://github.com/user-attachments/assets/008b75a1-0506-4393-9a6a-1262f57c8ccd">
 
 ### 2. 인자에 따라 다른 객체를 반환하도록 분기할 수 있다
 
@@ -216,5 +219,3 @@ public class Logger {
 }
 ```
 getLogger 메서드의 목적과 사용법을 명확히 문서화하여 API 사용자에게 제공해야 한다.
-
-이 내용으로 정적 팩토리 메서드 패턴의 장점과 단점을 이해하고, 패턴을 적용할 때의 장단점을 명확히 파악할 수 있을 것이다.
