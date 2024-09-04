@@ -34,11 +34,76 @@ JavaScript에서 모듈 시스템을 지원하기 전에도 **모듈** 이라는
 
 ### 모듈 로더 시스템
 
-CommonJS는 JavaScript를 서버사이드 애플리케이션에서도 지원하는 모듈 로더 시스템입니다. `require()` 메서드를 통해 모듈을 로드하고, `exports` 객체를 통해 모듈을 내보낼 수 있습니다. CommonJS은 코드가 로드될 때 모든 모듈이 완전히 준비된 상태를 보장하므로, 모듈 간의 의존성 관리가 직관적입니다. 이 방식은 서버 측 개발에서는 큰 이점이 됩니다. 그러나 브라우저 환경에서는 적합하지 않다는 단점이 있습니다.
+CommonJS는 JavaScript를 서버사이드 애플리케이션에서도 지원하는 모듈 로더 시스템입니다. `require()` 메서드를 통해 모듈을 로드하고, `exports` 객체를 통해 모듈을 내보낼 수 있습니다.
 
-AMD(Asynchronous Module Definition)는 이름에서 알 수 있듯이 비동기적으로 모듈을 로드하고 관리할 수 있는 모듈 시스템입니다. AMD는 주로 브라우저 환경에서 사용되며, 이를 통해 여러 모듈을 비동기적으로 로드할 수 있어 성능을 최적화할 수 있습니다. AMD는 `define`이라는 구문을 사용하여 모듈을 정의하는데, 이 구문은 모듈의 이름, 의존성, 그리고 모듈의 정의를 포함합니다. 이로 인해 복잡한 애플리케이션에서는 `define` 구문이 장황해지고, 전달해야 할 인자가 많아 가독성이 떨어질 수 있습니다.
+```js
+// math.js - 모듈 정의
+function add(a, b) {
+  return a + b;
+}
 
-이후 JavaScript 언어 자체에서 모듈 시스템을 지원하기 위해 ES6에서 ES Module이라는 표준 모듈 시스템이 도입되었습니다. 이 방식은 우리가 개발할 때 흔히 사용하는 import/export 구문을 사용합니다. ES Module은 브라우저에서 지원되며, 덕분에 `<script type="module">`을 사용하여 모듈을 불러올 수 있습니다.
+function subtract(a, b) {
+  return a - b;
+}
+
+module.exports = {
+  add,
+  subtract,
+};
+
+// app.js - 모듈 사용
+const math = require("./math");
+
+console.log(math.add(5, 3)); // 출력: 8
+console.log(math.subtract(5, 3)); // 출력: 2
+```
+
+CommonJS은 코드가 로드될 때 모든 모듈이 완전히 준비된 상태를 보장하므로, 모듈 간의 의존성 관리가 직관적입니다. 이 방식은 서버 측 개발에서는 큰 이점이 됩니다. 그러나 브라우저 환경에서는 적합하지 않다는 단점이 있습니다.
+
+AMD(Asynchronous Module Definition)는 이름에서 알 수 있듯이 비동기적으로 모듈을 로드하고 관리할 수 있는 모듈 시스템입니다. AMD는 주로 브라우저 환경에서 사용되며, 이를 통해 여러 모듈을 비동기적으로 로드할 수 있어 성능을 최적화할 수 있습니다. AMD는 `define`이라는 구문을 사용하여 모듈을 정의하고, `requrie()` 를 통해 모듈을 로드할 수 있습니다.
+
+```js
+// math.js - 모듈 정의
+define([], function () {
+  return {
+    add: function (a, b) {
+      return a + b;
+    },
+    subtract: function (a, b) {
+      return a - b;
+    },
+  };
+});
+
+// app.js - 모듈 사용
+require(["./math"], function (math) {
+  console.log(math.add(5, 3)); // 출력: 8
+  console.log(math.subtract(5, 3)); // 출력: 2
+});
+```
+
+`define` 구문은 모듈의 이름, 의존성, 그리고 모듈의 정의를 포함합니다. 이로 인해 복잡한 애플리케이션에서는 `define` 구문이 장황해지고, 전달해야 할 인자가 많아 가독성이 떨어질 수 있습니다.
+
+이후 JavaScript 언어 자체에서 모듈 시스템을 지원하기 위해 ES6에서 ES Module이라는 표준 모듈 시스템이 도입되었습니다. 이 방식은 우리가 개발할 때 흔히 사용하는 import/export 구문을 사용합니다.
+
+```js
+// math.js - 모듈 정의
+export function add(a, b) {
+  return a + b;
+}
+
+export function subtract(a, b) {
+  return a - b;
+}
+
+// app.js - 모듈 사용
+import { add, subtract } from "./math.js";
+
+console.log(add(5, 3)); // 출력: 8
+console.log(subtract(5, 3)); // 출력: 2
+```
+
+ES Module은 브라우저에서 지원되며, 덕분에 `<script type="module">`을 사용하여 모듈을 불러올 수 있습니다.
 
 ES Module의 최소 지원 브라우저 버전은 Chrome 61, Firefox 60, Safari 10.1, Edge 16입니다. Vite와 같은 최신 빌드 도구를 사용할 때는 ES Module을 지원하지 않는 브라우저에 대한 대응도 고려해야 합니다. Vite는 이를 위해 @vitejs/plugin-legacy라는 플러그인을 제공합니다. 이 플러그인을 사용하면 ES Module을 지원하지 않는 구형 브라우저에서도 애플리케이션을 실행할 수 있도록 변환해줍니다.
 
