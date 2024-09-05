@@ -4,7 +4,7 @@ title: JavaScript 모듈 번들러의 이해
 author: 윤예진
 categories: 프론트엔드 기술블로그
 banner:
-  image: https://media.licdn.com/dms/image/D4E12AQHxWmqrVxZ27g/article-cover_image-shrink_720_1280/0/1681202907635?e=1727913600&v=beta&t=geXsexnmlAugomDPuukCVVVd051jy_G1IvCOW52zL1o
+  image: assets/images/post/2023-11-05.webp
   background: "#000"
   height: "100vh"
   min_height: "38vh"
@@ -12,12 +12,13 @@ banner:
   tags: [JavaScript, module_bundler, webpack, vite]
 ---
 
-
 부트업 과정 전까지 Webpack은 제게 그저 'CRA로 생성되는 무언가'로만 인식되고 있었습니다. 하지만 부트업 중 Webpack이 `modern JavaScript 앱을 위한 정적 모듈 번들러`라는 것을 알게 되었습니다.
 
 `modern JavaScript 앱을 위한 정적 모듈 번들러`
 
 이 설명을 구성하는 용어들을 글에서 하나씩 살펴보고 이해하고자 합니다.
+
+![](https://media.licdn.com/dms/image/D4E12AQHxWmqrVxZ27g/article-cover_image-shrink_720_1280/0/1681202907635?e=1727913600&v=beta&t=geXsexnmlAugomDPuukCVVVd051jy_G1IvCOW52zL1o)
 
 ## Modern JavaScript
 
