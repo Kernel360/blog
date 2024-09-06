@@ -1,14 +1,14 @@
 ---
-layout: post  
-title: `Suspense를 사용하여 Data Fetching 처리하기`
-author: `김승태`
-categories: `프론트엔드 기술블로그`
+layout: post
+title: "Suspense를 사용하여 Data Fetching 처리하기"
+author: "김승태"
+categories: "프론트엔드 기술블로그"
 banner:
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`React`, `Suspense`,]
+  tags: ["React", "Suspense"]
 ---
 
 # Suspense를 사용하여 Data Fetching 처리하기
