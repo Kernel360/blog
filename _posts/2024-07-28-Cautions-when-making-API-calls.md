@@ -1,15 +1,15 @@
 ---
-layout: post  
+layout: post
 title: Cautions when making API calls
 author: 양하연
 categories: 기술세미나
 banner:
-  image: 'https://github.com/Kernel360/blog/blob/4c946de0eeb5658cc0307cb1a61e98f51bfeba60/assets/images/post/2023-11-05.webp'
+  image: "https://github.com/Kernel360/blog/blob/4c946de0eeb5658cc0307cb1a61e98f51bfeba60/assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`API`,`고유한id`]
+  tags: ["API", "고유한id"]
 ---
 
 안녕하세요, Kernel360 FE 1기 크루 양하연 입니다. 오늘 포스팅에서는 외부 API호출하실 때에 주의하실 점에 대해서 제가 이번에 참여한 프로젝트를 예시로 들어 설명드리려고 합니다.
