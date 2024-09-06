@@ -13,431 +13,276 @@ banner:
 
 # Suspense를 사용하여 Data Fetching 처리하기
 
-## Suspense란?
+이번 글에서는 `Suspense`를 활용해 data fetching을 처리해보겠습니다.
 
-Suspense 컴포넌트는 children 컴포넌트가 로딩될 때까지 fallback을 보여주는 컴포넌트입니다.
+각각 `useEffect`를 사용한 방식과, `Suspense`를 활용한 방식의 컴포넌트를 구현하고 성능을 비교해보겠습니다.
 
-> `<Suspense>` lets you display a fallback until its children have finished loading.
+구현할 컴포넌트의 조건은 아래와 같습니다.<br>
+
+1. `CatProfile`, `CatInfo` 모두 로딩중일 때는 `CatProfile`이 로딩중임을 표시하기.
+2. `CatProfile` 컴포넌트가 로딩 중일 때는 `CatProfile`이 로딩중임을 표시하기.
+3. `CatInfo`가 로딩 중에는 `CatInfo`가 로딩 중임을 표시하기.
+
+조건에 따라 구현된 화면은 아래와 같습니다.<br><br>
+`CatProfile`, `CatInfo` 모두 로딩중일 때는 `CatProfile`이 로딩중일 때.<br>
+`CatProfile` 컴포넌트가 로딩 중일 때는 `CatProfile`이 로딩중일 때.<br>
+
+<img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0905/5.png" /><br>
+
+`CatInfo`가 로딩 중에는 `CatInfo`가 로딩 중일 떄.
+
+<img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0905/6.png" /><br>
+
+두 컴포넌트의 컨텐츠가 렌더딩 되었을 떄.
+
+<img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0905/7.png" /><br>
+
+## Suspense를 사용하지 않은 방식
+
+### useEffect로 data fetching 하기
+
+#### `CatProfile` 컴포넌트
 
 ```tsx
-<Suspense fallback={<Loading />}>
-  <SomeComponent />
-</Suspense>
-```
+export function CatProfile() {
+  const [cat, setCat] = useState<CatDataType>();
 
-컴포넌트가 로딩이 필요한 상황은 언제 있을까요?<br>
-제가 생각하기엔 다음과 같을 상황일 때 필요할 것 같습니다.
+  useEffect(() => {
+    const getCatInfo = async () => {
+      // 3. 데이터를 받아옵니다.
+      const response = await fetch(getCatDateUrl);
+      const data: CatDataType = await response.json();
 
-1. 코드를 분할하고 동적으로 로딩 할 때. <br>
-2. 서버에서 data fetching을 하는 동안.
+      // 4. 받아온 데이터를 이용해 state를 업데이트 합니다.
+      setCat(data);
+    };
 
-코드를 분할하고 동적으로 로딩 할 때는은 아래와 같이 Suspense를 사용할 수 있습니다.
+    // 2. 컴포넌트 마운트 이후 getCatInfo() 함수가 호출됩니다.
+    getCatInfo();
+  }, []);
 
-```tsx
-import { lazy } from "react";
-const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
-function Component() {
+  // 1. 데이터가 오기 전까지는 로딩상태가 표시됩니다.
+  if (!cat) {
+    return <h1>Cat profile loading</h1>;
+  }
+
+  // 5. 데이터 페칭이 완료된 이후에 실제 컨텐츠가 렌더링 됩니다.
   return (
-    <Suspense fallback={<Loading />}>
-      <h2>Preview</h2>
-      <MarkdownPreview />
-    </Suspense>
-  );
-```
-
-그렇다면 컴포넌트에서 data fetching을 하는 동안에는 Suspense를 어떻게 적용할 수 있을까요?
-
-[공식 문서](https://react.dev/reference/react/Suspense#displaying-a-fallback-while-content-is-loading)에서 아래와 같은 글을 찾을 수 있었습니다.
-
-> Suspense가 가능한 데이터(Suspense-enabled data sources)만이 Suspense 컴포넌트를 활성화합니다. 아래와 같은 것들이 해당됩니다.
->
-> - Relay와 Next.js 같이 Suspense가 가능한 프레임워크를 사용한 데이터 가져오기<br>
-> - lazy를 활용한 지연 로딩 컴포넌트<br>
-> - use를 사용해서 Promise 값 읽기
->
-> Suspense는 Effect 또는 이벤트 핸들러 내부에서 가져오는 데이터를 감지하지 않습니다.
-> Suspense가 가능한 프레임워크를 사용하는 경우에 프레임워크의 데이터 불러오기 관련 문서에서 자세한 내용을 확인할 수 있습니다.
->
-> 독단적인 프레임워크를 사용하지 않는 Suspense가 가능한 데이터 불러오기 기능은 아직 지원되지 않습니다. Suspense 지원 데이터 소스를 구현하기 위한 요구 사항은 불안정하고 문서화되지 않았습니다. 데이터 소스를 Suspense와 통합하기 위한 공식 API는 향후 React 버전에서 출시될 예정입니다.
-
-저는
-
-저는 그중에서 data를 가져올 때 Suspense를 적용할 수 있으면 좋을 것 같다는 생각을 해보
-
-[리액트 공식문서](https://react.dev/reference/react/Suspense#displaying-a-fallback-while-content-is-loading)에 따르면 Suspense는 다양한 사용법이 있지만 저는 data fetching을 할 때, Suspense를 적용해보고 싶었습니다.
-
-아래와 같은 상황일 시에 동작합니다.
-<br>(각 케이스에 대해서 조금 더 부가적인 설명을 덧붙여주면 읽는 사람들이 이해하기 쉬울 것 같습니다! => 더 자세하게 설명하기)
-<br>(실제 용례가 포함되면 좋겠는데, React Router DOM의 loader 인터페이스와 함께 use 훅 통합을 시도해보면 좋겠습니다. => 적용해보자)
-
-- Data fetching with Suspense-enabled한 프레임워크와 같이 사용할 때(Data fetching with Suspense-enabled frameworks like [Relay](https://relay.dev/docs/guided-tour/rendering/loading-states/) and [Next.js](https://nextjs.org/docs/getting-started/react-essentials))
-  <br>(이건 서버 컴포넌트의 기능이지 Suspense의 기능이라고 볼 수 없습니다. 아래와 같이 표현해야합니다.)
-
-  ```tsx
-  import { Suspense } from "react";
-
-  function PostFeed() {
-    const feedData = usePostFeedData(); // something asynchronous action
-    return { feedData }; // return value
-  }
-
-  export default function Posts() {
-    return (
-      <section>
-        <Suspense fallback={<p>Loading feed...</p>}>
-          <PostFeed />
-        </Suspense>
-      </section>
-    );
-  }
-  ```
-
-- [`use`](https://react.dev/reference/react/use) 를 이용해 Promise의 값을 읽을 때
-
-  ```tsx
-  function async ChildComponent(){
-    const value = use(resource);
-    return <div>{value}</div>
-  }
-
-  function ParentComponent(){
-    return (
-      <Suspense fallback={<Loading />}>
-        <ChildComponent/>
-      </Suspense>)
-  }
-  ```
-
-- [`lazy`](https://react.dev/reference/react/lazy) 와 함께 Lazy-loading component를 사용할 때: React.lazy와 함께 쓴다면 동적으로 컴포넌트를 가져올 때, 자연스럽게 로딩 처리를 해줄 수 있습니다.
-
-  ```tsx
-  import { lazy } from "react";
-  const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
-  function Component() {
-    return (
-      <Suspense fallback={<Loading />}>
-        <h2>Preview</h2>
-        <MarkdownPreview />
-      </Suspense>
-    );
-  }
-  ```
-
-## Suspense를 왜 쓰는가?
-
-먼저 보편적으로 많이 쓰는 방식을 보겠습니다.
-
-```tsx
-const { data, isLoading } = useGetFetch(url);
-
-if (isLoading) {
-  return <h1>Loading</h1>;
-}
-
-return <Card data={data} />;
-```
-
-```tsx
-const [isLoading, setIsLoading] = useState(true);
-const [data, setData] = useState(null);
-
-useEffect(() => {
-  const getData = async () => {
-    const remoteData = await fetch(url);
-    setIsLoading(false);
-    setData(remoteData);
-  };
-  getData();
-}, []);
-
-if (isLoading) {
-  return <Loading />;
-}
-
-return <Card data={data} />;
-```
-
-이제 Suspense를 사용해보겠습니다.
-
-```tsx
-function ChildComponent(){
-  const data = getFetchWithSuspense(url).read();
-
-  return <Card data={data} />
-}
-
-function ParentComponent(){
-  return(
-    <Suspense fallback={<Loading />}>
-      <ChildComponent>
-    </Suspense>
-  )
-}
-```
-
-두 코드를 비교할 때 보이는 이점은 데이터 로직을 불러왔을 때의 경우와 로딩중인 때의 경우를 분리할 수 있다는 것입니다.<br>
-이러한 이점은 연쇄적인 복수의 비동기 작업을 호출할 때, 더욱 두드러집니다.<br>
-비동기통신을 통해 A라는 값을 받아오고 그 값을 이용해 B라는 비동기 함수를 호출할 때의 예제입니다.
-
-```tsx
-function B({ data1 }) {
-  const { data, isLoading } = useGetFetch(url + data1);
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  return <Card data={data} />;
-}
-
-function A() {
-  const { data, isLoading } = useGetFetch(url);
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  return (
-    <>
-      <B data1={data} />
-    </>
+    <div>
+      <h1>CAT Profile</h1>
+      <p>{cat.id}</p>
+      <img src={cat.url} />
+      <CatInfo id={1} />
+    </div>
   );
 }
 ```
 
-```tsx
-const [isLoading, setIsLoading] = useState(true);
-const [data, setData] = useState(null);
-
-useEffect(() => {
-  const getData = async () => {
-    const remoteData1 = await fetch(url1);
-    const remoteData2 = await fetch(url2);
-    setIsLoading(false);
-    setData(remoteData);
-  };
-}, []);
-
-if (isLoading) {
-  return <Loading />;
-}
-
-return <Card data={data2} />;
-```
-
-반면 Suspense를 활용하면 아래와 같습니다
+#### `CatInfo` 컴포넌트
 
 ```tsx
-function ChildComponent(){
-  const data1 = getFetchWithSuspense(url1).read();
-  const data2 = getFetchWithSuspense(url2 + data1).read();
+function CatInfo({ id }: { id: number }) {
+  const [catInfo, setCatInfo] = useState<CatInfoType>();
 
-  return <Card data={data2} />
-}
+  useEffect(() => {
+    const getCatInfo = async () => {
+      // 3. 데이터를 받아옵니다.
+      const response = await fetch(getCatInfoUrl(id));
+      const data = await response.json();
 
-function ParentComponent(){
-  return(
-    <Suspense fallback={<Loading />}>
-      <ChildComponent>
-    </Suspense>
-    )
-}
-```
+      // 4. 받아온 데이터를 이용해 state를 업데이트 합니다.
+      setCatInfo(data);
+    };
 
-데이터를 받아왔을 때와 로딩 상태를 분리함으로써 비동기 호출이 복잡해도 간결하게 이해될 수 있는 코드가 되었습니다. <br>
-이번 해커톤에서 진행한 프로젝트 [롤트폴리오](https://github.com/Kernel360/hackathon2-loltfolio)는 Riot에서 제공하는 오픈 API를 이용했기 때문에 화면에 맞는 API호출이 아닌, 연쇄적인 API호출(유저 정보 조회 → 유저 매치 목록 조회 → 유저 매치 정보 조회)을 해야했고, 코드의 복잡함을 줄이기 위해서 적용했습니다.
+    // 2. 컴포넌트 마운트 이후 getCatInfo() 함수가 호출됩니다.
+    getCatInfo();
+  }, []);
 
-## Suspense의 원리
-
-suspense는 어떻게 하위 컴포넌트의 상태를 파악할 수 있을까요?
-
-```tsx
-// 실제로 React의 Suspense가 이것과 똑같이 동작하지는 않겠지만
-// 구현 컨셉을 잘 드러내고 있는 코드 조각입니다.
-
-async function runPureTask(task) {
-  for (;;) {
-    // while true
-    //!!! 태스크를 리턴할 수 있을 때까지 바쁜대기를 함(무한루프) !!!
-    try {
-      return task(); // 태스크 값을 리턴할 수 있게 되면 무한루프에서 벗어난다
-    } catch (x) {
-      // throw를 거른다
-      if (x instanceof Promise) {
-        await x; // pending promise가 throw된 경우 await으로 resolve 시도 => suspense
-      } else {
-        throw x; // Error가 throw된 경우 그대로 error throw => ErrorBoundary, 종료
-      }
-    }
+  // 1. 데이터가 오기 전까지는 로딩상태가 표시됩니다.
+  if (!catInfo) {
+    return <h1>Cat info loading</h1>;
   }
+
+  // 5. 데이터 페칭이 완료된 이후에 실제 컨텐츠가 렌더링 됩니다.
+  return (
+    <div>
+      <h1>CAT Info</h1>
+      <p>{catInfo}</p>
+    </div>
+  );
 }
 ```
 
-즉 위와 같은 코드에서 Promise를 받는다면 promise를 기다려줍니다. 따라서 Suspense로 감싸져있는 컴포넌트가 Promise를 던진다면 그 Promise를 실행하는 동안 fallback을 보여줍니다.
+해당 컴포넌트는 CatProfile의 data fetching이 끝난 후, CatInfo가 렌더링되며 네트워크 waterfall을 일으킵니다.<br>
+<img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0905/1.png" /><br>
+
+어떻게 개선할 수 있을까요?
+
+## Suspense를 사용한 방식(Render as you fetch)
+
+[공식문서](https://17.reactjs.org/docs/concurrent-mode-suspense.html#what-suspense-is-not)의 내용을 참조하여 먼저 useEffect를 활용한 방식을 다시 되짚어 보겠습니다. 기존 방식은 Fetch-on-render라고 하며 아래와 같은 동작을 하고 있습니다.
+
+1. start fetching
+2. finish fetching
+3. start rendering
+
+Suspense를 사용하면 2번과 3번의 순서를 변경할 수 있습니다.
+
+1. start fetching
+2. start rendering
+3. finish fetching
+
+즉, Suspense를 사용하면 렌더링을 시작하기 전에 응답이 돌아올 때까지 기다리지 않고, 실제로 네트워크 요청을 시작한 후 거의 즉시 렌더링을 시작합니다. 이를 **Render-as-you-fetch**라고 합니다.
+
+먼저 Suspense를 활성화하려면 어떻게 해야할까요?
+
+[공식문서](https://react.dev/reference/react/Suspense#displaying-a-fallback-while-content-is-loading)에 따르면 독단적인 프레임워크를 사용하지 않는 Suspense가 가능한 데이터 불러오기 기능은 아직 지원되지 않습니다.
+또한 Suspense 지원 데이터 소스를 구현하기 위한 요구 사항은 불안정하고 문서화되지 않았습니다.
+
+하지만 방법은 존재합니다.
+
+[리액트 RFC의 질문과 답변](https://github.com/reactjs/rfcs/pull/213#issuecomment-1077984147)에 따르면 현재로서는 Promise를 던지는 방식으로 작동한다고 합니다.<br>
+
+## 기존 코드에 Suspense 적용해보기
+
+### 1. `getFetchWithSuspense` 함수 구현
+
+따라서 아래와 같은 Promise를 throw하는 함수를 만듭니다.
+
+`getFetchWithSuspense` 함수는 결국 `read` 함수를 반환하는데, 해당 `read` 함수는 `status`에 따라 promise를 throw하거나, 값을 반환합니다.
 
 ```tsx
-const p = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    console.log("Promise over!");
-    resolve(3);
-  }, 300);
-}).then((value = "") => {
-  console.log(`Promise then ${value}`);
-  return 3;
-});
+const cache: { [key: string]: any } = {};
+// 해당 cache는 key에 대응되는 값이 존재한다면 해당 값을 return합니다.
+// cache를 정의한 이유는, Promise를 React 내부가 아닌 외부에 저장하기 위해서입니다.
 
-const wrapPromise = (promise) => {
-  let status = "pending";
-  let response;
+type WrappedPromise<T> = {
+  read: () => T;
+};
 
+const wrapPromise = <T,>(promise: Promise<T>): WrappedPromise<T> => {
+  let status = "pending"; // promise의 상태를 나타내는 값입니다.
+  let response: T; // promise가 실행되고 난 뒤의 결과값입니다.
+
+  // Promise입니다.
   const suspender = promise.then(
     (res) => {
-      status = "success";
+      status = "success"; // 성공했다면 상태와 값을 변경합니다.
       response = res;
     },
     (err) => {
-      status = "error";
+      status = "error"; // 실패했다면 상태와 값을 변경합니다.
       response = err;
     }
   );
 
   const read = () => {
     switch (status) {
+      // 처음 read 함수를 호출했을 때는 promise를 throw 합니다.
       case "pending":
         throw suspender;
+      // Promise가 실행되고 실패했다면 error를 throw 합니다.
       case "error":
         throw response;
+      // 성공했다면 값을 반환합니다.
       default:
         return response;
     }
   };
+
   return { read };
 };
 
-const resource = wrapPromise(p);
+const getFetchWithSuspense = <T,>(url: string): WrappedPromise<T> => {
+  // 1. url이 입력됩니다.
 
-function App() {
-  const res = resource.read();
-
-  return <h1>App.tsx {res}</h1>;
-}
-
-export default App;
-```
-
-```tsx
-const res = resource.read();
-```
-
-case 'pending'이고 suspender를 throw합니다.
-
-```tsx
-if (x instanceof Promise) {
-  await x; // pending promise가 throw된 경우 await으로 resolve 시도 => suspense
-}
-```
-
-받은 promise를 resolve합니다.
-
-```tsx
-const res = 3; // resource.read();
-/*
-new Promise((resolve, reject) => {
-  setTimeout(() => {
-    console.log('Promise over!');
-    resolve(3);
-  }, 300);
-}).then((value = '') => {
-  console.log(`Promise then ${value}`);
-  return 3;
-});
-*/
-```
-
-```tsx
-function App() {
-  const res = resource.read();
-
-  return <h1>App.tsx {res}</h1>; // App.tsx 3
-}
-```
-
-## 실제 적용 코드
-
-```tsx
-import axios from "axios";
-
-const cache = {};
-
-const wrapPromise = (promise) => {
-  let status = "pending";
-  let response;
-
-  const suspender = promise.then(
-    (res) => {
-      status = "success";
-      response = res;
-    },
-    (err) => {
-      status = "error";
-      response = err;
-    }
-  );
-
-  const read = () => {
-    switch (status) {
-      case "pending":
-        throw suspender;
-      case "error":
-        throw response;
-      default:
-        return response;
-    }
-  };
-  return { read };
-};
-
-const getFetchWithSuspense = (url) => {
+  // 2. url에 대응되는 값이 없다면 만들어줍니다.
   if (!cache[url]) {
-    cache[url] = wrapPromise(
-      axios
-        .get(url)
-        .then((response) => response.data)
-        .catch((error) => {
-          return Promise.reject(error);
-        })
+    cache[url] = wrapPromise<T>( //
+      fetch(url).then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
     );
   }
 
+  // 3. 값을 반환합니다.
   return cache[url];
 };
-
-export { getFetchWithSuspense };
 ```
+
+### 2. 기존 컴포넌트에 적용
+
+컴포넌트에서 `getFetchWithSuspense`를 호출해보겠습니다.
 
 ```tsx
-const getIdUrl = `/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${API_KEY}`;
-const { puuid } = getFetchWithSuspense(getIdUrl).read();
-const getMatchIdListUrl = `/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${MATCH_COUNT_LENGTH}&api_key=${API_KEY}`;
-const matchIdList = getFetchWithSuspense(getMatchIdListUrl).read();
+export function CatProfileWithSuspense() {
+  return (
+    <Suspense fallback={<h1>Cat profile loading</h1>}>
+      <CatProfile />
+      <Suspense fallback={<h1>Cat info loading</h1>}>
+        <CatInfo id={1} />
+      </Suspense>
+    </Suspense>
+  );
+}
+
+function CatProfile() {
+  // data를 가져옵니다. 첫 호출시에 suspense가 throw되어 가장 가까운 Suspense에서 fallback이 표시됩니다.
+  const cat = getFetchWithSuspense<CatDataType[]>(getCatDateUrl).read();
+
+  return (
+    <div>
+      <h1>CAT Profile</h1>
+      <p>{cat.id}</p>
+      <img src={cat.url} />
+    </div>
+  );
+}
+
+function CatInfo({ id }: { id: number }) {
+  // data를 가져옵니다. 첫 호출시에 suspense가 throw되어 가장 가까운 Suspense에서 fallback이 표시됩니다.
+  const catInfo = getFetchWithSuspense(getCatInfoUrl(id)).read();
+
+  return (
+    <div>
+      <h1>CatInfo</h1>
+      <p>{catInfo}</p>
+    </div>
+  );
+}
 ```
 
-## 참고자료
+공식문서에 따르면 리액트는 다음과 같은 방식으로 동작합니다.<br>
 
-https://react.dev/reference/react/Suspense
+1. `CatProfileWithSuspense`는 두 자식, `CatProfile`, `CatInfo`를 반환합니다.
+2. react는 `CatProfile`을 렌더링 하려고 시도합니다. `read()`가 호출되고 컴포넌트는 "suspend"됩니다. react에서는 `CatProfile`을 건너뛰고 `CatInfo` 컴포넌트를 렌더링하려 시도합니다.
+3. `CatInfo`에서도 `read()`함수가 호출되고 컴포넌트는 "suspend"됩니다. 렌더링을 시도할 것이 남아있지 않기에 가장 가까운 Suspense의 `fallback` 을 표시합니다.
+4. 값을 확인하고 컴포넌트의 fetch가 종료되었다면 해당 컴포넌트를 렌더링합니다.
 
-https://17.reactjs.org/docs/concurrent-mode-suspense.html#approach-3-render-as-you-fetch-using-suspense
+해당 방식으로 컴포넌트를 구현했을 때의 네트워크 호출을 확인해보니, 성능이 개선됨을 확인할 수 있습니다.
+<img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0905/3.png"/><br><br>
 
-https://fe-developers.kakaoent.com/2021/211127-211209-suspense/
+## 결론
 
-[https://medium.com/@itsinil/react-suspense-for-async-data-fetch-컨셉-이해하기-cfa3d470ec4f](https://medium.com/@itsinil/react-suspense-for-async-data-fetch-%EC%BB%A8%EC%85%89-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-cfa3d470ec4f)
+크롬 개발자 도구에서 네트워크 속도가 Slow 4G 기준일 떄의 성능 비교는 아래와 같습니다.<br><br>
+<img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0905/4.png"/><br>
 
-https://kasterra.github.io/data-fetching-and-react-suspense/
+비동기 데이터를 가져오는데 있어서 Suspense를 활용한다면 더 좋은 성능을 만들 수 있음을 확인할 수 있었습니다. TanStack Query, SWR 등의 데이터를 가져오는 라이브러리도 Suspense를 지원하니 이를 사용한다면 사용자에게 더욱 좋은 경험을 만들 수 있을 것 같습니다.
 
-https://maxkim-j.github.io/posts/suspense-argibraic-effect/
+## 출처
 
-https://www.youtube.com/watch?v=FvRtoViujGg&t=20s
+[Suspense for Data Fetching](https://17.reactjs.org/docs/concurrent-mode-suspense.html#what-suspense-is-not)<br>
 
-https://tech.kakaopay.com/post/react-query-2/
+[0213-suspense-in-react-18](https://github.com/reactjs/rfcs/blob/main/text/0213-suspense-in-react-18.md)<br>
 
-https://velog.io/@shinhw371/React-suspense-throw
+[Suspense for Data Fetching의 작동 원리와 컨셉 (feat.대수적 효과)](https://maxkim-j.github.io/posts/suspense-argibraic-effect/)<br>
+
+[React Query와 함께 Concurrent UI Pattern을 도입하는 방법
+](https://tech.kakaopay.com/post/react-query-2/)
+
+[리액트 Suspense 딥다이브](https://velog.io/@jay/Suspense)
+
+[Data fetching with React Suspense](https://blog.logrocket.com/data-fetching-react-suspense/)
