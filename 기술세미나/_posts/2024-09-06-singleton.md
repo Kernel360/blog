@@ -1,15 +1,15 @@
 ---
 layout: post  
-title: `싱글톤 패턴`
-author: `이선우`
-categories: `기술세미나`
+title: '싱글톤 패턴'
+author: '이선우'
+categories: '기술세미나'
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`스프링`,`자바`,`싱글톤`]
+  tags: ['스프링','자바','싱글톤']
 ---
 
 # 싱글톤 패턴이란
