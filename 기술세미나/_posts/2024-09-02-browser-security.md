@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Browser Security Policy"
+title: "브라우저 보안정책"
 author: "김민규"
 categories: "기술세미나"
 banner:
