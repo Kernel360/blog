@@ -4,7 +4,7 @@ title: "Yarn Berry로 전환해야 하는 이유"
 author: "이재용"
 categories: ["프론트엔드 기술블로그"]
 banner:
-  image: "https://velog.velcdn.com/images/jjh099/post/3fa558f9-2050-402b-aee7-350c02fc6ef2/image.jpeg"
+  image: "https://miro.medium.com/v2/resize:fit:720/format:webp/1*oliLINATMZtQWJQWHBGGIA.png"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
