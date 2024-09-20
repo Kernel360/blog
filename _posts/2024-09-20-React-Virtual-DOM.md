@@ -26,7 +26,7 @@ banner:
 
 DOM은 Document Object Model의 준말입니다. 여기서 Document란 무엇이냐고 하면 브라우저에 보여지는 html,css,js코드로 만들어지는 화면을 만드는 코드, 즉 우리가 작성한 프론트엔드 코드라고 이해하면 됩니다. 아래 사진처럼 브라우저는 이 문서를 객체 형식으로 변환하여 브라우저에 보여주는 역할을 하는데, 이 과정은 Parse, Layout, Paint, Composite이라는 크게 4가지의 단계를 가집니다.
 
-<img src="https://github.com/Kernel360/blog-image/blob/236a1a804d95e76c4ed50896e51a16835401c53c/2024/0920/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%EC%9B%90%EB%A6%AC.png">
+<img src="https://github.com/Kernel360/blog-image/blob/236a1a804d95e76c4ed50896e51a16835401c53c/2024/0920/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%EC%9B%90%EB%A6%AC.png"/>
 
 Parsing단계에서는 HTML, CSS 코드를 파싱해서 각 HTML태그가 무엇을 의미하는지 css 태그가 무엇을 의미하는지 태그 단위로 분해하는 행위가 이루어집니다. HTML은 HTML DOM을 형성하고, CSS는 CSSOM을 형성하여 Render을 준비하는 Render Tree를 형성하게 됩니다. 이렇게 만들어진 Render Tree는 브라우저 화면에 어디에 어떤 태그가 어떤 사이즈로 어떤 스타일로 그려질 것인지 그 위치를 정하는 Layout Tree를 형성합니다. Render Tree에서 Layout Tree로 변환하는 이 과정을 reflow, 다른 말로 Render Phase라고 하는데 파싱된 태그를 수직 구조를 가지는 Tree를 만들기 때문에 상당한 시간을 소비하는 과정이라고 할 수 있습니다.
 이렇게 레이아웃을 잡는 과정을 진행하고 마지막으로는 페인트 과정을 진행합니다. Layout Tree로 잡은 그 구조를 화면에 페인트해서 그려주는 작업이 진행됩니다. 이 과정을 Repaint, 다른 말로 Commit Phase라고 합니다.
@@ -37,7 +37,7 @@ Parsing단계에서는 HTML, CSS 코드를 파싱해서 각 HTML태그가 무엇
 
 ## 3. 리액트의 Virtual DOM에서 제공하는 최적화
 
-<img src="https://github.com/Kernel360/blog-image/blob/236a1a804d95e76c4ed50896e51a16835401c53c/2024/0920/React%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4.png">
+<img src="https://github.com/Kernel360/blog-image/blob/236a1a804d95e76c4ed50896e51a16835401c53c/2024/0920/React%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4.png"/>
 사진 출처 : https://www.youtube.com/watch?v=N7qlk_GQRJU
 
 React의 Virtual DOM은 개발자가 굳이 신경 쓰지 않아도 자동으로 DOM 변경과정을 최적화해주는 시스템입니다. 리액트는 내부적으로 모든 업데이트를 모아서 최소한의 횟수로 DOM을 수정할 수 있도록 하며, 이를 통해 브라우저 상에서의 DOM 작업을 추상화합니다. 리액트는 두 단계의 렌더링 프로세스를 사용합니다. 첫 번째는 ‘렌더 페이즈’로, 컴포넌트를 호출해 필요한 업데이트를 계산하는 단계이고, 두 번째는 ‘커밋 페이즈’로, 렌더 페이즈에서 계산된 변경 사항을 실제 DOM에 반영하는 단계입니다.
