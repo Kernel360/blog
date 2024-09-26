@@ -12,17 +12,25 @@ banner:
   tags: [JavaScript, react, component, headless-component]
 ---
 
-### Headless Component
+# Headless Component
 
-React 개발을 시작할 때부터 유지보수의 중요성에 대해 계속 들어왔습니다. 특히 코드를 컴포넌트로 분리하여 재사용성을 높이는 것이 중요하다고 강조되었습니다. 이 점을 염두에 두고 자주 쓰이는 요소들을 독립적인 컴포넌트로 나눠가며 프로젝트를 진행하였습니다. 사용자의 요구사항은 항상 바뀌고, 이로 인해 핵심 기능은 같은데 외형이 다르거나 추가 기능이 필요한 경우가 많아졌습니다. 결국 컴포넌트가 점점 커져서 코드 가독성도 떨어지고 재사용성도 낮아지는 딜레마에 빠졌습니다.
+React 개발을 시작할 때부터 유지보수의 중요성에 대해 계속 들어왔습니다. 특히 코드를 컴포넌트로 분리하여 재사용성을 높이는 것이 중요하다고 강조되었습니다.
 
-재사용성을 위해 컴포넌트로 분리했는데, 정작 그 재사용성이 얼마나 효과적인지 의문이 들었습니다.
+이를 염두에 두고 자주 사용되는 요소들을 독립적인 컴포넌트로 나누며 프로젝트를 진행했습니다. 하지만 사용자의 요구사항은 계속 변했고, 같은 핵심 기능에 다른 외형이나 추가 기능이 필요한 경우가 많아졌습니다.
 
-이런 고민을 해결할 방법을 찾던 중에 Headless Component라는 개념을 알게 되었습니다. 이는 UI와 로직을 완전히 분리하는 접근 방식입니다. 컴포넌트의 기능과 동작은 정의하되, 어떻게 보일지는 개발자가 자유롭게 결정할 수 있게 해서 유연성을 극대화하는 방식이죠.
+결과적으로 컴포넌트가 점점 커져 코드 가독성이 떨어지고 재사용성도 낮아지는 딜레마에 빠졌습니다.
 
-Headless Component의 핵심은 '어떻게 보일까?'가 아니라 '어떻게 작동할까?'에 초점을 맞춥니다. 이렇게 하면 개발자가 더 유연하고, 재사용 가능하며, 확장성 높은 코드를 만들 수 있게 됩니다.
+이런 고민을 해결할 방법을 찾던 중에 Headless Component라는 개념을 알게 되었습니다. 이는 UI와 로직을 완전히 분리하는 접근 방식입니다. 컴포넌트의 기능과 동작은 정의하되, 시각적 표현은 개발자가 자유롭게 결정할 수 있게 해 유연성을 극대화하는 방식입니다.
 
-### 코드로 보는 Headless Component
+Headless Component의 핵심은 '어떻게 보일까?'가 아니라 '어떻게 작동할까?'에 초점을 맞춥니다. 컴포넌트의 **기능적 로직**은 완전히 추상화된 형태로 구현하되, **UI에 대한 제어**는 사용자가 원하는 대로 설정할 수 있도록 합니다.
+
+UI와 로직이 분리됨에 따라 다음과 같은 이점이 생깁니다.
+
+1. **유연성**: UI가 로직과 분리되어 있어 필요에 따라 UI를 자유롭게 변경할 수 있습니다.
+2. **재사용성**: 로직만을 가진 Headless Component를 여러 곳에서 사용하고, 각기 다른 UI를 조합하여 다양한 요구 사항에 대응할 수 있습니다.
+3. **확장성**: 새로운 기능이 추가되거나 요구사항이 변경되어도 로직과 UI를 독립적으로 수정할 수 있어 코드의 변
+
+이러한 구조 덕분에 컴포넌트의 크기가 커지거나 가독성이 떨어지는 문제를 방지할 수 있으며, 유지보수 역시 용이해집니다.
 
 Dropdown 컴포넌트의 예시를 보면 Headless Component가 무엇인지 더욱 잘 이해할 수 있을 것입니다.
 
@@ -46,7 +54,6 @@ function useSelect(items) {
     selectedItem,
     toggleOpen,
     selectItem,
-    items,
   };
 }
 ```
@@ -55,19 +62,16 @@ function useSelect(items) {
 
 ```jsx
 function Dropdown() {
-  const { isOpen, selectedItem, toggleOpen, selectItem, items } = useSelect([
-    "Option 1",
-    "Option 2",
-    "Option 3",
-  ]);
+  const options = ["Option 1", "Option 2", "Option 3"];
+  const { isOpen, selectedItem, toggleOpen, selectItem } = useSelect(options);
 
   return (
     <div>
       <button onClick={toggleOpen}>{selectedItem || "Select an option"}</button>
       {isOpen && (
         <ul>
-          {items.map((item) => (
-            <li key={item} onClick={() => selectItem(item)}>
+          {options.map((option) => (
+            <li key={option} onClick={() => selectItem(option)}>
               {item}
             </li>
           ))}
@@ -96,7 +100,7 @@ Headless Component가 가진 많은 장점에도 불구하고 몇 가지 주의�
 3. 과도한 사용 위험: 모든 컴포넌트를 Headless로 만들려는 시도는 코드베이스를 불필요하게 복잡하게 만들 수 있습니다.
 4. 성능 고려사항: 공통 로직을 사용하여 여러 컴포넌트를 렌더링할 때 성능 최적화에 주의를 기울여야 합니다.
 
-Headless Component는 강력한 도구이지만 프로젝트의 규모와 요구사항을 고려하여 적절히 사용해야 합니다. 복잡한 UI 로직을 다루거나 높은 수준의 커스터마이징이 필요한 경우에 특히 유용하며, 이를 통해 코드의 재사용성과 유지보수성을 크게 향상시킬 수 있습니다.
+Headless Component는 좋은 도구이지만 프로젝트의 규모와 요구사항을 고려하여 적절히 사용해야 합니다. 복잡한 UI 로직을 다루거나 높은 수준의 커스터마이징이 필요한 경우에 특히 유용하며, 이를 통해 코드의 재사용성과 유지보수성을 크게 향상시킬 수 있습니다.
 
 ---
 
