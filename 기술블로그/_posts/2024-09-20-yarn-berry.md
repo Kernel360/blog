@@ -63,7 +63,7 @@ Yarn Classic은 패키지 설치 시마다 네트워크 요청이 필요해 설�
 
 그리고, Yarn Berry가 등장하게 됩니다.
 
-# Yarn Berry의 등장
+## Yarn Berry의 등장
 
 Yarn Berry는 Yarn 패키지 매니저의 새로운 버전으로, 이전 버전인 Yarn Classic과는 달리 구조적인 변화와 함께 새로운 기능들을 도입하였습니다.
 
