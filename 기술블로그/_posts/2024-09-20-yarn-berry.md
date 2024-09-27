@@ -12,7 +12,7 @@ banner:
 tags: ["package manager", "yarn", "npm", "yarn berry", "yarn classic"]
 ---
 
-# 들어가며
+## 들어가며
 
 소프트웨어 개발 환경에서, 패키지 관리 시스템은 개발자의 생산성과 코드 품질, 협업 효율성에 직결되는 중요한 요소입니다.
 
@@ -24,7 +24,7 @@ tags: ["package manager", "yarn", "npm", "yarn berry", "yarn classic"]
 
 이번 글에서는 Yarn Berry로 전환해야 하는 이유와 함께 장점들을 구체적으로 살펴보겠습니다.
 
-# Yarn Classic
+## Yarn Classic
 Yarn Berry를 알아보기 전에, 우선 Yarn Classic에 대해 간단히 알아보겠습니다.
 
 **Yarn Classic**은 2016년에 Meta(구 Facebook)이 npm의 성능과 의존성 관리 문제를 해결하기 위해 만든 `패키지 매니저`입니다. npm과 비교했을 때, Yarn은 다음과 같은 장점이 있습니다.
@@ -105,7 +105,7 @@ Yarn Berry는 플러그인 기반 아키텍처를 도입해, 개발자가 필요
 
 **보안 및 성능 향상**: 플러그인 생태계를 통해 보안 기능을 추가하거나, 특정 워크플로우에 맞춘 최적화를 수행할 수 있습니다.
 
-# 마치며
+## 마치며
 
 npm과 Yarn Classic은 여전히 많은 프로젝트에서 사용되고 있지만, 그 한계는 점점 더 두드러지고 있습니다. 특히, 대규모 프로젝트나 팀 단위로 협업하는 경우, 의존성 관리, 설치 속도, 성능 문제는 지속적인 골칫거리로 작용할 수 있습니다. 
 
