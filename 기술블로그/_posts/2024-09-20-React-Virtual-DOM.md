@@ -24,7 +24,7 @@ banner:
 
 DOM은 Document Object Model의 준말입니다. 여기서 Document란 웹 브라우저가 HTML 문서를 파싱해 생성한 객체를 의미합니다. 즉, 우리가 작성한 HTML 코드가 브라우저에 의해 파싱되어 Document 객체로 변환되고, 이 객체는 JavaScript로 접근하거나 조작할 수 있습니다. CSS와 JS는 직접적으로 Document 객체의 일부가 아니지만, CSS는 화면에 그려지는 스타일을 정의하고, JS는 Document 객체를 조작하여 동적인 페이지를 구현하는 데 사용됩니다.
 
-<img src="https://github.com/Kernel360/blog-image/blob/236a1a804d95e76c4ed50896e51a16835401c53c/2024/0920/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%EC%9B%90%EB%A6%AC.png"/>
+![2024/0920/브라우저 렌더링 원리.png](https://github.com/Kernel360/blog-image/blob/236a1a804d95e76c4ed50896e51a16835401c53c/2024/0920/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%EC%9B%90%EB%A6%AC.png)
 
 Parsing단계에서는 HTML, CSS 코드를 파싱해서 각 HTML태그가 무엇을 의미하는지 css 태그가 무엇을 의미하는지 태그 단위로 분해하는 행위가 이루어집니다. HTML은 HTML DOM을 형성하고, CSS는 CSSOM을 형성하여 Render을 준비하는 Render Tree를 형성하게 됩니다. 이렇게 만들어진 Render Tree는 브라우저 화면에 어디에 어떤 태그가 어떤 사이즈로 어떤 스타일로 그려질 것인지 그 위치를 정하는 Layout Tree를 형성합니다. Render Tree에서 Layout Tree로 변환하는 이 과정을 reflow, 다른 말로 Render Phase라고 하는데 파싱된 태그를 수직 구조를 가지는 Tree를 만들기 때문에 상당한 시간을 소비하는 과정이라고 할 수 있습니다.
 이렇게 레이아웃을 잡는 과정을 진행하고 마지막으로는 페인트 과정을 진행합니다. Layout Tree로 잡은 그 구조를 화면에 페인트해서 그려주는 작업이 진행됩니다. 이 과정을 Repaint, 다른 말로 Commit Phase라고 합니다.
