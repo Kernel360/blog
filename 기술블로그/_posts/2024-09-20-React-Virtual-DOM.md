@@ -2,14 +2,14 @@
 layout: post  
 title: "렌더링 최적화 자체 제공 시스템, React Virtual DOM"
 author: "양하연"
-categories: "기술블로그"
+
 banner:
-  image: 썸네일로 넣고 싶은 이미지 링크
+  image: assets/images/post/2023-11-05.webp
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`React`, `Virtual DOM`, `렌더링`, `최적화`]
+  tags: ["React", "Virtual DOM", "렌더링", "최적화"]
 ---
 
 ## 0. 들어가며 - React와 렌더링 최적화
