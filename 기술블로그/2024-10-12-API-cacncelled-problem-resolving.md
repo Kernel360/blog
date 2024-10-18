@@ -19,9 +19,7 @@ banner:
 
 ## 2. 구체적인 상황 및 코드
 
-<img src="/Users/hayeon/Downloads/마이네임안바뀜.gif" alt="이름안바뀜">
-
-<img alt="cancelled" src="![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1ee811a0-1243-4c1a-a362-fece1e87dc36/0af29550-d840-46b6-b948-b6d32e48c6db/image.png)"/>
+![마이네임안바뀜](https://github.com/user-attachments/assets/906510bd-6275-46bd-a907-684e412e3210)
 
 ```js
 // 앞 부분 생략...
@@ -99,9 +97,8 @@ const response = await fetch(`${BASE_URL}/user/me`, {
 ### 접근4 - API요청이 cancelled될만한 외력이 존재하는 것일까?
 
 API가 'cancelled'됐다는 것에 집중하여 api 요청이 보내졌지만 어떤 외부의 힘에 의해 이를 '취소'하고 있을 것이라는 관점에서 접근해보았습니다.
-'과연 여기서 api요청에 가해질 수 있는 외부압력은 어떤 종류의 것일까?' 조금 더 원초적인 코드 로직이 무엇인가를 살펴보면, 해당 button을 누른다는 것은 form 태그에 종속된 input의 내용을 보내는 동작을 수행하는 것입니다.
-그런데 form 태그란 어떤 동작을 하고 있을까요? form이라는 태그는 button이 눌리면 브라우저를 새로고침하면서 input의 내용을 전송하려고 합니다.
-즉, submit이벤트로 인한 navigation 요청과 해당 페이지 내의 ajax 요청이 맞물리면서 기존 페이지의 ajax 요청을 취소하는 현상이 발생하고 있다는 추측을 할 수 있습니다. 과연 이 가설이 맞는지 시험해볼까요?
+과연 여기서 API 요청에 가해질 수 있는 외부 압력은 어떤 종류의 것일까?’ 조금 더 원초적인 코드 로직을 살펴보면, 해당 버튼을 누른다는 것은 <form> 태그에 종속된 input의 내용을 보내는 동작을 수행하는 것입니다.
+그런데 <form> 태그는 어떤 동작을 할까요? <form> 태그는 버튼이 눌리면 input의 내용을 action 속성에 정의된 URL로 전송합니다. 즉, submit 이벤트로 인한 페이지 이동 요청과 해당 페이지 내의 Ajax 요청이 충돌하여 기존의 Ajax 요청이 취소되는 현상이 발생할 수 있습니다. jax 요청은 페이지를 새로고침하지 않고 서버와 비동기적으로 데이터를 주고받는 방식인데, 이와 submit 이벤트로 인한 페이지 이동이 맞물리면서 이러한 문제가 생기는 것입니다. 과연 이 가설이 맞는지 시험해볼까요?
 
 ```js
 const handleNicknameChange = (event) => {
