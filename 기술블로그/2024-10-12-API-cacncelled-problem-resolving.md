@@ -110,7 +110,7 @@ const handleNicknameChange = (event) => {
 };
 ```
 
-handleNcknameChange에 `event.preventDefault();` 이 코드를 추가하니 정상적으로 api 호출이 이루어지는 것을 알 수 있었습니다.
+handleNicknameChange에 `event.preventDefault();` 이 코드를 추가하니 정상적으로 api 호출이 이루어지는 것을 알 수 있었습니다.
 
 ![마이네임홍길동변경됨](https://github.com/user-attachments/assets/a0a22ace-5027-412e-b0e3-3f799cee8b92)
 
