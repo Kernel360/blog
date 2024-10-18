@@ -56,7 +56,7 @@ npx openapi-typescript https://myapi.dev/api/v1[/api-docs](https://api.badminton
 
 명령어를 실행하면 귀여운 이모지와 함께 결과물인 schema.d.ts가 생성되었다는 메시지를 볼 수 있습니다. 
 
-<img width="550" alt="image" src="https://github.com/user-attachments/assets/459ee2ed-7edf-437a-99de-ac723b11785c">
+<img width="548" alt="image" src="https://github.com/user-attachments/assets/d7758ca6-4fa1-4f14-806e-de487e9e6fb2">
 
 실제로 프로젝트에서도 `/schema` 에 schema.d.ts 파일이 생성된 것을 확인할 수 있습니다. 
 
