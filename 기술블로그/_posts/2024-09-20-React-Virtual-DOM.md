@@ -27,7 +27,7 @@ DOM은 Document Object Model의 준말입니다. 여기서 Document란 웹 브�
 <br/>
 
 <p align="center">
-  <img src="https://github.com/Kernel360/blog-image/blob/236a1a804d95e76c4ed50896e51a16835401c53c/2024/0920/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%EC%9B%90%EB%A6%AC.png" alt="2" />
+  <img src="https://github.com/Kernel360/blog-image/blob/main/2024/0920/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%EC%9B%90%EB%A6%AC.png?raw=true" alt="1" />
 </p>
 
 <br/>
@@ -41,8 +41,13 @@ Parsing단계에서는 HTML, CSS 코드를 파싱해서 각 HTML태그가 무엇
 
 ## 3. 리액트의 Virtual DOM에서 제공하는 최적화
 
-<img src="https://github.com/Kernel360/blog-image/blob/236a1a804d95e76c4ed50896e51a16835401c53c/2024/0920/React%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4.png"/>
+<br/>
+
+<p align="center">
+  <img src="https://github.com/Kernel360/blog-image/blob/236a1a804d95e76c4ed50896e51a16835401c53c/2024/0920/React%20%EB%A0%8C%EB%8D%94%EB%A7%81%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4.png" alt="1" />
+</p>
 사진 출처 : https://www.youtube.com/watch?v=N7qlk_GQRJU
+<br/>
 
 React의 Virtual DOM은 개발자가 굳이 신경 쓰지 않아도 자동으로 DOM 변경과정을 최적화해주는 시스템입니다. 리액트는 내부적으로 모든 업데이트를 모아서 최소한의 횟수로 DOM을 수정할 수 있도록 하며, 이를 통해 브라우저 상에서의 DOM 작업을 추상화합니다. 리액트는 두 단계의 렌더링 프로세스를 사용합니다. 첫 번째는 ‘렌더 페이즈’로, 컴포넌트를 호출해 필요한 업데이트를 계산하는 단계이고, 두 번째는 ‘커밋 페이즈’로, 렌더 페이즈에서 계산된 변경 사항을 실제 DOM에 반영하는 단계입니다.
 
