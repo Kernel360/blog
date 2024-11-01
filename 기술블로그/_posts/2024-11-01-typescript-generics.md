@@ -95,3 +95,9 @@ async function fetchUserData() {
 ```
 
 위의 `restClient.get<User>("/api/user")` 호출에서 반환되는 데이터 타입은 `User`로 추론되며, `userData.name`처럼 데이터의 속성에 접근할 때 자동 완성과 타입 검사가 지원됩니다.
+
+
+
+[참고문서]
+
+https://www.typescriptlang.org/docs/handbook/2/generics.html
