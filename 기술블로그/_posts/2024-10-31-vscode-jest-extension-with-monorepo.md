@@ -14,7 +14,7 @@ banner:
 
 ## Jest란?
 
-Jest는 메타(구 페이스북)에서 개발한 자바스크립트 테스트 라이브러리입니다. 간편하게 테스트를 할 수 있어 자바스크립트 개발자들에게 많이 사용되고 있습니다.
+[Jest](https://jestjs.io/)는 메타(구 페이스북)에서 개발한 자바스크립트 테스트 라이브러리입니다. 간편하게 테스트를 할 수 있어 자바스크립트 개발자들에게 많이 사용되고 있습니다.
 
 ## Jest vscode extension
 
@@ -64,28 +64,6 @@ techpick/src/stores/test.spec.ts
     Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
 
     By default "node_modules" folder is ignored by transformers.
-
-    Here's what you can do:
-     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
-     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
-     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
-     • If you need a custom transformation specify a "transform" option in your config.
-     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
-
-    You'll find more details and examples of these config options in the docs:
-    https://jestjs.io/docs/configuration
-    For information about custom transformations, see:
-    https://jestjs.io/docs/code-transformation
-
-    Details:
-
-    /Users/gimseungtae/Desktop/GIT/F2-TECHPICK/frontend/techpick/src/stores/test.spec.ts:1
-    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){import { describe, it, expect } from '@jest/globals';
-                                                                                      ^^^^^^
-
-    SyntaxError: Cannot use import statement outside a module
-
-      at Runtime.createScriptFromCode (../../../../.yarn/berry/cache/jest-runtime-npm-29.7.0-120fa64128-10c0.zip/node_modules/jest-runtime/build/index.js:1505:14)
 ```
 
 처음에는 jest의 설정을 잘못한 탓에 발생한 문제인 줄 알았으나 cli를 이용해 테스트를 하니 올바른 결과를 수행했었습니다.
