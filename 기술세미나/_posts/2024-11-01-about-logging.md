@@ -50,7 +50,7 @@ banner:
 
 로깅을 구현하는 방식은 매우 다양합니다. 사용하는 기술 스택에 따라 다양한 선택지가 있습니다.
 
-`유저 행동 로깅`의 경우에는 주로 `Google Analytics`, `Amplitude`, `Mixpanel` 과 같은 툴을 사용합니다.
+`유저 행동 로깅`의 경우에는 주로 [Google Analytics](https://developers.google.com/analytics?hl=ko), [Amplitude](https://amplitude.com/), [Mixpanel](https://mixpanel.com/contact-us/ps-sem-demo-request-apac?utm_source=google&utm_medium=cpc&utm_campaign=APAC-Korea-Brand-Search-EN-Exact-All-Devices&utm_content=Mixpanel-Exact&utm_ad=708060443734&utm_term=mixpanel&matchtype=b&campaign_id=21535059339&ad_id=708060443734&gclid=Cj0KCQiAire5BhCNARIsAM53K1hT6aQ07IvwD_PRMyaKUe4Vj2GpN4JenKHRSOzOdlHcHpDSU8yLbIsaArjHEALw_wcB&gad_source=1) 과 같은 툴을 사용합니다.
 
 - 클릭
 - 페이지 이동
@@ -58,9 +58,9 @@ banner:
 
 등을 손쉽게 설정하고 분석할 수 있습니다. 이를 통해 우리는 사용자가 어떤 페이지에 가장 많이 방문하였는지 어디서 이탈을 하는지 등의 정보를 얻고 추후 개선 방향을 찾아나갈 수 있습니다.
 
-최근에는 단순히 로그 데이터로만 분석하는 것을 넘어, 사용자 화면을 그대로 녹화하여 기록하는 방식으로도 유저 행동을 트래킹합니다. `FullStory`, `LogRocket` 같은 도구는 사용자의 행동을 실시간으로 녹화해, 사용자가 어떤 순서로 페이지를 탐색하고 어떤 요소와 상호작용하는지를 영상 형태로 확인할 수 있게 해 줍니다.
+최근에는 단순히 로그 데이터로만 분석하는 것을 넘어, 사용자 화면을 그대로 녹화하여 기록하는 방식으로도 유저 행동을 트래킹합니다. [FullStory](https://www.fullstory.com/), [LogRocket](https://logrocket.com/) 같은 도구는 사용자의 행동을 실시간으로 녹화해, 사용자가 어떤 순서로 페이지를 탐색하고 어떤 요소와 상호작용하는지를 영상 형태로 확인할 수 있게 해 줍니다.
 
-`에러 로깅`은 애플리케이션의 오류를 실시간으로 기록하고, 발생한 문제를 빠르게 해결하는 데 매우 중요한 역할을 합니다. 서버의 오류 외에도 클라이언트 측의 에러의 경우에는 주로 `Sentry` , `Rollbar` , `Bugsnag` 와 같은 툴을 사용합니다.
+`에러 로깅`은 애플리케이션의 오류를 실시간으로 기록하고, 발생한 문제를 빠르게 해결하는 데 매우 중요한 역할을 합니다. 서버의 오류 외에도 클라이언트 측의 에러의 경우에는 주로 [Sentry](https://sentry.io/welcome/?utm_source=google&utm_medium=cpc&utm_id=%7B21427619193%7D&utm_campaign=Google_Search_Brand_SentryKW_APAC_Alpha&utm_content=g&utm_term=sentry&gad_source=1&gclid=Cj0KCQiAire5BhCNARIsAM53K1jJfl1IuQsTzjrJNtqSZ8SzGG3VjCCdcWbSN-uYhkSt8SG811xJ2icaAvr0EALw_wcB) , [Rollbar](https://rollbar.com/) , [Bugsnag](https://www.bugsnag.com/?utm_source=aw&utm_medium=ppcg&utm_campaign=SEM_Bugsnag_PR_APAC_ENG_EXT_Prospecting&utm_term=bugsnag&utm_content=700967338246&campaignid=21334626909&adgroupid=166052154874&adid=700967338246&gad_source=1&gclid=Cj0KCQiAire5BhCNARIsAM53K1jv_w0tXGdO2xuhf4SHJO_lPuToSWEOJ5Fs3GYTa_O6s3j4bMBnV20aAnlvEALw_wcB&gclsrc=aw.ds) 와 같은 툴을 사용합니다.
 
 위와 같은 서비스는 클라이언트에서 발생하는 오류 정보를 자동으로 수집하고, 발생 당시의 사용자의 디바이스 정보, 브라우저 정보 등 오류 상황과 오류를 디버깅하는데 도움이 되는 자료들을 수집합니다.
 
