@@ -14,11 +14,41 @@ banner:
 
 프로젝트에서 백엔드와의 통신을 위해 fetch API를 활용하여 코드를 구현했습니다. GET API 요청을 위한 코드는 아래 사진과 같이 작성했습니다.
 
-![image](https://github.com/user-attachments/assets/e91d379a-0c1c-4852-b957-adf8dc8fd368)
+```tsx
+
+const response = await fetch(`${BASE_URL}/clubs/${clubId}/clubMembers`, {
+  method: "GET",
+  headers: { "Content-Type": "application/json" },
+  credentials: "include",
+});
+
+if (!response.ok) {
+  throw new Error("멤버 정보 조회에 실패했습니다.");
+}
+
+return response.json();
+
+```
 
 GET 메서드를 사용하는 API 요청에서는 여러 가지 공통적인 코드들이 필요했습니다. method 지정, headers 설정, credentials 관련 코드 작성, 응답이 없을 때의 오류 처리 로직, 그리고 받아온 응답을 JSON 형태로 변환하는 코드 등이 이에 해당합니다. 이러한 코드들은 대부분의 GET 요청에서 반복적으로 사용되었습니다. 코드의 중복을 최소화하고 재사용성을 높이기 위해, 이러한 공통 요소들을 하나로 모아 restClient라는 객체를 생성하게 되었습니다. 
 
-![image](https://github.com/user-attachments/assets/440958ef-0a9b-4d12-b6a8-f8c29722d21e)
+```tsx
+
+const restClient = {
+  get: async (url: string) => {
+    const response = await fetch(`${BASE_URL}${url}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    const data = await response.json();
+    return data;
+  },
+};
+
+```
 
 이러한 방식으로 코드를 구성하면서 한 가지 문제점이 발생했습니다. 그것은 바로 API 호출 후 반환되는 data의 타입이 자동으로 any로 지정된다는 점입니다. TypeScript에서 any 타입의 사용은 여러 가지 문제를 야기할 수 있습니다. 첫째, 타입 추론이 불가능해져 개발 과정에서 자동 완성이나 타입 관련 오류를 미리 잡아내기 어려워집니다. 둘째, 타입 안정성이 크게 저하되어 런타임 에러의 위험이 증가합니다. 
 
@@ -37,12 +67,23 @@ API의 응답은 엔드포인트마다 다른 상황에서 각 API 응답에 대
 제네릭을 사용하면 함수나 메서드를 정의할 때 타입을 하나의 매개변수로 전달받을 수 있습니다. 이 매개변수를 `T`라고 하면, `T`는 함수 호출 시점에서 전달받은 구체적인 타입으로 대체됩니다. 제네릭을 사용한 함수의 기본 구조는 다음과 같습니다.
 
 ```tsx
-function identity<T>(arg: T): T {
-    return arg;
+
+function mergeObjects<T, U>(obj1: T, obj2: U): T & U {
+  return { ...obj1, ...obj2 };
 }
+
+const person = { name: "John" };
+const details = { age: 25, location: "New York" };
+const merged = mergeObjects(person, details);
+
+console.log(merged.name);  // John
+console.log(merged.age);   // 25
+
 ```
 
-이 `identity` 함수는 `T`라는 타입 매개변수를 받고, 인자 `arg`와 반환 타입으로 `T`를 사용합니다. 호출 시점에 `T`를 지정하거나, 인자 타입에 따라 자동으로 `T`가 추론됩니다.
+이 mergeObjects 함수는 T와 U라는 두 가지 타입 매개변수를 받아, 각각 첫 번째 인자 obj1과 두 번째 인자 obj2의 타입으로 사용합니다. 
+
+반환 타입은 두 객체를 병합한 형태인 T & U로 지정됩니다. 함수 호출 시점에 타입을 명시적으로 지정할 수도 있지만, 전달된 객체들의 타입에 따라 TypeScript가 자동으로 T와 U를 추론할 수도 있습니다.
 
 ### `restClient`에 제네릭 적용하기
 
@@ -98,6 +139,6 @@ async function fetchUserData() {
 
 
 
-[참고문서]
+### [참고문서]
 
 https://www.typescriptlang.org/docs/handbook/2/generics.html
