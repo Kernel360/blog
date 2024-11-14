@@ -1,0 +1,186 @@
+---
+layout: post  
+title: "크롤링"
+author: "김영래"
+categories: "기술세미나"
+banner:
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+  tags: [`크롤링`, `Crawling`, `Selenium`, `Jsoup`, `robots.txt`, `Xvfb`]
+---
+
+## 크롤링이란?
+
+### 웹 크롤링 (Web Crawling)
+
+- 웹 사이트의 전체 구조를 탐색하고 링크를 따라가며 광범위한 데이터 수집
+- 주로 검색 엔진의 인덱싱에 사용
+- '선탐색 후추출' 방식
+- 중복 제거 필수, 및 수집 웹페이지에 색인 부여
+- 예: 온라인 서점 사이트의 모든 페이지를 순회하며 페이지의 모든 데이터 수집
+
+### 웹 스크래핑 (Web Scraping)
+
+- 특정 웹페이지에서 필요한 정보만을 선택적으로 추출
+- 가격 비교, 감정 분석, 데이터 저널리즘 등 특정 목적을 위해 사용
+- '선결정 후추출' 방식
+- CSV, JSON, XML 등의 구조화된 형식으로 데이터 변환
+- 예: 온라인 서점 사이트의 베스트 셀러 페이지에서 특정 정보만 수집
+
+![웹 크롤링과 웹 스크래핑의 차이](https://github.com/Kernel360/blog-image/blob/main/2024/1107/img-crawling1.jpg)
+
+## 크롤링 특징
+
+- 대량의 데이터를 자동으로 수집 가능해 시간과 비용 절약 가능
+- open API로는 수집 불가능한 데이터가 대상
+- 실시간으로 최신 데이터를 수집 가능하기 때문에 정보의 정확성과 적시성 보장
+- SEO 최적화에 도움
+- 웹 사이트 구조 변경을 고려한 유지 보수 필요
+- 대규모 크롤링은 해당 서버에 부하를 주는 윤리적 문제
+- 개인정보 및 저작권 관련 법적 문제 발생할 수 있음
+
+## 크롤링 규칙
+
+1. 크롤링 서버 부하 고려
+2. 크롤링 컨텐츠 저작권
+3. 크롤링 거부 의사 존중
+   - robots.txt를 통해 크롤링 가능 여부 확인
+   - User-Agent 헤더에 크롤러 목적, 크롤링한 정보 사용 용도, 연락 수단 적어서 해당 서버 관리자가 확인할 수 있게 하는 것이 바람직한 방식
+
+### 네이버의 robots.txt 예시
+
+```
+User-agent: *
+Disallow: /
+Allow: /$
+Allow: /.well-known/privacy-sandbox-attestations.json
+```
+
+- User-agent: * : 모든 웹 크롤러에 적용되는 규칙
+- Disallow: / : 기본적으로 모든 페이지와 디렉토리에 대한 크롤링 금지
+- Allow: /$ : 루트 URL에 대한 접근만 허용
+- Allow: /.well-known/privacy-sandbox-attestations.json : 이 특정 파일에 대한 접근 허용 (Privacy Sandbox 관련 정보를 포함하는 json 파일)
+
+## 동적 크롤링(Selenium)
+
+- 동적 웹 페이지에 적합
+- JavaScript로 동적 생성되는 컨텐츠 처리
+- 실제 브라우저 제어하여 사용자 상호작용 시뮬레이션
+- React 등의 경우 json이나 html으로 페이지를 한 번에 로드할 수 없는 경우 유용
+- 브라우저의 WebDriver를 통한 자동화
+- 클릭, 스크롤, 폼 입력 등 사용자 동작 자동화
+- 웹 애플리케이션 테스팅 가능
+- 성능: 리소스 사용량이 높고 실제 브라우저를 구동하기 때문에 비교적 느림
+
+![Selenium을 사용한 동적 크롤링 과정](https://github.com/Kernel360/blog-image/blob/main/2024/1107/img-crawling2.jpg)
+
+## 정적 크롤링(Jsoup)
+
+- 정적 HTML 파싱
+- HTML 문서 파싱, 조작에 특화
+- CSS Selector를 사용해 요소를 쉽게 선택
+- DOM 트리를 통해 HTML 문서에 쉽게 접근 및 조작
+- 경량화 및 빠른 성능
+- 브라우저 구동이 없기 때문에 매우 빠르고 가벼움
+- 리소스 사용량 적음
+- 제한사항:
+  - JavaScript로 동적 생성되는 컨텐츠 처리 불가
+  - 사용자 상호작용 시뮬레이션 불가
+
+![Jsoup을 사용한 정적 크롤링 과정](https://github.com/Kernel360/blog-image/blob/main/2024/1107/img-crawling3.jpg)
+
+## 예시 코드
+
+### Selenium
+
+#### ChromeOptions 설정
+
+```java
+ChromeOptions options = new ChromeOptions();
+options.addArguments(
+    "--disable-gpu",
+    "--remote-allow-origins=*",
+    "--lang=en-US",
+    "--start-maximized",
+    "--headless",
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--ignore-ssl-errors=yes",
+    "--ignore-certificate-errors"
+);
+
+WebDriver driver = new ChromeDriver(options);
+```
+
+#### By.cssSelector 사용 예시
+
+```java
+List<WebElement> expandButton = driver.findElements(By.cssSelector("tp-yt-paper-button#expand"));
+for (WebElement button : expandButton) {
+    button.click();
+    break;
+}
+```
+
+#### XPath 사용 예시
+
+```java
+List<WebElement> expandButton = driver.findElements(By.xpath("//tp-yt-paper-button[@id='expand']"));
+for (WebElement button : expandButton) {
+    if (button.getText().contains("more")) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", button);
+        break;
+    }
+}
+```
+
+### Jsoup
+
+```java
+Document doc = Jsoup.connect(url).get();
+Elements elements = doc.select("div.class1 > p.class2");
+```
+
+## Dockerfile 예시
+
+```dockerfile
+# Google Chrome 설치
+RUN wget https://chrome-versions.com/google-chrome-stable-114.0.5735.106-1.deb
+RUN apt-get -y update
+RUN apt -y install ./google-chrome-stable-114.0.5735.106-1.deb
+
+# Chromedriver 설치
+RUN wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_114`/chromedriver_linux64.zip
+RUN unzip /tmp/chromedriver.zip chromedriver -d .
+
+# Xvfb 설치
+RUN apt-get install -y xvfb
+RUN Xvfb :99 -ac &
+ENV DISPLAY=:99
+```
+
+### Xvfb (X Virtual Frame buffer)
+
+- 물리적 디스플레이 장치 없이 X 윈도우 시스템(가상 디스플레이) 구현
+- 테스트, 자동화된 브라우저 테스트, 헤드리스 환경에서 X 서버가 필요한 애플리케이션 실행에 사용
+- 주의: 동적 로딩이 예상대로 동작하지 않을 수 있으며, 일부 요소가 제대로 렌더링 되지 않아 CSS Selector로는 찾지 못하는 경우 존재
+
+![Xvfb를 사용한 헤드리스 브라우저 테스트 환경](https://github.com/Kernel360/blog-image/blob/main/2024/1107/img-crawling4.jpg)
+
+## 추가 고려사항
+
+1. **법적 및 윤리적 고려사항**: 크롤링을 수행할 때는 항상 해당 웹사이트의 이용 약관과 저작권 정책을 확인해야 합니다. 무단으로 데이터를 수집하는 것은 법적 문제를 야기할 수 있습니다.
+
+2. **성능 최적화**: 대규모 크롤링 작업을 수행할 때는 멀티스레딩이나 분산 시스템을 고려해볼 수 있습니다. 이를 통해 크롤링 속도를 크게 향상시킬 수 있습니다.
+
+3. **에러 처리**: 네트워크 문제, 웹사이트 구조 변경 등으로 인한 예외 상황에 대비한 robust한 에러 처리 로직이 필요합니다.
+
+4. **데이터 저장**: 수집한 데이터를 효율적으로 저장하고 관리하기 위한 데이터베이스 설계가 중요합니다.
+
+5. **주기적 업데이트**: 웹사이트 구조는 자주 변경될 수 있으므로, 크롤러를 주기적으로 점검하고 업데이트하는 것이 중요합니다.
+
+![크롤링 프로세스의 전체 흐름을 보여주는 인포그래픽](https://github.com/Kernel360/blog-image/blob/main/2024/1107/img-crawling5.jpg)
