@@ -1,3 +1,4 @@
+---
 layout: post
 title: “SSR과 Cookie”
 author: 양하연
@@ -9,15 +10,68 @@ banner:
   min_height: “38vh”
   heading_style: “font-size: 4.25em; font-weight: bold; text-decoration: underline”
   tags: ['SSR', 'Cookie','기술블로그' ]
+---
 
-### 데이터가 API 호출로 늦게 보이는 문제를 해결하기 위해 initialData를 활용해 보았습니다.
+## 배경 : TanstackQuery의 initialData를 활용해서 데이터가 API 응답 완료까지 기다리다가 뒤늦게 보이는 문제를 해결해보고 싶었다.
 
 처음 사이트가 렌더링될 때 약 1초가 지난 후에야 이전 데이터가 채워져 보이는 것이 마음에 들지 않았습니다. 접속하자마자 스크랩한 프리뷰 컴포넌트에 색깔이 채워져 보이도록 만들고 싶었습니다.
 이번 프로젝트에서는 TanStack Query를 사용 중이었고, 공식 문서에서 소개된 initialData를 활용하면 데이터를 서버사이드에서 미리 가져와 사용자에게 빠르게 표시할 수 있을 것이라고 생각했습니다.
 
-### 문제 발생 : 그런데, 왜 분명히 true였던 스크랩 데이터가 false로 오는 걸까요?
+</br>
 
-아래와 같은 코드를 작성해 프리뷰 컴포넌트의 북마크 부분이 색깔로 채워질 것을 기대했습니다. 하지만 예상과 달리, initialData를 적용하기 전에는 제대로 반영되던 스크랩 데이터가 적용 후에는 색깔이 채워지지 않는 것을 발견했습니다.
+### 문제 발생 : 그런데, 왜 분명히 true였던 스크랩 데이터가 false로 오는거지?
+
+아래와 같은 코드를 작성해 프리뷰 컴포넌트의 북마크 부분이 색깔로 채워질 것을 기대했습니다.
+
+```js
+import { cookies } from "next/headers";
+
+import {
+  fetchReadingPreview,
+  fetchListeningPreview,
+} from "@/api/queries/contentsQueries";
+
+import HomePageClient from "../../components/HomePageClient";
+
+export default async function HomePage() {
+  const initialReadingContents = await fetchReadingPreview({});
+  const initialListeningContents = await fetchListeningPreview({});
+
+  return (
+    <HomePageClient
+      initialReadingContents={initialReadingContents}
+      initialListeningContents={initialListeningContents}
+    />
+  );
+}
+
+---
+
+
+export default function HomePageClient({
+  initialReadingContents,
+  initialListeningContents,
+}: HomePageClientProps) {
+  const { data: readingList, isLoading: readingLoading } = useQuery({
+    queryKey: ['readingPreview'],
+    queryFn: () => fetchReadingPreview(),
+    initialData: initialReadingContents,
+  });
+
+  const { data: listeningList, isLoading: listeningLoading } = useQuery({
+    queryKey: ['listeningPreview'],
+    queryFn: () => fetchListeningPreview(),
+    initialData: initialListeningContents,
+  });
+
+  //...생략
+}
+
+```
+
+하지만 예상과 달리, initialData를 적용하기 전에는 제대로 반영되던 스크랩 데이터가 적용 후에는 색깔이 채워지지 않는 것을 발견했습니다.
+<br/>
+
 TanStack Query Dev Tools로 확인해 보니 isScrapped가 false로 표시되고 있었습니다. 혹시 TanStack Query가 데이터를 잘못 인식한 것일까 싶어 Swagger를 통해 다시 확인했지만, 실제 isScrapped 값은 true로 잘 전달되고 있었습니다.
 
 게다가, 해당 컴포넌트에서 console.log로 값을 찍어봐도 Dev Tools에서 확인했던 것처럼 isScrapped가 잘못된 값인 false로 오는 상황이었습니다.
@@ -25,7 +79,7 @@ TanStack Query Dev Tools로 확인해 보니 isScrapped가 false로 표시되고
 ### 원인 분석
 
 처음에는 TanStack Query의 staleTime 설정 때문일까 의심해 staleTime을 0으로 설정해 보니 데이터가 제대로 불러와지는 것을 확인할 수 있었습니다.
-자세히 살펴보면, staleTime이 지나면 initialData로 불러온 데이터 대신 useQuery로 설정된 쿼리를 다시 요청하게 됩니다. 이 과정에서 처음 마주했던 false 값은 initialData로 데이터를 불러오는 과정에서 발생한 잘못된 값임을 추측할 수 있었습니다.
+이게 가능한 이유는, staleTime이 지나면 initialData로 불러온 데이터 대신 useQuery로 설정된 쿼리를 다시 요청하게 되기 때문입니다. 이 과정에서 처음 마주했던 false 값은 initialData로 데이터를 불러오는 과정에서 발생한 잘못된 값임을 추측할 수 있었습니다.
 
 그렇다면 왜 서버사이드 렌더링에서 문제가 발생한 것일까요? 다른 데이터들은 잘 불러와지는데 왜 스크랩 데이터만 잘못 불러오는 걸까요?
 
@@ -44,14 +98,46 @@ TanStack Query Dev Tools로 확인해 보니 isScrapped가 false로 표시되고
 바로 이 지점에서 문제가 발생한 것 입니다. Next.js는 자체 서버를 사용해 SSR(Server-Side Rendering)을 수행합니다. 이 과정에서 서버는 브라우저의 쿠키에 접근할 수 없습니다.
 결국, SSR을 수행할 때 쿠키를 읽지 못하므로 로그인과 관련된 isScrapped 값이 실제로는 true임에도 불구하고, 잘못된 false 값을 반환했던 것입니다.
 
-### 해결책 : 쿠키를 헤더에 직접 담아 전송하기 
+### 해결책 : 쿠키를 헤더에 직접 담아 전송하기
 
 SSR에서도 쿠키를 제대로 전달할 방법은 쿠키를 헤더에 직접 담아 전송하는 것입니다.
+본 컴포넌트는 서버 컴포넌트여서 cookies()를 이용해 cookie를 직접 가져올 수 있습니다.
+
 이를 통해 서버사이드 렌더링 중에도 쿠키 정보를 사용할 수 있게 되어 로그인 여부가 정확히 반영됩니다.
+
+```js
+import { cookies } from "next/headers";
+
+import {
+  fetchReadingPreview,
+  fetchListeningPreview,
+} from "@/api/queries/contentsQueries";
+
+import HomePageClient from "../../components/HomePageClient";
+
+export default async function HomePage() {
+  const initialReadingContents = await fetchReadingPreview({
+    Cookie: cookies().toString(),
+  });
+  const initialListeningContents = await fetchListeningPreview({
+    Cookie: cookies().toString(),
+  });
+
+  return (
+    <HomePageClient
+      initialReadingContents={initialReadingContents}
+      initialListeningContents={initialListeningContents}
+    />
+  );
+}
+```
 
 위와 같이 헤더에 쿠키를 전달함으로써 스크랩 데이터를 포함한 인증 정보가 정확히 서버에 전달되었고, 데이터를 제대로 불러올 수 있었습니다.
 
-그러나, 분명 다른 컴포넌트에서도 SSR을 사용할 일이 꽤 있을텐데, 그때마다 이렇게 cookie를 직접 박아주는 것은 분명 번거로운 방법이라는 단점이 있습니다. 사실 생각해보면, 쿠키를 사용해서 로그인 정보를 주고받는 것은 브라우저를 사용하는 웹 개발에서나 가능한 방법이지, 브라우저를 사용하지 않는 앱개발의 경우에는 이 쿠키 방식을 사용하지 않기 때문에 보통은 웹 개발에서도 beare토큰 방식을 이용해 로그인 정보를 주고받는 것이 일반적이라고 하니 다른 방법으로의 전환을 모색해볼 필요가 있을 것 같습니다.
+그러나, 분명 다른 컴포넌트에서도 SSR을 사용할 일이 꽤 있을텐데, 그때마다 이렇게 cookie를 직접 박아주는 것은 분명 번거로운 방법이라는 단점이 있습니다.
+
+쿠키를 사용해서 로그인 정보를 주고받는 것은 브라우저를 사용하는 웹 개발에서나 가능한 방법이지, 브라우저를 사용하지 않는 앱개발의 경우에는 이 쿠키 방식을 사용하지 않, 보통은 웹 개발에서도 bearer토큰 방식을 이용해 로그인 정보를 주고받는 것이 일반적이라고 합니다.
+지금은 백엔드와 토큰을 주고받는 방식을 쿠키로 정하여 프로젝트가 진행되고 있는 상황이어서 로그인 방법을 migration하기에는 쉽지 않은 일이지만, 추후 로그인 방식은 쿠키를 사용하지 않는 방법으로 변경할 필요는 있어보입니다.
 
 ### 느낀 점
 
