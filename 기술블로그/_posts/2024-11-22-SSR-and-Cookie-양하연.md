@@ -7,21 +7,29 @@ banner:
   image: assets/images/post/2023-11-05.webp
   background: “#000”
   height: “100vh”
-  min_height: “38vh”
+    min_height: “38vh”
   heading_style: “font-size: 4.25em; font-weight: bold; text-decoration: underline”
   tags: ['SSR', 'Cookie','기술블로그' ]
 ---
 
-## 배경 : TanstackQuery의 initialData를 활용해서 데이터가 API 응답 완료까지 기다리다가 뒤늦게 보이는 문제를 해결해보고 싶었다.
-
-처음 사이트가 렌더링될 때 약 1초가 지난 후에야 이전 데이터가 채워져 보이는 것이 마음에 들지 않았습니다. 접속하자마자 스크랩한 프리뷰 컴포넌트에 색깔이 채워져 보이도록 만들고 싶었습니다.
-이번 프로젝트에서는 TanStack Query를 사용 중이었고, 공식 문서에서 소개된 initialData를 활용하면 데이터를 서버사이드에서 미리 가져와 사용자에게 빠르게 표시할 수 있을 것이라고 생각했습니다.
-
+### 배경
+![initialData적용전_로딩해오기까지오래걸림_main](https://github.com/user-attachments/assets/5ea8c06b-c51c-473d-9cb4-d57f19cdd7fa)
 </br>
 
-### 문제 발생 : 그런데, 왜 분명히 true였던 스크랩 데이터가 false로 오는거지?
+<p>
+ 위 움짤에 보이는 것 처럼 우리 프로젝트에서 처음 사이트가 렌더링될 때 약 1초가 지난 후에야 뒤늦게 스크랩 데이터가 채워져 보이는 것이 마음에 들지 않았습니다. 
+<br/>
+  접속하자마자 스크랩한 프리뷰 컴포넌트에 색깔이 채워져 보이도록 만들고 싶었습니다.
+</br>
+이번 프로젝트에서는 TanStack Query를 사용 중이었고, 공식 문서에서 소개된 initialData를 활용하면 데이터를 서버사이드에서 미리 가져와 사용자에게 빠르게 표시할 수 있을 것이라고 생각했습니다.
+ 
+</p>
+<br/>
+
+### 문제발생 : 그런데, 왜 분명히 true였던 스크랩 데이터가 false로 오는거지?
 
 아래와 같은 코드를 작성해 프리뷰 컴포넌트의 북마크 부분이 색깔로 채워질 것을 기대했습니다.
+</br>
 
 ```js
 import { cookies } from "next/headers";
@@ -68,25 +76,41 @@ export default function HomePageClient({
 }
 
 ```
+<br/>
 
 하지만 예상과 달리, initialData를 적용하기 전에는 제대로 반영되던 스크랩 데이터가 적용 후에는 색깔이 채워지지 않는 것을 발견했습니다.
 <br/>
 
-TanStack Query Dev Tools로 확인해 보니 isScrapped가 false로 표시되고 있었습니다. 혹시 TanStack Query가 데이터를 잘못 인식한 것일까 싶어 Swagger를 통해 다시 확인했지만, 실제 isScrapped 값은 true로 잘 전달되고 있었습니다.
+<br/>
+TanStack Query Dev Tools로 확인해 보니 isScrapped가 false로 표시되고 있었습니다. 
+![image](https://github.com/user-attachments/assets/5550fdf1-6580-49ba-bd80-4ee55562c1bc)
+
+
+
+<br/>
+혹시 TanStack Query가 데이터를 잘못 인식한 것일까 싶어 Swagger를 통해 다시 확인했지만, 실제 isScrapped 값은 true로 잘 전달되고 있었습니다.
+![image](https://github.com/user-attachments/assets/fab59d2f-e864-4e7c-8ee9-4be80247619b)
 
 게다가, 해당 컴포넌트에서 console.log로 값을 찍어봐도 Dev Tools에서 확인했던 것처럼 isScrapped가 잘못된 값인 false로 오는 상황이었습니다.
 
+<br/>
+
 ### 원인 분석
 
-처음에는 TanStack Query의 staleTime 설정 때문일까 의심해 staleTime을 0으로 설정해 보니 데이터가 제대로 불러와지는 것을 확인할 수 있었습니다.
+처음에는 TanStack Query의 staleTime 설정 때문일까 의심해 6분으로 설정되어있던 staleTime을 0으로 설정해 보니 데이터가 제대로 불러와지는 것을 확인할 수 있었습니다.
 이게 가능한 이유는, staleTime이 지나면 initialData로 불러온 데이터 대신 useQuery로 설정된 쿼리를 다시 요청하게 되기 때문입니다. 이 과정에서 처음 마주했던 false 값은 initialData로 데이터를 불러오는 과정에서 발생한 잘못된 값임을 추측할 수 있었습니다.
+<br/>
 
 그렇다면 왜 서버사이드 렌더링에서 문제가 발생한 것일까요? 다른 데이터들은 잘 불러와지는데 왜 스크랩 데이터만 잘못 불러오는 걸까요?
+
+<br/>
 
 ### 스크랩 데이터를 못 불러왔던 이유
 
 스크랩 데이터가 다른 데이터와 다른 점은 로그인 여부에 따라 값이 결정된다는 점입니다. 로그인을 해야만 true로 설정될 수 있는 데이터입니다.
 분명 스크랩을 했는데도 isScrapped가 false로 오는 것은 로그인 여부가 제대로 전달되지 않았기 때문이라는 결론을 내릴 수 있었습니다.
+
+<br/>
 
 ### 로그인 여부가 제대로 전달되지 않은 이유
 
@@ -96,6 +120,7 @@ TanStack Query Dev Tools로 확인해 보니 isScrapped가 false로 표시되고
 쿠키는 브라우저에만 존재하는 개념입니다. 서버는 기본적으로 브라우저의 쿠키에 접근할 수 없습니다.
 
 바로 이 지점에서 문제가 발생한 것 입니다. Next.js는 자체 서버를 사용해 SSR(Server-Side Rendering)을 수행합니다. 이 과정에서 서버는 브라우저의 쿠키에 접근할 수 없습니다.
+<br/>
 결국, SSR을 수행할 때 쿠키를 읽지 못하므로 로그인과 관련된 isScrapped 값이 실제로는 true임에도 불구하고, 잘못된 false 값을 반환했던 것입니다.
 
 ### 해결책 : 쿠키를 헤더에 직접 담아 전송하기
@@ -133,6 +158,9 @@ export default async function HomePage() {
 ```
 
 위와 같이 헤더에 쿠키를 전달함으로써 스크랩 데이터를 포함한 인증 정보가 정확히 서버에 전달되었고, 데이터를 제대로 불러올 수 있었습니다.
+<br/>
+![initialData에cookie박아넣은후_main](https://github.com/user-attachments/assets/fa1b25b0-ef66-4587-b61c-a9c649b85335)
+<br/>
 
 그러나, 분명 다른 컴포넌트에서도 SSR을 사용할 일이 꽤 있을텐데, 그때마다 이렇게 cookie를 직접 박아주는 것은 분명 번거로운 방법이라는 단점이 있습니다.
 
