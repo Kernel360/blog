@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 커스텀 예외 처리
+title: '커스텀 예외 처리'
 author: "박소은"
 categories: "기술세미나"
 banner:
@@ -9,7 +9,7 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: ["Index", "DB", "Clustered", "Non-Clustered"]
+  tags: [예외, 에러, 자바]
 ---
 
 
