@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "커스텀 예외 처리"
+title: 커스텀 예외 처리
 author: "박소은"
 categories: "기술세미나"
 banner:
