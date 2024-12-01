@@ -163,7 +163,8 @@ export default async function HomePage() {
 ```
 
 <br/>
-![initialData에cookie박아넣은후_main](https://github.com/user-attachments/assets/fa1b25b0-ef66-4587-b61c-a9c649b85335)
+![initialData적용전_로딩해오기까지오래걸림_main](https://github.com/user-attachments/assets/f8de7b7c-b599-40a1-8c21-224d7a151492)
+
 <br/>
 
 이제 쿠키가 잘 전달되어 로그인 정보가 제대로 반영되었고, 사이트에 들어가자마자 미리 스크랩 아이콘이 색칠되어있는 것을 확인할 수 있습니다.
