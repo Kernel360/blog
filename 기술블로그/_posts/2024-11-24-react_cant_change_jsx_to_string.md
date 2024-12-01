@@ -94,7 +94,7 @@ convertTsxToString();
 
 ```
 
-빌드 시점에 `convertTsxToString` 함수가 실행되어야 하므로, 스크립트를 따로 만들어야 합니다. 
+빌드 시점에 `convertTsxToString` 함수가 실행되어야 하므로, package.json에 스크립트를 따로 만들어야 합니다. 
 
 ```json
 "dev": "vite",
@@ -107,3 +107,35 @@ convertTsxToString();
 `ts-node`는 기본적으로 Node.js의 CommonJS 방식으로 TypeScript 파일을 처리합니다. ESM 환경에서 `ts-node`를 사용하려면, `--loader ts-node/esm` 옵션을 추가해야 Node.js가 ESM 방식으로 TypeScript를 처리할 수 있습니다.
 
 Node.js 실행 옵션을 `npm run` 스크립트를 통해 전달하려면 `NODE_OPTIONS` 환경 변수를 사용해야 합니다. `NODE_OPTIONS`는 Node.js의 런타임 옵션을 전달할 수 있는 방법이며, `-loader ts-node/esm`를 Node.js 실행 프로세스에 추가하기 위해 사용됩니다.
+
+`convert-tsx-to-string.ts`에서 사용하는 `import`, `export`, 경로 별칭, 타입 검사 등의 동작이 올바르게 작동하려면 `tsconfig.json` 설정도 필요합니다. 특히, **ESM 환경과의 호환성**을 위해 `tsconfig.json`에서 적절한 설정(`module: "ESNext"`, `target: "ESNext"`)을 해야 합니다.
+
+프로젝트에서 적용한 `tsconfig` 설정은 다음과 같습니다. 
+
+```tsx
+{
+  "compilerOptions": {
+    "module": "ESNext", // ESM 형식의 import/export 사용
+    "moduleResolution": "Node", // Node.js 방식으로 모듈 해석
+    "target": "ESNext", // 최신 JavaScript 표준으로 컴파일
+    "strict": true, // 엄격한 타입 검사 활성화
+    "esModuleInterop": true, // CommonJS와 ES 모듈 간 호환 지원
+    "jsx": "react-jsx", // React JSX 변환 (React 17+)
+    "baseUrl": ".", // 프로젝트 루트를 기준 경로로 설정
+    "paths": {
+      "@/*": ["src/*"] // @로 별칭 지정
+    }
+  },
+  "include": ["src"], // 컴파일할 파일
+  "exclude": ["node_modules", "dist"] // 컴파일 제외 경로
+}
+
+```
+
+이렇게 3가지 과정을 통해 
+
+1. `import` 구문부터 `export` 구문, 컴포넌트 태그들까지 IDE에서 개발자가 보는 형태 그대로 문자열 값으로 바꿀 수 있었고
+2. 바꾼 문자열을 변수에 저장해 `export` 하여
+3. 해당 변수를 컴포넌트에 props로 넘겨줌으로써 중복 코드 줄이는 것
+
+이 가능해 졌습니다.
