@@ -148,8 +148,6 @@ COPY /schema/. ./schema
 COPY ./.yarnrc.yml ./
 COPY ./.yarn/ ./.yarn/
 
-# .yarnrc.yml 파일에서 nodeLinker 값을 pnp에서 node-modules로 변경
-RUN sed -i 's/nodeLinker: pnp/nodeLinker: node-modules/' .yarnrc.yml
 
 # 루트 폴더 종속성 설치
 RUN yarn install
