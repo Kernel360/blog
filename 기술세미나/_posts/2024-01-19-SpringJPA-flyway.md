@@ -4,7 +4,7 @@ title: Spring JPA와 Flyway
 author: 송예진
 categories: 기술세미나
 banner:
-  image: ![image](https://github.com/yejincode/blog/assets/69861207/7d6dec2d-07ef-4a1e-8fb2-c704f13b7a8c)
+  image: assets/images/banners/background.png
   background: "#000"
   height: "100vh"
   min_height: "38vh"
