@@ -1,5 +1,4 @@
 ---
-![image](https://github.com/user-attachments/assets/666654b4-3e6b-4a2a-aed7-eeeaf898391a)---
 layout: post
 title: "도커 컨테이너"
 author: "김민규"
