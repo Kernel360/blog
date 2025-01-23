@@ -1,15 +1,15 @@
 ---
 layout: post  
-title: AWS를 통한 모니터링
-author: 송예진
-categories: 기술세미나
+title: "AWS를 통한 모니터링"
+author: "송예진"
+categories: "기술세미나"
 banner:
   image: ![image](https://github.com/yejincode/blog/assets/69861207/e0960f4a-459e-4ec7-b694-10002c258809)
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [AWS, 모니터링, 기술세미나, Lambda, Cloudwatch, SNS]
+  tags: "AWS, 모니터링, 기술세미나, Lambda, Cloudwatch, SNS"
 ---
 
 
