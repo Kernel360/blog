@@ -4,7 +4,7 @@ title: "JPA 엔티티 설계에서 기본 생성자가 필요한 이유 : Reflec
 author: "김대현"
 categories: "기술블로그"
 banner:
-  image: 2025/jpa.png
+  image: "2025/jpa.png"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
