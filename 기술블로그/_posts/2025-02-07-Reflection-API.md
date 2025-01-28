@@ -9,7 +9,7 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`JAVA`, `JPA`, `ORM`, `Reflection`, `Hibernate`, `Proxy`, `LazyLoading`]
+  tags: ["JAVA", "JPA", "ORM", "Reflection", "Hibernate", "Proxy", "LazyLoading"]
 ---
 
 `Entity`설계 시 멘토님으로부터 "현업에서는 `Entity`에`Setter`나 `AllArgsConstructor`를 사용하지 않고 기본생성자(`NoArgsConstructor`)만 작성 후 정적 팩토리 메서드를 사용해 `Entity`객체를 생성한다"라는 피드백을 받았습니다.
