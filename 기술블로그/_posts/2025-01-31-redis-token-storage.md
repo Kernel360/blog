@@ -1,14 +1,14 @@
 ---
 layout: post
-title: CI/CD의 개념과 필요성
-author: 윤해진
+title: Refresh Token을 Redis에 저장하는 이유
+author: 오승민
 banner:
-  image: assets/images/post/2023-11-05.webp
+  image: 
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [ci/cd, 기술세미나]
+  tags: [Token, 기술세미나]
 ---
 
 
