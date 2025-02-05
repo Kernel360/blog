@@ -205,7 +205,7 @@ public static final int IVE_WONYOUNG = 1;
 
 ### ✅ 열거 타입 사용
 
-```
+```java
 public enum IVE { RAY, WONYOUNG, RIZ }
 IVE member = IVE.WONYOUNG;
 ```
@@ -224,8 +224,6 @@ IVE member = IVE.WONYOUNG;
 이는 **잘못된 값이 계속 사용될 가능성을 높이고, 오류를 찾기 어렵게 만듭니다**
 
 ```java
-java
-복사편집
 public class Constants {
     public static final int IVE_RAY = 0;
     public static final int IVE_WONYOUNG = 1;
@@ -270,7 +268,7 @@ public class Main {
 개발자는 **잘못된 참조를 바로 확인하고 수정할 수 있으며**, 예상치 못한 런타임 오류를 방지할 수 있습니다
 
 
-## **5. `enum`은 객체처럼 활용할 수 있으며, 복잡한 개념도 표현할 수 있다**
+## 5. 객체처럼 활용할 수 있으며, 복잡한 개념도 표현할 수 있다
 
 일반적으로 `enum`은 단순한 상수를 정의하는 데 사용되지만, 사실 **필드와 메서드를 가질 수 있는 강력한 클래스**입니다.
 
