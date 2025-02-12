@@ -36,6 +36,14 @@ Next.js의 기존 Pages Router 방식은 **파일 기반 라우팅과 클라이�
 export default function AboutPage() {
   return <h1>About Us</h1>;
 }
+
+export async function getStaticProps() {
+  return { props: { data: "Static data" } };
+}
+
+export async function getServerSideProps() {
+  return { props: { data: "Dynamic data" } };
+}
 ```
 
 ---
@@ -53,8 +61,9 @@ Next.js 13부터 **새로운 라우팅 시스템**인 **App Router**가 도입�
 
 #### 📌 코드 예시 (`app/about/page.tsx`)
 ```tsx
-export default function AboutPage() {
-  return <h1>About Us</h1>;
+export default async function AboutPage() {
+  const data = await fetch("https://api.example.com/about").then((res) => res.json());
+  return <h1>{data.title}</h1>;
 }
 ```
 ---
@@ -99,8 +108,21 @@ export default async function UserProfile() {
 ### ✅ 레이아웃(Layout)과 상태 유지
 App Router에서는 **레이아웃을 자동으로 캐싱**하고, 페이지 이동 시 레이아웃을 유지할 수 있습니다.
 
+📌 레이아웃 예시 (`app/layout.tsx`)
 ```tsx
-// ✅ `app/layout.tsx`
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div>
+      <nav>Navbar</nav>
+      <main>{children}</main>
+    </div>
+  );
+}
+```
+
+📌 중첩 레이아웃 예시
+```tsx
+// `app/dashboard/layout.tsx`
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
@@ -122,6 +144,14 @@ Next.js 13+에서는 **App Router를 통해 서버 렌더링을 강화하고, �
 - 기존 **Pages Router를 사용하던 프로젝트는 단계적으로 App Router로 마이그레이션 가능**
 - **폴더 기반 라우팅, Server Components, 자동 레이아웃 유지 등의 장점**을 활용 가능
 - **점진적 전환을 고려하여 기존 프로젝트와 혼합 사용 가능**
+
+🛠️ 유의사항
+
+RSC 기반으로 변경되므로, 클라이언트 컴포넌트 사용에 주의
+
+기존 API Routes(/pages/api 사용)가 사라지고 Server Actions로 대체
+
+캐싱 및 상태 관리 방식이 변화하므로, React Query 또는 Zustand 같은 상태 관리 라이브러리 활용 고려
 
 Next.js 프로젝트를 운영 중이라면,  
 **App Router로 전환하면서 새로운 기능을 적극 활용하는 것**을 추천합니다. 🚀
