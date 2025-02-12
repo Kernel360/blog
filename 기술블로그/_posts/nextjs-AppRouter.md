@@ -150,9 +150,11 @@ export default async function UserProfile() {
 ---
 
 ### ✅ 레이아웃(Layout)과 상태 유지
-App Router에서는 **레이아웃을 자동으로 캐싱**하고, 페이지 이동 시 레이아웃을 유지할 수 있습니다.
+App Router에서는 **레이아웃을 자동으로 캐싱**하고, 페이지 이동 시 **레이아웃을 유지**할 수 있습니다.
+이는 페이지 전환 시 **헤더, 사이드바, 네비게이션 같은 공통 UI 요소를 유지하면서**
+개별 페이지의 콘텐츠만 새로 로드할 수 있도록 해줍니다.
 
-📌 레이아웃 예시 (`app/layout.tsx`)
+#### 📌 기본 레이아웃 예시 (`app/layout.tsx`)
 ```tsx
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -163,23 +165,36 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 ```
+이 레이아웃은 **모든 페이지에 공통으로 적용되는 글로벌 레이아웃**입니다.
+여기서 Navbar는 **모든 페이지에서 동일하게 유지**됩니다
 
-📌 중첩 레이아웃 예시
+#### 📌 중첩(Nested) 레이아웃 예시
 ```tsx
 // `app/dashboard/layout.tsx`
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-      <nav>Navbar</nav>
-      <main>{children}</main>
+    <div style={{ display: "flex" }}>
+      <aside style={{ width: "200px", background: "#f5f5f5" }}>
+        <p>Dashboard Sidebar</p>
+      </aside>
+      <main style={{ flex: 1 }}>{children}</main>
     </div>
   );
 }
 ```
+dashboard 내부의 페이지들은 **공통 네비게이션(Navbar)을 유지하면서, 대시보드 전용 사이드바가 추가된 구조**가 됩니다.
 
-이전 Pages Router에서는 **`_app.tsx`에서 글로벌 레이아웃을 관리**했지만,  
-App Router에서는 각 폴더별로 **레이아웃을 계층적으로 분리**할 수 있습니다.
-
+##### 📌 폴더 구조 예시
+```
+app/
+ ├── layout.tsx         // 최상위 글로벌 레이아웃 (Navbar 포함)
+ ├── page.tsx           // 홈 화면
+ ├── dashboard/         // 대시보드 페이지 (Nested Layout 적용)
+ │    ├── layout.tsx    // 대시보드 전용 레이아웃 (Sidebar 포함)
+ │    ├── page.tsx      // 대시보드 메인 페이지
+ │    ├── settings/     // 대시보드 내 설정 페이지
+ │    │    ├── page.tsx
+```
 ---
 
 ## 4. 결론
@@ -189,12 +204,10 @@ Next.js 13+에서는 **App Router를 통해 서버 렌더링을 강화하고, �
 - **폴더 기반 라우팅, Server Components, 자동 레이아웃 유지 등의 장점**을 활용 가능
 - **점진적 전환을 고려하여 기존 프로젝트와 혼합 사용 가능**
 
-🛠️ 유의사항
+#### 🛠️ 유의사항
 
 RSC 기반으로 변경되므로, 클라이언트 컴포넌트 사용에 주의
-
 기존 API Routes(/pages/api 사용)가 사라지고 Server Actions로 대체
-
 캐싱 및 상태 관리 방식이 변화하므로, React Query 또는 Zustand 같은 상태 관리 라이브러리 활용 고려
 
 Next.js 프로젝트를 운영 중이라면,  
