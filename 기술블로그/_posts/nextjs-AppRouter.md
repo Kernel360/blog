@@ -61,10 +61,54 @@ Next.js 13부터 **새로운 라우팅 시스템**인 **App Router**가 도입�
 
 #### 📌 코드 예시 (`app/about/page.tsx`)
 ```tsx
+// 서버 컴포넌트 활용 (자동 서버 렌더링)
 export default async function AboutPage() {
-  const data = await fetch("https://api.example.com/about").then((res) => res.json());
-  return <h1>{data.title}</h1>;
+  const data = await fetch("https://api.example.com/about", { cache: "no-store" }).then((res) =>
+    res.json()
+  );
+
+  return (
+    <div>
+      <h1>{data.title}</h1>
+      <p>{data.description}</p>
+    </div>
+  );
 }
+```
+
+#### 📌 Suspense를 활용한 로딩 처리 (app/about/loading.tsx)
+```tsx
+export default function Loading() {
+  return <p>페이지 로딩 중...</p>;
+}
+```
+
+#### 📌 클라이언트 컴포넌트 활용 (app/about/client-component.tsx)
+```
+"use client";
+
+import { useState, useEffect } from "react";
+
+export default function ClientComponent() {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch("/api/message")
+      .then((res) => res.json())
+      .then((data) => setMessage(data.message));
+  }, []);
+
+  return <p>{message || "불러오는 중..."}</p>;
+}
+```
+
+#### 📌 App Router 구조 예시
+```
+app/
+ ├── about/
+ │    ├── page.tsx  // 서버 컴포넌트
+ │    ├── loading.tsx  // Suspense 기반 로딩 처리
+ │    ├── client-component.tsx  // 클라이언트 컴포넌트
 ```
 ---
 
