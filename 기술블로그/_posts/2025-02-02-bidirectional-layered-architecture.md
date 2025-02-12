@@ -83,114 +83,232 @@ Project/src/main/java
 
 이제 ‘양방향 레이어드 아키텍처’가 무엇인지에 대해 알아보겠습니다. 양방향 레이어드 아키텍처는 레이어드 아키텍처를 지향해 개발했지만, 레이어드 아키텍처가 반드시 지켜야 할 가장 기초적인 제약을 위반할 때를 지칭하는 말입니다. 그리고 여기서 가장 기초적인 제약이란 **’레이어 간 의존 방향은 단방향을 유지해야 한다’**라는 것입니다.
 
-예를 들어 설명하겠습니다. 간혹 레이어드 아키텍처를 사용하는 조직에서는 편의상 하위 레이어에 있는 컴포넌트가 상위 레이어에 존재하는 모델을 이용하는 경우가 발생합니다. 다음은 하위 레이어인 서비스 계층에서 상위 레이어인 API 레이어의 모델에 접근하는 사례입니다.
+### 양방향 의존성 사례 1: DTO(요청 모델) 참조
+ 아래 예시는 서비스 컴포넌트에서 API 요청을 매핑하는 PostCreateRequest DTO를 직접 사용하는 경우입니다.
 
 ```java
 @Service
 @RequiredArgsConstructor
 public class PostService {
-    private final CafeMemberJpaRepository cafeMemberJpaRepository;
-    private final BoardJpaRepository boardJpaRepository;
-    private final PostJpaRepository postJpaRepository;
 
-    @Transactional
-    public Post create(
-        long cafeId,
-        long boardId,
-        long writerId,
-        PostCreateRequest postCreateRequest) { // API 요청을 받는 모델인데 비즈니스 레이어에서 사용함
-        long currentTimestamp = Instant.now().toEpochMilli();
-        CafeMember cafeMember = cafeMemberJpaRepository
-            .findByCafeIdAndUserId(cafeId, writerId)
-            .orElseThrow(() -> new ForbiddenAccessException());
-        User writer = userJpaRepository
-            .findById(writerId)
-            .orElseThrow(() -> new UserNotFoundException());
-        Cafe cafe = cafeMember.getCafe();
-        Board board = boardJpaRepository
-            .findById(boardId)
-            .orElseThrow(() -> new BoardNotFoundException());
-        Post post = new Post();
-        post.setTitle(postCreateRequest.getTitle());
-        post.setContent(postCreateRequest.getContent());
-        post.setCafe(cafe);
-        post.setBoard(board);
-        post.setWriter(writer);
-        post.setCreatedTimestamp(currentTimestamp);
-        post.setModifiedTimestamp(currentTimestamp);
-        post = postJpaRepository.save(post);
-        cafe.setNewPostTimestamp(currentTimestamp);
-        cafe = cafeJpaRepository.save(cafe);
-        return post;
-    }
+  // 각 레포지토리 주입 (비즈니스 로직에 필요한 의존성)
+  private final CafeMemberJpaRepository cafeMemberJpaRepository;
+  private final BoardJpaRepository boardJpaRepository;
+  private final PostJpaRepository postJpaRepository;
+  private final UserJpaRepository userJpaRepository;
+  private final CafeJpaRepository cafeJpaRepository;
+
+  @Transactional
+  public Post create(
+    long cafeId,
+    long boardId,
+    long writerId,
+    PostCreateRequest postCreateRequest) { // 프레젠테이션 레이어에서 전달된 DTO를 직접 사용함
+
+    // 현재 타임스탬프를 가져옴 (게시글 생성 시간)
+    long currentTimestamp = Instant.now().toEpochMilli();
+
+    // 카페 멤버를 조회 (권한 검사 포함)
+    CafeMember cafeMember = cafeMemberJpaRepository
+      .findByCafeIdAndUserId(cafeId, writerId)
+      .orElseThrow(() -> new ForbiddenAccessException());
+
+    // 작성자(User)를 조회
+    User writer = userJpaRepository
+      .findById(writerId)
+      .orElseThrow(() -> new UserNotFoundException());
+
+    // 카페 정보 획득
+    Cafe cafe = cafeMember.getCafe();
+
+    // 게시판(Board)을 조회
+    Board board = boardJpaRepository
+      .findById(boardId)
+      .orElseThrow(() -> new BoardNotFoundException());
+
+    // 새로운 게시글(Post) 객체 생성
+    Post post = new Post();
+
+    // API 요청용 DTO에서 제목과 내용을 가져와 게시글에 설정
+    post.setTitle(postCreateRequest.getTitle());
+    post.setContent(postCreateRequest.getContent());
+    post.setCafe(cafe);
+    post.setBoard(board);
+    post.setWriter(writer);
+    post.setCreatedTimestamp(currentTimestamp);
+    post.setModifiedTimestamp(currentTimestamp);
+
+    // 게시글 저장
+    post = postJpaRepository.save(post);
+
+    // 카페의 최신 게시글 타임스탬프 업데이트 후 저장
+    cafe.setNewPostTimestamp(currentTimestamp);
+    cafe = cafeJpaRepository.save(cafe);
+
+    return post;
+  }
 }
+
 ```
+위 코드에서 PostCreateRequest 클래스는 프레젠테이션 레이어(컨트롤러)에서 사용하기 위해 만들어진 DTO입니다. 이를 비즈니스 레이어에서 그대로 사용함으로써 두 레이어 간에 양방향(순환) 의존성이 발생하게 되고, 이는 결국 레이어의 경계를 모호하게 만듭니다.
 
-`PostCreateRequest` 클래스는 API 레이어의 모델입니다. API로 들어오는 요청을 `@RequestBody` 애너테이션을 이용해 매핑하려고 만든 객체인데, 하위 레이어에 존재하는 서비스 컴포넌트로 전달해 서비스에서 이를 사용하고 있는 상황입니다.
-
-비즈니스 레이어에 위치한 서비스 컴포넌트가 프레젠테이션 레이어에 위치한 객체에 의존하는 바람에 두 레이어 간에 양방향 의존 관계가 생겼습니다. 이처럼 레이어 간에 양방향 의존성이 생긴 상황을 가리켜 ‘양방향 레이어드 아키텍처’라고 부릅니다. 이런 일이 발생해서는 안 됩니다. 왜냐하면 이렇게 될 경우 애써 정한 레이어의 역할이 의미가 없어지기 때문입니다. 다시 말해 계층이 무너집니다.
-
-이것은 좋게 말해 양방향 의존이지만, 실은 순환 참조입니다. 그래서 레이어 간 양방향 의존성이 생겼다는 말은 아키텍처 수준에서 순환 참조가 생겼고, 분리된 레이어가 하나로 통합됐다는 선언과 같습니다. 그러므로 양방향 레이어드 아키텍처는 레이어드 아키텍처에서 가장 중요한 계층 관계가 사라진 상황이라고 표현할 수 있습니다.
-
-양방향 레이어드 아키텍처에서 레이어는 더 이상 레이어라 부를 수 없습니다. 레이어가 컴포넌트를 구분하는 역할밖에 하지 못하기 때문입니다. 그러니 차라리 폴더라고 부르는 편이 나을 것입니다. 나아가 양방향 레이어드 아키텍처는 아키텍처라고 볼 수조차 없습니다. 왜냐하면 우리는 폴더에 맞춰 컴포넌트를 배치하는 것을 보고 아키텍처라고 부르지 않기 때문입니다.
-
-그렇다면 레이어 간에 양방향 참조가 생겼을 때 이를 해결하는 방법은 무엇일까요? 다양한 방법이 있지만 여기서는 크게 두 가지 방법을 소개하겠습니다.
-
-## 1. 레이어 별 모델 구성
-첫 번째 해결 방법은 레이어별로 모델을 따로 만드는 것입니다. 이전 코드의 상황을 예시로 들자면 비즈니스 레이어에서 사용할 `PostCreateCommand` 모델을 추가로 만드는 것입니다. 이 모델은 프레젠테이션 레이어에 존재하는 `PostCreateRequest` 모델에 대응하는 모델입니다.
+해결 방법 1: 레이어별 모델 구성
+비즈니스 레이어에서 별도의 DTO(예, PostCreateCommand)를 사용하여 의존 방향을 단방향으로 유지합니다.
 
 ```java
+// 프레젠테이션 레이어의 DTO
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PostCreateRequest {
-    private String title;
-    private String content;
+  // 클라이언트에서 전달되는 게시글 생성 요청 데이터
+  private String title;
+  private String content;
 }
 ```
-
 ```java
+// 비즈니스 레이어 전용 DTO
 @Data
 @Builder
 public class PostCreateCommand {
-    private String title;
-    private String content;
-    private Long writerId;
+  // 서비스 로직에서 사용하는 게시글 생성 데이터 모델
+  private String title;
+  private String content;
+
+  // writerId는 신뢰할 수 있는 인증 정보를 통해 할당됨
+  private Long writerId;
+}
+```
+컨트롤러에서는 API 요청을 받은 후, PostCreateRequest를 PostCreateCommand로 변환하여 서비스 메서드를 호출합니다.
+
+```java
+@PostMapping("/posts")
+public ResponseEntity<PostResponse> createPost(
+  @RequestBody PostCreateRequest request,
+  @AuthenticationPrincipal UserPrincipal userPrincipal) {
+
+  // 프레젠테이션 DTO(PostCreateRequest)를 서비스 전용 DTO(PostCreateCommand)로 변환
+  PostCreateCommand command = PostCreateCommand.builder()
+    .title(request.getTitle())               // 요청 DTO에서 제목 추출
+    .content(request.getContent())             // 요청 DTO에서 내용 추출
+    .writerId(userPrincipal.getId())           // 인증 정보를 통해 작성자 ID 설정
+    .build();
+
+  // 비즈니스 레이어의 서비스 메서드 호출 (cafeId, boardId는 URL 또는 기타 파라미터에서 전달받는다고 가정)
+  Post post = postService.create(cafeId, boardId, command);
+
+  // 결과를 PostResponse로 감싸서 클라이언트에 반환
+  return ResponseEntity.ok(new PostResponse(post));
+}
+
+```
+이렇게 하면 각 레이어에서 사용하는 모델이 분리되어 의존성이 단방향이 됩니다.
+
+### 양방향 의존성 사례 2: 비즈니스 레이어(Service)에서 프레젠테이션 레이어(Controller)를 직접 참조
+DTO 참조 외에도 더 심각한 문제는 비즈니스 로직을 수행하는 서비스 클래스에서 컨트롤러를 직접 참조하는 경우입니다. 이는 레이어 간 역할 분리가 무너지며, 컨트롤러에 정의된 기능(주로 사용자 인터페이스 관련 로직)이 비즈니스 로직에 영향을 주게 됩니다.
+
+예를 들어 아래와 같은 코드를 보겠습니다.
+
+```java
+@RestController
+@RequestMapping("/notifications")
+@RequiredArgsConstructor
+public class NotificationController {
+
+  /**
+   * 알림 메시지를 포맷팅하여 반환하는 메서드
+   */
+  @GetMapping("/format")
+  public String formatNotification(@RequestParam String message) {
+    // UI에 맞춘 포맷팅 처리 (예: 접두어 추가 등)
+    return "Notification: " + message;
+  }
 }
 ```
 
-### 명명 규칙
-- `~Request` 클래스는 API 요청을 처리하는 모델입니다.
-- `~Command` 클래스는 서비스에 생성, 수정, 삭제 요청을 보낼 때 사용하는 DTO입니다.
+```java
+@Service
+@RequiredArgsConstructor
+public class NotificationService {
 
-이처럼 `Request`와 `Command` 클래스를 구분하고 컨트롤러는 서비스에 요청을 보낼 때 `PostCreateRequest` 클래스를 `PostCreateCommand` 클래스로 변환한 후 서비스 메서드를 호출합니다. 이를 통해 의존 방향이 단방향이 되고 순환 참조가 사라집니다.
+  // ★ 문제: NotificationController는 프레젠테이션 레이어에 속하는데, 이를 서비스에 직접 주입받음
+  private final NotificationController notificationController;
 
-### 추가적인 장점
-이 방법을 사용하면 API 요청 본문(Request Body)과 서비스 컴포넌트에서 사용하는 DTO를 분리할 수 있습니다. 예를 들어, `PostCreateRequest` 클래스에 `writerId` 라는 필드가 있다고 가정해 봅시다. 클라이언트가 보내는 이 값을 신뢰할 수 있을까요? 악의적인 사용자가 이를 조작하여 요청을 보낼 수 있기 때문에 신뢰할 수 없습니다. 따라서 `PostCreateRequest` 클래스에서는 `writerId` 같은 멤버 변수를 포함하지 않고, `PostCreateCommand` 클래스에서 이 값을 갖게 합니다.
+  public void sendNotification(String message) {
+    // 비즈니스 로직 수행 중 컨트롤러의 포맷팅 메서드를 호출함 → 계층 간 역할 혼재 발생
+    String formattedMessage = notificationController.formatNotification(message);
+
+    // 추가적인 알림 전송 비즈니스 로직
+    System.out.println("Sending notification: " + formattedMessage);
+    // 예를 들어, 이메일 전송이나 푸시 알림 전송 로직이 이어질 수 있음
+  }
+}
+```
+### 문제점
+#### 1. 레이어의 책임 혼재
+비즈니스 로직(Service) 내에서 프레젠테이션 관련 기능(여기서는 주문 로그 기록)을 호출하게 되면, 두 레이어의 책임이 뒤섞이게 됩니다. 이는 유지보수 및 확장성에 큰 악영향을 미칩니다.서비스가 프레젠테이션 레이어의 기능(여기서는 메시지 포맷팅)을 직접 호출함으로써, 두 레이어의 역할이 섞여버립니다.
+
+#### 2. 순환 참조 가능성
+만약 컨트롤러가 내부적으로 서비스를 호출하고, 서비스가 다시 컨트롤러의 메서드를 호출하면 순환 참조가 발생하여 애플리케이션의 구조가 무너집니다.만약 컨트롤러가 내부적으로 서비스를 호출하는 경우, 양쪽이 서로를 참조하게 되어 순환 참조 문제가 발생할 수 있습니다.
+
+#### 3. 테스트 어려움
+서비스 단위 테스트 시 프레젠테이션 레이어 의존성이 포함되면, 목(mock) 객체 구성이나 테스트 설정이 복잡해집니다.
+
+### 해결 방법
+이 경우에도 기본 원칙은 레이어 간 단방향 의존성 유지입니다.
+
+컨트롤러와 서비스의 역할을 명확히 분리해야 합니다.
+만약 메세지 포맷팅 기능과 같이 여러 레이어에서 공통으로 사용할 로직이 있다면, 이를 별도의 유틸리티 클래스나 **공통 모듈(core)**로 분리하는 것이 좋습니다.
+아래는 알림 메시지 포맷팅 기능을 전용 컴포넌트로 분리한 예입니다.
 
 ```java
-PostCreateCommand.builder()
-    .title(postCreateRequest.getTitle())
-    .content(postCreateRequest.getContent())
-    .writerId(userPrincipal.getId())
-    .build();
+@Component
+public class NotificationFormatter {
+
+  /**
+   * 알림 메시지를 포맷팅하는 기능을 수행
+   */
+  public String format(String message) {
+    return "Notification: " + message;
+  }
+}
 ```
+```java
+@Service
+@RequiredArgsConstructor
+public class NotificationService {
 
-즉, `PostCreateCommand` 클래스에 필요한 정보를 반드시 `PostCreateRequest` 클래스에서 가져올 필요가 없습니다. 대신 `UserPrincipal` 같은 신뢰할 수 있는 객체에서 가져오도록 합니다. 이는 객체의 역할을 분리하는 효과를 가집니다.
+  // NotificationFormatter를 통해 알림 메시지 포맷팅 기능을 분리함
+  private final NotificationFormatter notificationFormatter;
 
-### 단점
-이 방식에도 단점이 있습니다. 대표적인 단점은 작성해야 하는 코드의 양이 늘어난다는 것입니다. 예를 들어, `Post` 클래스와 연관된 데이터 모델이 다음과 같이 늘어납니다.
-- `Post`
-- `PostCreateRequest`
-- `PostCreateCommand`
+  public void sendNotification(String message) {
+    // NotificationFormatter를 사용하여 포맷팅하므로 프레젠테이션 레이어에 의존하지 않음
+    String formattedMessage = notificationFormatter.format(message);
 
-만약 수정에 사용할 DTO까지 추가한다면 데이터 모델은 더욱 증가할 것입니다. 결과적으로 (CRUD를 위한 4개의 DTO * 레이어 개수)만큼 클래스가 추가될 수 있습니다.
+    // 알림 전송 비즈니스 로직 수행
+    System.out.println("Sending notification: " + formattedMessage);
+  }
+}
+```
+```java
+@RestController
+@RequestMapping("/notifications")
+@RequiredArgsConstructor
+public class NotificationController {
 
-이처럼 작성해야 하는 코드가 늘어나는 것은 조직 관점에서 비용 증가로 이어질 수 있습니다. 따라서 모델을 설계할 때는 적절한 균형을 유지하는 것이 중요합니다.
+  // 별도의 알림 전송 로직이 필요하다면, NotificationService를 호출하는 방식으로 처리
+  private final NotificationService notificationService;
 
+  @PostMapping("/send")
+  public ResponseEntity<String> sendNotification(@RequestBody String message) {
+    notificationService.sendNotification(message);
+    return ResponseEntity.ok("Notification sent.");
+  }
+}
+```
 ## 2. 공통 모듈 구성
 두 번째로 소개할 방법은 공통으로 참조하는 코드를 별도의 모듈로 분리하는 것입니다. 다시 말해 모든 레이어가 단방향으로 참조하는 공통 모듈을 만들고, `PostCreateRequest` 클래스 같은 모델을 거기에 배치하는 것입니다.
 
-예를 들어, `PostCreateRequest` 클래스를 `core` 패키지로 옮기고 모든 레이어가 이 `core`라는 모듈에 의존하도록 변경하면 어떻게 될까요?
+예를 들어, 첫 번째 예시에서 `PostCreateRequest` 클래스를 `core` 패키지로 옮기고 모든 레이어가 이 `core`라는 모듈에 의존하도록 변경하면 어떻게 될까요?
 ```
 Project/src/main/java
  ├── core  ← 공통 모듈
