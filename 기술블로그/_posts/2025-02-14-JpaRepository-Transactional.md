@@ -1,7 +1,7 @@
 
 ---
 layout: post  
-title: "Jpa의 트랜잭션 처리가 @Transactional 없이도 이루어지는 이유 feat. Proxy"
+title: "Jpa의 트랜잭션 처리가 Transactional 없이도 이루어지는 이유.(feat. Proxy)"
 author: "김대현"
 categories: "기술블로그"
 banner:
@@ -10,13 +10,12 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: ["JAVA", "JPA", "ORM", "Reflection", "Hibernate", "Proxy", "LazyLoading"]
+  tags: ["JAVA", "JPA", "ORM", "Transaction", "Transactional", "Proxy"]
 ---
 
-Spring Data JPA를 사용할 때, `@Transactional`을 직접 선언하지 않아도 트랜잭션이 자동으로 적용되는 것을 확인할 수 있다. 어떻게 자동으로 적용되는 것일까? 그리고 이 과정에서 프록시는 어떤 역할을 할까? 
+Spring Data JPA를 사용할 때, `@Transactional`을 직접 선언하지 않아도 트랜잭션이 자동으로 적용되는 것을 확인할 수 있다. 
+어떻게 자동으로 적용되는 것일까? 그리고 이 과정에서 프록시는 어떤 역할을 할까? 
 이번 글에서는 Spring Data JPA의 트랜잭션 관리 원리를 프록시(proxy)와 관계지어 알아보자.
-
----
 
 # 1. JPA Respository에서 @Transactional 없이도 트랜잭션이 동작하는 이유
 Spring Data JPA에서 JpaRepository를 상속받으면 기본적으로 제공되는 CRUD 메서드(`save()`, `findById()`, `delete()` 등등)는 트랜잭션이 자동으로 적용된다. 우리가 직접 `@Transactional`을 선언하지 않아도 트랜잭션이 동작하는 이유는 무엇일까?
