@@ -20,7 +20,8 @@ Spring Data JPA를 사용할 때, `@Transactional`을 직접 선언하지 않아
 ---
 
 # 1. JPA Respository에서 @Transactional 없이도 트랜잭션이 동작하는 이유
-Spring Data JPA에서 JpaRepository를 상속받으면 기본적으로 제공되는 CRUD 메서드(`save()`, `findById()`, `delete()` 등등)는 트랜잭션이 자동으로 적용된다. 우리가 직접 `@Transactional`을 선언하지 않아도 트랜잭션이 동작하는 이유는 무엇일까?
+Spring Data JPA에서 JpaRepository를 상속받으면 기본적으로 제공되는 CRUD 메서드(`save()`, `findById()`, `delete()` 등등)는 트랜잭션이 자동으로 적용된다. 
+우리가 직접 `@Transactional`을 선언하지 않아도 트랜잭션이 동작하는 이유는 무엇일까?
 이를 이해하려면 JpaRepository가 상속하는 인터페이스 계층도부터 살펴볼 필요가 있다.
 
 ### 1.1 JpaRepository 계층 구조
@@ -34,8 +35,8 @@ Spring Data JPA의 JpaRespository는 여러 개의 인터페이스를 계층적�
 JPA의 트랜잭션 처리가 `@Transactional`없이도 동작하는 이유는 Spring Data JPA가 제공하는 **기본 구현체** 덕분이다.
 
 ### 1.2 SimpleJpaRepository 내부의 트랜잭션 적용
-SimpleJpaRepository는 **Spring Data JPA에서 제공**하는 기본 JPA 리포지토리 **구현체**이다.
-즉, JpaRepository 인터페이스를 구현하는 기본 클래스이며, 개발자가 직접 구현하지 않아도 기본적인 **CRUD** 기능을 자동으로 제공해 줍니다.
+SimpleJpaRepository는 **Spring Data JPA에서 제공**하는 기본 JPA 리포지토리 **구현체**이다. 
+즉, JpaRepository 인터페이스를 구현하는 기본 클래스이며 개발자가 직접 구현하지 않아도 기본적인 기능들을 제공해준다. 
 
 ```Java
  @Transactional
