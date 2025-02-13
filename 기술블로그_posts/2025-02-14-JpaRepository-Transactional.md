@@ -5,12 +5,12 @@ title: "Jpa의 트랜잭션 처리가 @Transactional 없이도 이루어지는 �
 author: "김대현"
 categories: "기술블로그"
 banner:
-  image: "https://github.com/Kernel360/blog-image/blob/main/2025/jpa.png"
+  image: "2025/jpa.png"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`Spring`, `JPA`, `Transactional`, `Proxy`, `ORM`]
+  tags: ["JAVA", "JPA", "ORM", "Reflection", "Hibernate", "Proxy", "LazyLoading"]
 ---
 
 Spring Data JPA를 사용할 때, `@Transactional`을 직접 선언하지 않아도 트랜잭션이 자동으로 적용되는 것을 확인할 수 있다. 어떻게 자동으로 적용되는 것일까? 그리고 이 과정에서 프록시는 어떤 역할을 할까? 
@@ -82,12 +82,11 @@ Spring은 **AOP(Aspect-Oriented Programming)** 기법을 활용하여 프록시�
 4. 원래 메서드를 실행한다.
 5. 정상 종료되면 트랜잭션을 커밋(`commit`), 예외가 발생하면 롤백(`rollback`) 한다.
 
->
-✅ **참고** 
-**만약 프록시 없이 @Transactional을 적용한다면?**
-메서드 호출이 원본 객체로 바로 전달되므로 트랜잭션이 적용되지 않는다.
-예외 발생 시 자동 롤백이 불가능하다.
-여러 DB 연산이 하나의 트랜잭션으로 묶이지 않는다.
+>✅ **참고** 
+>**만약 프록시 없이 @Transactional을 적용한다면?**
+>메서드 호출이 원본 객체로 바로 전달되므로 트랜잭션이 적용되지 않는다.
+>예외 발생 시 자동 롤백이 불가능하다.
+>여러 DB 연산이 하나의 트랜잭션으로 묶이지 않는다.
 
 
 
