@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: "Next.js에서 Result 패턴을 활용한 비동기 요청 에러 처리"
+title: "Next.js에서 Result 패턴을 활용한 HTTP 요청 에러 핸들링"
 author: "오송민"
 categories: "프론트엔드 기술블로그"
 banner:
@@ -25,86 +25,6 @@ Typescript에서 런타임 에러를 잡기 위해서 `try…catch`를 사용할
 또한, 비동기 함수를 호출할 때 마다 반복적으로 작성해야하는`try…catch`문은 중복되는 코드를 증가시키며, 코드 가독성을 해치는 것이 아닌가라는 생각이 들었습니다.
 
 해당 문제들을 해결하기 위해서 **에러 처리 로직을 모듈화**하여 중복을 줄이고 유지보수성을 높이는 방향으로 리팩토링 해보았습니다.
-
-# Result 타입
-
-중앙 집중화된 에러 처리 로직을 만든다면 해당 문제를 해결할 수 있을 듯 보입니다. 그러기 위해선 모든 비동기 요청에 대해 **정형화된 반환값을 정의해야 합니다.**
-
-`Rust`의 [Result](https://doc.rust-lang.org/std/result/)타입을 레퍼런스로 하여 나온 다양한 Typescript 라이브러리를 참고하여 프로젝트에서 사용할 공통된 반환 타입을 만들었습니다.
-
-라이브러리를 사용하실 분들은 [fp-ts](https://github.com/gcanti/fp-ts), [neverthrow](https://github.com/supermacro/neverthrow), [typescript-result](https://github.com/everweij/typescript-result) 등을 설치하시면 됩니다. 다양한 메서드를 제공하고 안정성과 사용성면에서 라이브러리를 사용하는 것도 좋지만, 구현체가 복잡하지 않아 아이디어를 참고하여 프로젝트의 사용성에 맞게 구현하여 사용했습니다.
-
-`Result` 타입은 프로젝트 위클리 때 멘토님께서 알려주신 문제 해결 방법..이자 타입입니다.
-`Rust`의 `Result` 타입은 함수나 메서드가 성공했을 때와 실패했을 때의 두 가지 경우를 명시적으로 표현할 수 있도록 도와주는 표준 타입입니다.
-
-## Rust의 Result<T, E>
-
-Rust의 `Result` 타입은 두개의 `Generic`을 사용하여 정의됩니다.
-
-```rust
-enum Result<T, E> {
-    Ok(T),   // 성공한 경우, T 타입의 값을 담습니다.
-    Err(E),  // 실패한 경우, E 타입의 에러 정보를 담습니다.
-}
-```
-
-- **T**: 성공했을 때 반환할 값의 타입입니다.
-- **E**: 실패했을 때 반환할 에러의 타입입니다.
-
-이렇게 하면 함수가 반환하는 값과 에러 정보를 호출자가 명시적으로 다룰 수 있게 되어, 에러 처리를 타입 시스템 수준에서 강제할 수 있습니다.
-
-### 사용 예시
-
-예를 들어, 파일을 읽어 문자열로 반환하는 함수를 작성할 때, 성공하면 파일 내용(String)을, 실패하면 입출력 에러(`std::io::Error`)를 반환하도록 할 수 있습니다.
-
-```rust
-use std::fs;
-use std::io;
-
-fn read_file(path: &str) -> Result<String, io::Error> {
-    fs::read_to_string(path)
-}
-```
-
-이 함수는 내부에서 파일 읽기 작업이 실패할 경우 자동으로 `Err` 값을 반환합니다.
-
-또는 패턴 매칭을 통해 처리할 수도 있습니다.
-
-호출하는 쪽에서는 `match`를 사용하여 성공/실패를 분기 처리할 수 있습니다.
-
-```rust
-fn main() {
-    match read_file("example.txt") {
-        Ok(contents) => println!("파일 내용: {}", contents),
-        Err(e) => eprintln!("파일 읽기 실패: {}", e),
-    }
-}
-```
-
-이렇게 하면 에러 상황에 따라 다른 처리를 명확하게 구현할 수 있습니다.
-
-## 프로젝트의 Result<T>
-
-Rust의 Result Type과 위 라이브러리들은 모두 유연한 에러 정보를 제공하기 위해 제네릭을 사용하여 에러의 타입(E)을 다양하게 지정할 수 있습니다.
-
-하지만 저는 토스트의 에러 메세지를 세팅해 주기 위해 사용할 것이기 때문에 고정된 에러 타입을 지니도록 만들었습니다.
-
-만약 나중에 더 다양한 에러 정보가 필요해질 경우 `Result<T, E>`에 비해 확장이 어려울 수 있지만, 현재 요구사항에서는 메세지로도 충분하다 판단했습니다.
-
-```jsx
-export type Result<T> = SuccessResult<T> | ErrorResult
-
-type SuccessResult<T> = { success: true; data: T }
-type ErrorResult = { success: false; message: string }
-```
-
-- T: 성공했을 때 반환할 값의 타입입니다.
-
-> Result<T>를 만듦으로써 문제를 50% 해결했습니다.
-
-# 공통 에러 처리 로직
-
-`Result<T>`를 사용하는 비동기 요청을 처리하는 함수를 정의할 차례입니다.
 
 ## 기존 에러 처리 방식
 
@@ -203,7 +123,7 @@ export async function handleBeforeError(error: unknown): Promise<never> {
 
 ## 기존 방식의 문제점
 
-기존에 고민하고 있던 문제점과 더불어 디렉터님이 피드백 해주신 부분을 정리하여 개선해야 할 문제를 설정해보았습니다.
+기존에 고민하고 있던 문제점과 더불어 이인제 디렉터님께서 피드백 해주신 부분을 정리하여 개선해야 할 문제를 설정해보았습니다.
 
 ### 1. 중복된 코드
 
@@ -224,9 +144,87 @@ export async function handleBeforeError(error: unknown): Promise<never> {
 
 이로 인해 **에러 처리 흐름의 일관성을 유지하기 힘들었고, 개발자가 요청 환경에 따라 별도로 처리해야 하는 부담이 있었습니다.**
 
-## 개선된 에러 처리 방식
+# Result 타입
 
-### handleAsyncResult
+중앙 집중화된 에러 처리 로직을 만든다면 해당 문제를 해결할 수 있을 듯 보입니다. 그러기 위해선 모든 비동기 요청에 대해 **정형화된 반환값을 정의해야 합니다.**
+
+`Rust`의 [Result](https://doc.rust-lang.org/std/result/)타입을 레퍼런스로 하여 나온 다양한 Typescript 라이브러리를 참고하여 프로젝트에서 사용할 공통된 반환 타입을 만들었습니다.
+
+라이브러리를 사용하실 분들은 [fp-ts](https://github.com/gcanti/fp-ts), [neverthrow](https://github.com/supermacro/neverthrow), [typescript-result](https://github.com/everweij/typescript-result) 등을 설치하시면 됩니다. 다양한 메서드를 제공하고 안정성과 사용성면에서 라이브러리를 사용하는 것도 좋지만, 구현체가 복잡하지 않아 아이디어를 참고하여 프로젝트의 사용성에 맞게 구현하여 사용했습니다.
+
+`Result` 타입은 프로젝트 위클리 때 함종현 멘토님께서 알려주신 문제 해결 방법..이자 타입입니다.
+`Rust`의 `Result` 타입은 함수나 메서드가 성공했을 때와 실패했을 때의 두 가지 경우를 명시적으로 표현할 수 있도록 도와주는 표준 타입입니다.
+
+## Rust의 Result<T, E>
+
+Rust의 `Result` 타입은 두개의 `Generic`을 사용하여 정의됩니다.
+
+```rust
+enum Result<T, E> {
+    Ok(T),   // 성공한 경우, T 타입의 값을 담습니다.
+    Err(E),  // 실패한 경우, E 타입의 에러 정보를 담습니다.
+}
+```
+
+- **T**: 성공했을 때 반환할 값의 타입입니다.
+- **E**: 실패했을 때 반환할 에러의 타입입니다.
+
+이렇게 하면 함수가 반환하는 값과 에러 정보를 호출자가 명시적으로 다룰 수 있게 되어, 에러 처리를 타입 시스템 수준에서 강제할 수 있습니다.
+
+### 사용 예시
+
+예를 들어, 파일을 읽어 문자열로 반환하는 함수를 작성할 때, 성공하면 파일 내용(String)을, 실패하면 입출력 에러(`std::io::Error`)를 반환하도록 할 수 있습니다.
+
+```rust
+use std::fs;
+use std::io;
+
+fn read_file(path: &str) -> Result<String, io::Error> {
+    fs::read_to_string(path)
+}
+```
+
+이 함수는 내부에서 파일 읽기 작업이 실패할 경우 자동으로 `Err` 값을 반환합니다.
+
+또는 패턴 매칭을 통해 처리할 수도 있습니다.
+
+호출하는 쪽에서는 `match`를 사용하여 성공/실패를 분기 처리할 수 있습니다.
+
+```rust
+fn main() {
+    match read_file("example.txt") {
+        Ok(contents) => println!("파일 내용: {}", contents),
+        Err(e) => eprintln!("파일 읽기 실패: {}", e),
+    }
+}
+```
+
+이렇게 하면 에러 상황에 따라 다른 처리를 명확하게 구현할 수 있습니다.
+
+## 프로젝트의 Result<T>
+
+Rust의 Result Type과 위 라이브러리들은 모두 유연한 에러 정보를 제공하기 위해 제네릭을 사용하여 에러의 타입(E)을 다양하게 지정할 수 있습니다.
+
+하지만 저는 토스트의 에러 메세지를 세팅해 주기 위해 사용할 것이기 때문에 고정된 에러 타입을 지니도록 만들었습니다.
+
+만약 나중에 더 다양한 에러 정보가 필요해질 경우 `Result<T, E>`에 비해 확장이 어려울 수 있지만, 현재 요구사항에서는 메세지로도 충분하다 판단했습니다.
+
+```jsx
+export type Result<T> = SuccessResult<T> | ErrorResult
+
+type SuccessResult<T> = { success: true; data: T }
+type ErrorResult = { success: false; message: string }
+```
+
+- T: 성공했을 때 반환할 값의 타입입니다.
+
+> Result<T>를 만듦으로써 문제를 50% 해결했습니다.
+
+# 공통 에러 처리 로직
+
+`Result<T>`를 사용하는 비동기 요청을 처리하는 함수를 정의할 차례입니다.
+
+## handleAsyncResult
 
 앞서 만든 `Result<T>`를 사용하여 서버와 클라이언트 모두 사용할 수 있는 공통된 에러 처리 함수를 만들었습니다. 매개변수로는 실행할 비동기 함수를 받습니다.
 
@@ -268,7 +266,7 @@ export const handleAsyncResult = async <T>(
 }
 ```
 
-### handleErrorToast
+## handleErrorToast
 
 `handleAsyncResult()`에서 반환받은 `Result<T>`객체를 `handleErrorToast`로 넘겨주어 토스트 메세지를 설정해 줄 수 있습니다.
 
