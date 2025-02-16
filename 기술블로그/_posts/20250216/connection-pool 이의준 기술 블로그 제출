@@ -8,7 +8,7 @@ banner:
   height: "100vh"  
   min_height: "38vh"  
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"  
-  tags: ["SQL", "INDEX", "TUNNING"]
+  tags: ["SPRINGBOOT", "DB", "CONNECTIONPOOL"]
 ---
 
 # 스프링 기반 애플리케이션에서의 데이터베이스 커넥션 흐름: 이론과 실무
