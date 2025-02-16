@@ -1,3 +1,18 @@
+---
+layout: post  
+title: "Amazon S3 보안 향상시키기"  
+author: "박예슬"  
+categories: "기술세미나"  
+banner:
+  image: ""
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+  tags: [`Amazon S3`, `S3`, `보안`, `AWS`, `클라우드`, `데이터 보호`, `IT 보안`]
+---
+
+
 안녕하세요 커널 3기 박예슬입니다.
 
 많은 동기들이 S3를 활용하는 것을 자주 보았는데요, 저 또한 S3를 사용해보며 이런저런 문제를 겪었습니다.
