@@ -3,7 +3,7 @@
 layout: post  
 title: "List 중간 요소를 List 맨 뒤에 추가할 때 ArrayList 와 LinkedList 의 성능 비교"
 author: "박준홍"
-categories: "기술세미나"
+categories: "백엔드 기술블로그"
 banner:
   background: "#2a9d8f"2
   height: "100vh"
