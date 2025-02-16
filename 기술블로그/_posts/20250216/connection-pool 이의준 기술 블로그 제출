@@ -1,3 +1,16 @@
+---
+layout: post  
+title: "데이터베이스 커넥션의 원리와 핵심 개념"  
+author: "이의준"  
+categories: "기술블로그"  
+banner:  
+  background: "#2a9d8f"  
+  height: "100vh"  
+  min_height: "38vh"  
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"  
+  tags: ["SQL", "INDEX", "TUNNING"]
+---
+
 # 스프링 기반 애플리케이션에서의 데이터베이스 커넥션 흐름: 이론과 실무
 
 데이터베이스(DB)와의 통신은 스프링 프레임워크 기반 애플리케이션에서 성능과 안정성을 결정하는 핵심 요소입니다.  
