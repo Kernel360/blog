@@ -84,6 +84,10 @@ public class VehicleController {
     // private 메서드들...
 }
 ```
+keyOff 시퀀스 다이어그램
+
+<img src="https://github.com/user-attachments/assets/d0722d90-571c-433d-aed5-125f7144df62" width="800" height="700"/>
+
 ### @Transactional
 
 다양한 방법이 있지만 우리가 가장 잘 아는 @Transactional은 Spring의 선언적 트랜잭션이다. 그냥 선언만 하면 된다! 
@@ -97,7 +101,9 @@ public class VehicleController {
 
 propagation은 트랜잭션 전파 방식을 의미하고, 개발자가 필요에 따라 @Transactional 의 propagation 옵션을 설정할 수 있다. 
 앞서 말한 것처럼 트랜잭션은 메서드를 타고 타며 전파된다. 
-기존 커넥션을 계속 유지하는 것이다. default 값인 REQUIRED는 이는 아래 그림과 같다.
+기존 커넥션을 계속 유지하는 것이다. default 값인 REQUIRED인 경우 OFF 트랜잭션 흐름은 아래 그림과 같다.
+
+<img src="https://github.com/user-attachments/assets/34623501-60cd-4ba0-8e73-e5c3f1de8d20" width="680" height="800"/>
 
 ### Propagation.REQUIRED_NEW
 
@@ -108,7 +114,11 @@ propagation은 트랜잭션 전파 방식을 의미하고, 개발자가 필요�
 - 새로운 트랜잭션에서 해당 메서드 실행
 - 실행이 끝나면 해당 트랜잭션을 커밋 또는 롤백
 - 기존 트랜잭션을 다시 활성화(Resume)
-- 
+
+REQUIRED_NEW의 경우 OFF 트랜잭션 흐름은 아래와 같다.
+
+<img src="https://github.com/user-attachments/assets/7b8dd951-3f2a-46bd-bcec-e00c1a084121" width="680" height="800"/>
+
 ### 오잉 왜 DB가 비어있지?
 
 이제 트랜잭션을 잘(?) 알게 되었으니 코드에도 적용해보기로 한다.
@@ -123,23 +133,14 @@ OFF 로직을 살펴보니, 차량 정보와 최근 이벤트를 조회해서 �
 public BaseResponse keyOff(
 	@Valid @RequestBody final KeyOffRequest request
 ) {
-    VehicleInformation vehicleInformation = vehicleService.getVehicleInformation(request.mdn());
-    
-    Optional<VehicleEvent> vehicleEvent = vehicleEventService.getRecentVehicleEvent(vehicleInformation.getId());
-    boolean isAlreadyOff = vehicleEvent.map(VehicleEvent::isTypeOff).orElse(false);
-    
-    if (isAlreadyOff) {
-      return BaseResponse.fail(ErrorCode.WRONG_APPROACH);
-    }
-    
-    vehicleService.updateVehicleStatus(vehicleInformation.getId(), VehicleStatus.NOT_DRIVEN);
-    
-    Long updatedTotalDistance = vehicleService.updateTotalDistance();
-    
-    drivingHistoryService.saveDrivingHistory();
-    
-    vehicleEventService.saveVehicleEvent();
-    
+    // ✅ 차량 정보 조회
+    // ✅ 최근 차량 이벤트 조회
+    // ✅ 차량 상태 업데이트
+    // ✅ 총 거리 업데이트 및 조회
+    // ✅ 주행 이력 저장
+    // ✅ 차량 이벤트 저장
+
+    // ✅ 알람 저장 및 전송
     Optional<Long> alarmId = alarmService.saveAlarmIfNecessary(vehicleInformation.getId(), updatedTotalDistance);
     alarmService.sendAlarm(alarmId);
     
@@ -174,13 +175,11 @@ saveAlarmIfNecessary의 트랜잭션이 끝나야(커밋되어야) 다른 API �
 saveAlarmIfNecessary에도 @Transactional(propagation = Propagation.REQUIRES_NEW)을 적용하기로 한다.
 
 ```java
+⬇️ 추가!
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public Optional<Long> saveAlarmIfNecessary(Long vehicleId, Long totalDistance) {
-    Optional<Alarm> alarm = alarmRepository.findRecentOneByVehicleId(vehicleId);
-    int targetDistance = alarm.map(Alarm::getDrivingDistance).orElse(0);
-  
     if (checkBiggerThanIntervalDistance(totalDistance, targetDistance)) {
-      if (alarm.isEmpty() || alarm.get().getStatus().equals(AlarmStatus.COMPLETED)) {
+      if (. . .) {
         return Optional.ofNullable(alarmRepository.save(vehicleId));
       }
     }
@@ -208,17 +207,14 @@ saveAlarmIfNecessary에 SQLException을 잡는 곳이 없어서 keyOff 트랜잭
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public Optional<Long> saveAlarmIfNecessary(Long vehicleId, Long totalDistance) {
     try {
-      Optional<Alarm> alarm = alarmRepository.findRecentOneByVehicleId(vehicleId);
-      int targetDistance = alarm.map(Alarm::getDrivingDistance).orElse(0);
-  
-      if (checkBiggerThanIntervalDistance(totalDistance, targetDistance)) {
-        if (alarm.isEmpty() || alarm.get().getStatus().equals(AlarmStatus.COMPLETED)) {
-          return Optional.ofNullable(alarmRepository.save(vehicleId));
+        if (checkBiggerThanIntervalDistance(totalDistance, targetDistance)) {
+          if (. . .) {
+            return Optional.ofNullable(alarmRepository.save(vehicleId));
+          }
         }
-      }
-      return Optional.empty();
-    } catch (Exception e) {
-      log.error("Alarm 쿼리 예외 발생", e);
+        return Optional.empty();
+    } catch (Exception e) { ⬅️추가!
+        log.error("Alarm 쿼리 예외 발생", e);
     }
     return Optional.empty();
 }
@@ -227,7 +223,7 @@ public Optional<Long> saveAlarmIfNecessary(Long vehicleId, Long totalDistance) {
 public void sendAlarm(Long alarmId) {
     try {
       alarmSender.sendAlarm(AlarmSend.builder().alarmId(alarmId).build());
-    } catch (Exception e) {
+    } catch (Exception e) { ⬅️추가!
       log.info("something wrong: {}", e.getMessage());
     }
 }
@@ -242,23 +238,20 @@ public void sendAlarm(Long alarmId) {
 
 이걸 감내할만큼 중요도가 높은 알림이라면 동기적으로 처리 해야지. 하지만 앱 푸시 알림처럼 나의 알림 또한 그 중요도가 낮기 때문에 비동기 처리하면 좋겠다. 커넥션이 분리되고, 스레드까지 분리되면 keyOff 전체 처리 속도가 단축될 것이라고 판단된다.
 
-자바의 ApplicationEventPublisher을 이용해서 서버 내부에서 로직간의 결합도를 낮출 수 있으며, 혹은 외부 이벤트 브로커를 활용할 수도 있다. 시동 OFF 요청 수가 적지 않을 것이라고 판단되기 때문에 메세지 큐를 쓰면 내부 API 서버에 도달하는 알림 요청을 효과적으로 조절할 수 있다.
+자바의 ApplicationEventPublisher을 이용해서 서버 내부에서 로직간의 결합도를 낮출 수 있으며, 혹은 외부 이벤트 브로커를 활용할 수도 있다. 지금은 주행거리 기준 점검 알림만 있지만, 에어컨 필터 등의 점검 기준이 더 늘어나면 메세지 큐로 내부 API 서버에 도달하는 수많은 알림 요청을 효과적으로 조절할 수 있다.
 
-ApplicationEventPublisher를 적용
+간단하게 ApplicationEventPublisher를 적용한 코드다
 
 ```java
-private final ApplicationEventPublisher eventPublisher;
+private final ApplicationEventPublisher eventPublisher; ⬅️ 추가!
 
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public Optional<Long> saveAlarmIfNecessary(Long vehicleId, Long totalDistance) {
     try {
-        Optional<Alarm> alarm = alarmRepository.findRecentOneByVehicleId(vehicleId);
-        int targetDistance = alarm.map(Alarm::getDrivingDistance).orElse(0);
-    
         if (checkBiggerThanIntervalDistance(totalDistance, targetDistance)) {
-            if (alarm.isEmpty() || alarm.get().getStatus().equals(AlarmStatus.COMPLETED)) {
+            if (. . .) {
                 Long alarmId = alarmRepository.save(vehicleId);
-                **eventPublisher.publishEvent(new AlarmCreatedEvent(alarmId));**
+                eventPublisher.publishEvent(new AlarmCreatedEvent(alarmId)); ⬅️ 추가!
                 return Optional.of(alarmId);
             }
         }
@@ -275,8 +268,9 @@ public Optional<Long> saveAlarmIfNecessary(Long vehicleId, Long totalDistance) {
 @EventListener
 public void handleAlarmEvent(AlarmCreatedEvent event) {
     alarmService.sendAlarm(event.getAlarmId());
-    // 재시도 ?
 }
 ```
+sendAlarm을 비동기로 뺐을 때 트랜잭션 다이어그램
+<img src="https://github.com/user-attachments/assets/33289b42-37cd-4399-9251-c236d12ebdae" width="1000" height="800"/>
 
 
