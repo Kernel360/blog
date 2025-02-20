@@ -109,8 +109,16 @@ public class LoggingFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
     throws IOException, ServletException {
+    HttpServletRequest httpRequest = (HttpServletRequest) request;
+    String token = httpRequest.getHeader("Authorization");
+
+    if (token != null && isValidToken(token)) {
+      String userId = extractUserIdFromToken(token);
+      request.setAttribute("userId", userId); // 사용자 정보 저장
+    }
+
     System.out.println("요청이 Filter를 통과합니다.");
-    chain.doFilter(request, response); // 다음 필터 또는 컨트롤러로 전달
+    chain.doFilter(request, response);
     System.out.println("응답이 Filter를 통과합니다.");
   }
 
@@ -118,7 +126,16 @@ public class LoggingFilter implements Filter {
   public void destroy() {
     System.out.println("Filter 소멸");
   }
+
+  private boolean isValidToken(String token) {
+    return token.startsWith("Bearer "); // 간단한 예제 검증 (실제 구현에서는 JWT 검증 필요)
+  }
+
+  private String extractUserIdFromToken(String token) {
+    return token.replace("Bearer ", ""); // 간단한 예제 (실제 구현에서는 JWT에서 사용자 ID 추출)
+  }
 }
+
 ```
 
 **Filter의 주요 메서드**
@@ -145,18 +162,26 @@ Interceptor는 Spring Context의 HandlerInterceptor 인터페이스를 구현하
 
 **Interceptor 구현 예제**
 ```java
+@Component
 public class AuthInterceptor implements HandlerInterceptor {
+
+  private static final ThreadLocal<String> userContext = new ThreadLocal<>();
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
     throws Exception {
     System.out.println("Interceptor: Controller 실행 전");
-    String token = request.getHeader("Authorization");
-    if (token == null || !isValidToken(token)) {
-      response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-      return false; // 요청 중단
+
+    // Filter에서 저장한 userId 가져오기
+    String userId = (String) request.getAttribute("userId");
+
+    if (userId != null) {
+      userContext.set(userId); // ThreadLocal에 사용자 정보 저장
+      return true;
     }
-    return true; // Controller 실행 계속 진행
+
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+    return false; // 요청 중단
   }
 
   @Override
@@ -169,9 +194,14 @@ public class AuthInterceptor implements HandlerInterceptor {
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
                               Object handler, Exception ex) throws Exception {
     System.out.println("Interceptor: View 렌더링 완료 후");
+    userContext.remove(); // ThreadLocal 정리 (메모리 누수 방지)
+  }
+
+  // 컨트롤러에서 사용자 정보를 가져올 수 있도록 하는 메서드
+  public static String getCurrentUserId() {
+    return userContext.get();
   }
 }
-
 ```
 
 **Interceptor의 주요 메서드**
@@ -190,9 +220,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 <br>
 
-### 4. Filter와 Interceptor 차이점 정리
+### 4. Filter와 Interceptor 정리
 
-**4.1 차이점 비교**
+**4.1 Filter와 Interceptor 비교**
 
 | 비교 항목        | Filter | Interceptor |
 |-----------------|--------|-------------|
@@ -206,8 +236,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 **4.2 언제 Filter, Interceptor를 사용해야 할까?**
 
-**Filter**는 서블릿 컨테이너에서 동작하며, 보안, CORS 설정, 인증, 권한 부여와 같은 전반적인 요청 흐름을 제어하는 데 적합합니다. 반면, **Interceptor**는 Spring Context 내에서 동작하며, 비즈니스 로직과 관련된 작업을 수행하는 데 적절합니다.
+**Filter**는 서블릿 컨테이너에서 동작하며, 보안, CORS 설정, 인증, 권한 부여 등 전반적인 요청 흐름을 제어하는 데 적합합니다. 예를 들어, 해외 IP 차단, CORS 정책 적용, 요청/응답 로깅과 같은 작업을 수행할 수 있습니다. 
 
+반면, **Interceptor**는 Spring Context 내에서 동작하며, 비즈니스 로직과 관련된 작업을 수행하는 데 적절합니다. 예를 들어, 사용자 세션 데이터 주입, 요청에 대한 권한 검증, 특정 API 호출 전에 추가적인 검증 로직 수행 등의 역할을 합니다.
 
 ### 5.마무리
 
