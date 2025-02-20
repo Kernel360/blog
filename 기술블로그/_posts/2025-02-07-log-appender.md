@@ -10,7 +10,7 @@ banner:
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
   tags: [`crontab`, `docker`]
 ---
-### 시작
+### 시작 
 > 앱의 로그를 파일로 관리하라는 피드백을 받았습니다.
 >
 > 현재 애플리케이션을 도커에서 실행중이기 때문에 도커 외부에 저장해야합니다.
