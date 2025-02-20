@@ -1,3 +1,17 @@
+---
+layout: post
+title: "Conditions Management"
+author: "윤해진"
+categories: "프론트엔드 기술블로그"
+banner:
+  image: assets/images/post/2023-11-05.webp
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+  tags: ["condition", "nextjs", "컴포넌트"]
+---
+
 ## 들어가는 말
 
 개발을 하다 보면 우리는 수많은 상황을 마주합니다. 얕게는 유저가 로그인을 했는가 아닌가. api 호출에 대한 응답이 에러인가? 로딩중인가? 성공인가? 등등 다양한 상황에 따라 이후 로직이 달라집니다. 이런 경우에 저는 if문, 삼항 연산자, AND 연산자 등을 사용하였습니다. 그러나 로직이 쌓이고 경우가 곱의 경우의 수(n x m)로 늘어난다면 이는 매우 가독성 측면에서 아쉬운 코드가 될 것입니다. 해당 문제를 고민하고 나은 방법을 찾아보고자 합니다.
