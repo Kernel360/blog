@@ -153,6 +153,16 @@ WHERE 전화번호 = :tel_no OR 고객명 = :cust_nm
 - 인덱스를 활용하면 ORDER BY 시 추가적인 정렬 연산을 생략할 수 있음.
 - 단, ORDER BY에 가공된 컬럼이 있으면 인덱스를 사용할 수 없음.
 
+### ORDER BY + LIMIT 최적화
+
+ORDER BY와 LIMIT을 사용할 때 filesort가 발생할 가능성이 높음.
+
+이를 방지하려면 PK(id) > 0 조건을 추가하여 인덱스를 활용할 수 있음.
+```sql
+SELECT * FROM 사원 WHERE id > 0 ORDER BY 이름 LIMIT 10;
+```
+- id > 0 조건을 추가하면 인덱스를 활용한 정렬 최적화 가능✔ 불필요한 filesort 연산을 줄여 성능 개선
+
 ## 2.6 인덱스 확장 기능 사용법
 
 주요 인덱스 스캔 방식
