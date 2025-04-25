@@ -4,7 +4,7 @@ title: "Spring Security로 구현한 JWT 기반 인증 시스템"
 author: "조수연"
 categories: "기술블로그"
 banner:
-  image:
+  image: https://github.com/Kernel360/blog-image/blob/main/2025/0425/JWTSecurity.jpg?raw=true
   background: "#000"
   height: "100vh"
   min_height: "38vh"
@@ -89,6 +89,7 @@ RefreshToken을 사용하면 사용자는 매번 다시 로그인하지 않아�
 ## 🔐 Spring Security와 JWT 통합 구조
 
 Spring Security에서 JWT 인증을 구현할 때는 다음과 같은 구성 요소가 사용됩니다.
+![NON-REPEATABLE READ](https://github.com/Kernel360/blog-image/blob/main/2025/0425/jwtFilter.png?raw=true)
 
 ### 1. SecurityFilterChain
 
