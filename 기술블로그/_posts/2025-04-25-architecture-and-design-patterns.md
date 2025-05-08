@@ -153,7 +153,7 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
   -   Network Layer (네트워크 계층)
   -   DataLink Layer (데이터링크 계층)
   -   Physical Layer (물리 계층)
- 
+  
 <br><br>
 
 ---
