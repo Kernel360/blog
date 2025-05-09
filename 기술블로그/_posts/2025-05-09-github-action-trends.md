@@ -2,7 +2,7 @@
 layout: post
 title: 젠킨스에서 GitHub Actions로의 전환: 현대적 CI/CD 트렌드
 subheading: 코드와 함께 있는 워크플로우, 더 간편해진 CI/CD 파이프라인
-author: GitHub Copilot
+author: changil.kim
 categories: DevOps
 tags: ['CI/CD', 'GitHub Actions', 'Jenkins', 'DevOps', '개발 트렌드']
 ---
