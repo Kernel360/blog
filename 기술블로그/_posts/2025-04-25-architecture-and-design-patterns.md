@@ -29,7 +29,7 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
 
 ---
 
-### ➡️ 소프트웨어 설계부터 개발까지, 패턴의 유용성
+### 소프트웨어 설계부터 개발까지, 패턴의 유용성
 
 > 무작정 짓는 건물은 무너지기 쉽다.  
 > 소프트웨어도 마찬가지다.
@@ -50,7 +50,7 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
 
 ---
 
-### ➡️ 소프트웨어 아키텍처와 아키텍처 패턴까지 훑어보기
+### 소프트웨어 아키텍처와 아키텍처 패턴까지 훑어보기
 
 > 코딩하기 전에 설계해야 한다는 것은 동의한다.
 > 그러면 설계는 쉽냐? 어렵다.
@@ -76,7 +76,7 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
 
 ---
 
-### ➡️ 레이어드 패턴 (Layered Pattern) 만은 제대로 이해하고 싶다
+### 레이어드 패턴 (Layered Pattern) 만은 제대로 이해하고 싶다
 
 <br>
 
@@ -114,7 +114,7 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
 
 ---
 
-### ➡️ 레이어드 패턴으로 어떤 구조를 짤 수 있을까
+### 레이어드 패턴으로 어떤 구조를 짤 수 있을까
 
 <br>
 
@@ -122,7 +122,6 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
   -   Presentation Layer (표현 계층)
   -   Data Layer (데이터 계층)
 
-      <img src="image-2tier.png" width="300" />
 <br>
 
 - 3계층 아키텍처 구조 (3-Tier Architecture) 
@@ -130,7 +129,6 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
   -   Application Layer (응용 계층)
   -   Data Layer (데이터 계층)
 
-      <img src="image-3tier.png" width="300" />
 <br>
 
 - 4계층 아키텍처 구조 (4-Tier Architecture)
@@ -139,7 +137,6 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
   -   Persistence Layer (영속성 계층)
   -   Database Layer (데이터베이스 계층)
 
-      <img src="image-4tier.png" width="900" />  
 <br><br>
 
 - 도메인 주도 설계 (Domain Driven Design)는 어려우니까 PASS..
@@ -156,13 +153,12 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
   -   Network Layer (네트워크 계층)
   -   DataLink Layer (데이터링크 계층)
   -   Physical Layer (물리 계층)
-
-      <img src="image-osi.png" width="450" />  
+  
 <br><br>
 
 ---
 
-### ➡️ 디자인 패턴도 알아보자
+### 디자인 패턴도 알아보자
 
 <br>
 
@@ -229,7 +225,7 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
 
 ---
 
-➡️  소프트웨어 아키텍처 패턴과 디자인 패턴은 뭐가 다를까?
+### 소프트웨어 아키텍처 패턴과 디자인 패턴은 뭐가 다를까?
 
 > 소프트웨어 아키텍처 패턴 >> 디자인 패턴
 
@@ -256,7 +252,7 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
 
 ---
 
-### ➡️ 글을 마치며
+### 글을 마치며
 
 언젠가 이 글을 보며 에이 이게 아닌데.. 할 수 있는 날이.. 나의 실력 그만큼 성장하길 기대하며 이번 주제에 대한 디깅에서는 여기까지 하겠습니다. 보강할 부분이나 틀린 부분은 절 찾아와주신다면 감동의 눈물을 흘릴 것 같습니다. 이상 코린이의 학습일지였습니다. 감사합니다. 
 
@@ -264,7 +260,7 @@ JPA를 공부하다가 영속 계층(Persistence Layer)에 흥미를 느끼면�
 
 ---
 
-### ➡️ 참고 자료
+### 참고 자료
 
 \[아티클\]  
 [https://www.nareshbhatia.dev/articles/domain-driven-design-6-layered-architecture](https://www.nareshbhatia.dev/articles/domain-driven-design-6-layered-architecture))
