@@ -2,7 +2,6 @@
 layout: post
 title: "로그인 폼 UX 향상을 위해 고민해보기 (react-hook-form, server action, loading ui)"
 author: "심정아"
-categories: "기술블로그"
 banner:
   image: "https://github.com/user-attachments/assets/335c8714-1ed7-472e-a42c-055e27e2ce23"
   background: "#000"
