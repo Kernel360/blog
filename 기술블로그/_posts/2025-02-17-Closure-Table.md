@@ -2,7 +2,6 @@
 layout: post  
 title: "Closure Table을 활용한 계층형 데이터 관리"
 author: "윤정아"
-categories: "기술블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
