@@ -1,5 +1,4 @@
 ---
-
 layout: post
 title: "ORM, SQLMapper, JDBC"
 author: "김찬호"
