@@ -1,3 +1,17 @@
+---
+layout: post  
+title: "springBean"
+author: "차의진"
+categories: "기술 블로그"
+banner:
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: ["layeredArchitecture"]
+---
+
 # 스프링과 싱글톤 패턴
 
 ## 목차
