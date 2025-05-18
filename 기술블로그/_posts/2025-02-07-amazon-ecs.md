@@ -2,7 +2,6 @@
 layout: post  
 title: "Amazon ECS(Elastic Container Service)을 활용한 운영 환경 구성"  
 author: "김진우"  
-categories: "기술블로그"  
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"  
