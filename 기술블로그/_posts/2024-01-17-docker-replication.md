@@ -2,7 +2,6 @@
 layout: post  
 title: 배포있게 배포하기 -DB편-
 author: 손민우
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2024/0117/1.png?raw=true
   background: "#000"
