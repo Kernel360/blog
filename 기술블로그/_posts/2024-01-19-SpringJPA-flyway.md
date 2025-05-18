@@ -2,7 +2,6 @@
 layout: post
 title: Spring JPA와 Flyway
 author: 송예진
-categories: 기술세미나
 banner:
   image: assets/images/banners/background.png
   background: "#000"
