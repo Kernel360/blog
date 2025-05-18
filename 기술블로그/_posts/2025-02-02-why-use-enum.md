@@ -2,7 +2,6 @@
 layout: post  
 title: "열거 타입을 사용해야 하는 이유"
 author: "최윤서"
-categories: "기술블로그"
 banner:
   image: "https://github.com/Kernel360/blog-image/blob/main/2025/0202/why-use-enum.jpg?raw=true"
   background: "#000"
