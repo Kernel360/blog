@@ -2,7 +2,6 @@
 layout: post
 title: "SSR과 Cookie"
 author: 양하연
-categories: 프론트엔드 기술블로그
 banner:
   image: assets/images/post/2023-11-05.webp
   background: "#000"
