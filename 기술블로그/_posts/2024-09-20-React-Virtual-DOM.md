@@ -2,7 +2,6 @@
 layout: post  
 title: "렌더링 최적화 자체 제공 시스템, React Virtual DOM"
 author: "양하연"
-
 banner:
   image: assets/images/post/2023-11-05.webp
   background: "#000"
