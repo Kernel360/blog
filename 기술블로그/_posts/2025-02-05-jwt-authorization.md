@@ -2,7 +2,6 @@
 layout: post
 title: "JWT 기반의 인증 방식 학습"
 author: "박성민"
-categories: "기술블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
