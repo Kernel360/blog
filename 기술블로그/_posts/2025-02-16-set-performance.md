@@ -2,7 +2,6 @@
 layout: post  
 title: "중복 여부 판단을 위한 Set 과 반복문의 성능 비교"
 author: "박준홍"
-categories: "기술블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#2a9d8f"
