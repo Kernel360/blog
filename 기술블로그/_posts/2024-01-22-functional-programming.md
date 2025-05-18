@@ -2,7 +2,6 @@
 layout: post  
 title: 함수형 프로그래밍
 author: 장호윤  
-categories: 기술세미나  
 banner:  
   image: "https://github.com/Kernel360/blog/assets/80247908/20f8af9e-33f7-44e3-b039-257a38a850d7"
 
