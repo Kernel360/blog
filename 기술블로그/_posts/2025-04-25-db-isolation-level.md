@@ -3,8 +3,8 @@ layout: post
 title: "데이터베이스 격리 수준"
 author: "신윤상"
 categories: "기술세미나"
-banner: "assets/images/post/2023-11-05.webp"
-  image: 
+banner:
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
