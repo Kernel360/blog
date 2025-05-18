@@ -4,7 +4,7 @@ title: "Observer 패턴을 활용한 알림 시스템 리팩토링 경험기"
 author: "박병찬"
 categories: "기술블로그"
 banner:
-  image: "/assets/images/observer-pattern-banner.jpg"
+  image: "assets/images/observer-pattern-banner.jpg"
   background: "#333"
   height: "100vh"
   min_height: "38vh"
