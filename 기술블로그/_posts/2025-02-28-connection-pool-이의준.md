@@ -4,11 +4,12 @@ title: "데이터베이스 커넥션의 원리와 핵심 개념"
 author: "이의준"  
 categories: "기술블로그"  
 banner:  
+  image: 
   background: "#2a9d8f"  
   height: "100vh"  
   min_height: "38vh"  
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"  
-  tags: ["SPRINGBOOT", "DB", "CONNECTIONPOOL"]
+  tags: ["SPRING", "DB", "CONNECTION POOL"]
 ---
 
 # 스프링 기반 애플리케이션에서의 데이터베이스 커넥션 흐름: 이론과 실무
