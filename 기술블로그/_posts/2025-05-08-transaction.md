@@ -1,15 +1,14 @@
 ---
 layout: post  
 title: "트랜잭션 완전 정복: DB부터 Spring까지"  
-author: "권승목"  
-categories: "기술세미나"  
+author: "권승목"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: ["transaction"]
+  tags: [ "transaction" ]
 ---
 
 # 트랜잭션이란?
