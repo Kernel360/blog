@@ -2,8 +2,9 @@
 layout: post
 title: CI/CD의 개념과 필요성
 author: 윤해진
+categories: 기술세미나
 banner:
-  image: assets/images/post/2023-11-05.webp
+  image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0223/spring-batch-tutorial.jpeg
   background: "#000"
   height: "100vh"
   min_height: "38vh"
@@ -105,7 +106,114 @@ CI/CD를 구현하기 위해서는 다음과 같은 도구와 원칙을 따를 �
 
 다양한 테스트 방법과 기술들이 있지만, 프로젝트의 성격과 성향에 따라 적절한 방식으로 CI/CD를 구축하는 것도 매우 중요한 부분일 것입니다.
 
-### 5. 요약
+### 5. 우리가 사용한 방법( github Action )
+
+1차적으로는 airbnb의 lint 룰을 기본으로 하였습니다.
+
+그러나 해당 룰이 너무 과하거나, 어떤 의존성으로 사용이 불가능 할 경우에는 팀원들과의 논의를 통해 lint rule에서 off를 하는 방향을 선택하였습니다. 추가적으로 팀 내부에서 컨벤션을 통해 맞춰진 코드 스타일 등은 추가적으로 lint룰을 설정하여 코드 스타일을 맞추었습니다.
+
+이렇게 코드의 스타일을 지정하였으나, 깜빡하고 챙기지 못하는 경우도 있습니다. 따라서 위에서 이야기를 나누었던, Github Action을 활용하여, 자동적으로 체크해주도록 하였습니다.(추가적으로 tsc 검사도 하였습니다.)
+
+해당 액션은 tsc와 lint를 체크하는 액션으로 main, develop, hotfix로 push, pr을 날릴 때, Action이 실행됩니다.
+
+[action 검사 코드]
+
+```tsx
+
+name: check tsc and lint
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - hotfix
+  pull_request:
+    branches:
+      - main
+      - develop
+      - hotfix
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check tsc
+        run: npx tsc
+
+      - name: Check eslint
+        run: npm run lint
+
+```
+
+pr을 날리거나, 설정한 브랜치로 push를 할때 설정한 action을 통해 자동 검사가 진행되니 코드에 대한 일관성을 지킨채로 프로젝트를 진행 할 수 있었습니다.
+
+<br/>
+
+[실제 사용 시]
+
+<table>
+  <tr>
+    <td style="vertical-align: top;">
+      <img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0901/1-1.png" alt="1" width="300"/>
+    </td>
+    <td style="vertical-align: top;">
+      <img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0901/1-2.png" alt="2" width="300"/>
+    </td>
+  </tr>
+</table>
+
+dev혹은 main으로 merge하는 pr을 올렸을 때, github Action이 돌아 결과를 타이틀 옆에 표시해줍니다.
+해당 pr을 들어가 확인해보면 아래와 같이 에러가 난 것을 확인 가능했습니다.
+
+![3](https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0901/2.png)
+
+현재 tsc 체크 부분에서 에러가 나, 멈춘 것으로 보이게 됩니다.
+
+위 처럼 작성하신 코드에서 tsc, lint를 체크하고 오류가 있다면 표현해줍니다.
+
+만약 에러가 있을때는 다시 코드를 수정하시고 커밋을 작성하시고 push를 하시면 반영이 다시 되어 action이 동작합니다.
+
+![4](https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0901/3.png)
+
+새로운 커밋을 push 하면 새롭게 action이 도는 모습을 확인 할 수 있었습니다.
+
+올바르게 수정이 된다면 아래처럼 초록색으로 체크 표시와 pr에 표시가 됩니다.
+
+<table>
+  <tr>
+    <td style="vertical-align: top;">
+      <img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0901/4-1.png" alt="5" width="300"/>
+    </td>
+    <td style="vertical-align: top;">
+      <img src="https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0901/4-2.png" alt="6" width="300"/>
+    </td>
+  </tr>
+</table>
+
+이렇게 스스로가 깜빡하고 lint, tsc를 확인하지 못했을 경우 github Action에서 자동으로 검사를 돌아주는 코드가 하나의 방식으로 통일 되었다는 것을 느낄 수 있었습니다.
+
+<br/>
+
+### 6. 요약
 
 CI/CD는 소프트웨어 개발에서 코드 품질을 유지하고, 개발 속도를 높이며, 팀 협업을 강화하는 데 필수적인 요소입니다. CI/CD를 통해 프로젝트의 일관성을 유지하고, 새로운 팀원이 쉽게 적응할 수 있도록 도울 수 있습니다.
 

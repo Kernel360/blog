@@ -1,3 +1,4 @@
+---
 layout: post  
 title: "JDBC, Hibernate, JPA 그리고 ORM"
 author: "천승준"
@@ -8,8 +9,8 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`JDBC`, `JPA`, `ORM`]
-
+  tags: ["JDBC", "JPA", "ORM"]
+---
 
 # JDBC
 - 자바 언어로 데이터베이스 프로그래밍을 하기위한 라이브러리

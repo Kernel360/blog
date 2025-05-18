@@ -1,5 +1,5 @@
 ---
-layout: post  
+layout: post
 title: "젠킨스에서 GitHub Actions로의 전환: 현대적 CI/CD 트렌드"
 author: "김창일"
 categories: "기술 블로그"

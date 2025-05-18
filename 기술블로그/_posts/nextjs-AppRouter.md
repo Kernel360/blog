@@ -2,7 +2,7 @@
 layout: post  
 title: "Pages Router vs. App Router: What’s New?"
 author: "전상호"
-categories: "프론트 기술블로그"
+categories: "기술블로그"
 banner:
   background: "#000"
   height: "100vh"
