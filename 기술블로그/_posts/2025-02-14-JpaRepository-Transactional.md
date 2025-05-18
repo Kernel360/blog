@@ -2,7 +2,6 @@
 layout: post
 title: "JPA의 트랜잭션 처리가 Transactional 없이도 이루어지는 이유.(feat. Proxy)"
 author: "김대현"
-categories: "기술블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
