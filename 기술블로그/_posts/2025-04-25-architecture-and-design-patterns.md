@@ -4,11 +4,11 @@ title: "코린이의 소프트웨어 설계와 아키텍처 패턴 감 잡기: �
 author: "송어진"
 categories: "기술블로그"
 banner:
-image:
-background: "#000"
-height: "100vh"
-min_height: "38vh"
-heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
 tags: [ "JPA", "Layer Architecture Pattern", "Software Design" ]
 ---
 
