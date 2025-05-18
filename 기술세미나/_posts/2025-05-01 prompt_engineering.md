@@ -1,15 +1,15 @@
 ---
 layout: post  
 title: "prompt engineering"
-author: 김현호
-categories: 기술세미나
+author: "김현호"
+categories: "기술세미나"
 banner:
-  image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2023/1110/1.png
+  image: "https://raw.githubusercontent.com/Kernel360/blog-image/main/2023/1110/1.png"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [기술블로그]
+  tags: ["기술블로그"]
 ---
 
 # AI 기반 제어 가능한 데이터셋 생성을 위한 프롬프트 작성 방법
