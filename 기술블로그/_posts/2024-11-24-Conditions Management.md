@@ -2,7 +2,6 @@
 layout: post
 title: "Conditions Management"
 author: "윤해진"
-categories: "프론트엔드 기술블로그"
 banner:
   image: assets/images/post/2023-11-05.webp
   background: "#000"
