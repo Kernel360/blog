@@ -2,7 +2,6 @@
 layout: post
 title: CI/CD의 개념과 필요성
 author: 윤해진
-categories: 기술세미나
 banner:
   image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0223/spring-batch-tutorial.jpeg
   background: "#000"
