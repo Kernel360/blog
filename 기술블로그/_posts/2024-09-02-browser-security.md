@@ -2,7 +2,6 @@
 layout: post
 title: "브라우저 보안 정책과 CORS"
 author: "김민규"
-categories: "기술세미나"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
