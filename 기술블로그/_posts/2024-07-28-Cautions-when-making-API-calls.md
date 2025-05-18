@@ -2,14 +2,14 @@
 layout: post
 title: Cautions when making API calls
 author: 양하연
-categories: 기술세미나
+categories: [기술세미나]
 banner:
   image: "https://github.com/Kernel360/blog/blob/4c946de0eeb5658cc0307cb1a61e98f51bfeba60/assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: ["API", "고유한id"]
+  tags: ["API", "unique_id"]
 ---
 
 안녕하세요, Kernel360 FE 1기 크루 양하연 입니다. 오늘 포스팅에서는 외부 API호출하실 때에 주의하실 점에 대해서 제가 이번에 참여한 프로젝트를 예시로 들어 설명드리려고 합니다.
@@ -23,7 +23,7 @@ Enctpyed Value가 반환되는 상황을 마주했습니다. 암호화 관련 �
 
 `GET /riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}`
 
-위 API호출문을 잠시 설명하자면, 자신의 닉네임(gaemName)과 지역서버이름(tagLine)을 입력하면 그 유저에 대한 고유한 id값(puuid)을 암호화처리하여 리턴해주는 것이었습니다.
+위 API 호출문을 잠시 설명하자면, 자신의 닉네임(gaemName)과 지역서버이름(tagLine)을 입력하면 그 유저에 대한 고유한 id값(puuid)을 암호화처리하여 리턴해주는 것이었습니다.
 
 이 호출문을 통해 동료 개발자분은 본인 계정의 puuid를 알아내고, 그 puuid로 게임에 참여한 10경기 유저에 대한 정보를 담은 객체를 mock data로 만들어주셨고, 저는 그 파일을 넘겨받아 작업을 진행하려했습니다.
 그런데 자꾸만 값을 찾을 수 없다는 에러가 뜨는 것이었습니다.

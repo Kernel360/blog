@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Refresh Token을 Redis에 저장하는 이유
-author: 오승민
+title: "Refresh Token을 Redis에 저장하는 이유"
+author: "오승민"
 banner:
-  image: 
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"

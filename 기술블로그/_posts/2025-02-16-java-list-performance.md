@@ -1,17 +1,16 @@
-```
 ---
 layout: post  
 title: "List 중간 요소를 List 맨 뒤에 추가할 때 ArrayList 와 LinkedList 의 성능 비교"
 author: "박준홍"
-categories: "백엔드 기술블로그"
+categories: "기술블로그"
 banner:
-  background: "#2a9d8f"2
+  background: "#2a9d8f"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
   tags: ["Java", "ArrayList", "LinkedList"]
 ---
-```
+
 
 # List 중간 요소를 List 맨 뒤에 추가할 때 ArrayList 와 LinkedList 의 성능 비교
 

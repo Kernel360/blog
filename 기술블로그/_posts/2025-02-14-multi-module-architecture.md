@@ -2,7 +2,7 @@
 layout: post  
 title: "멀티모듈 아키텍처의 종류와 적용 경험"  
 author: "김진우"  
-categories: "백엔드 기술블로그"  
+categories: "기술블로그"  
 banner:  
   background: "#2a9d8f"  
   height: "100vh"  

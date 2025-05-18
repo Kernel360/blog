@@ -12,6 +12,7 @@ banner:
   tags: ["Next.js", "useSuspenseQuery", "SSR", "Suspense"]
 ---
 
+
 # Next.js에서 useSuspenseQuery 사용 시 발생하는 SSR 이슈 분석
 
 ## 문제 상황

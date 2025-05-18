@@ -4,14 +4,13 @@ title: "문제를 추적하는 로그 기록의 기본"
 author: "윤지수"
 categories: "기술블로그"
 banner:
-  image: ""
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
   tags: ['logging']
 ---
-
 
 
 # 문제를 추적하는 로그 기록의 기본

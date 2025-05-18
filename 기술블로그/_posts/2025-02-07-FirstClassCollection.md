@@ -2,13 +2,13 @@
 layout: post  
 title: "일급 컬랙션"
 author: "김규영"
-categories: "기술 블로그"
+categories: "기술블로그"
 banner:
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`First Class Collection`, `일급 컬렉션`]
+  tags: ["First Class Collection", "일급 컬렉션"]
 ---
 
 ### 일급 컬력션?
