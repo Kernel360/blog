@@ -2,7 +2,6 @@
 layout: post
 title: 클린코드, 뭐부터 시작해볼까?
 author: 조형준
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2023/1205/1.png?raw=true
   background: "#000"
