@@ -2,7 +2,6 @@
 layout: post  
 title: Asynch in Java
 author: 신종민
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2024/0222/cover.png?raw=true
   background: "#000"
