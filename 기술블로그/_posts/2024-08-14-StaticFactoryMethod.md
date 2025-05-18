@@ -2,7 +2,6 @@
 layout: post
 title: 정적 팩토리 메서드 패턴
 author: 김택준
-categories: 기술세미나
 banner:
   image: assets/images/post/2023-11-05.webp
   background: "#000"
