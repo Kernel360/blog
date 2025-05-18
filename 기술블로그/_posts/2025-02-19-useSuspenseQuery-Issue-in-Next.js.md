@@ -2,7 +2,6 @@
 layout: post
 title: "Next.js에서 useSuspenseQuery 사용 시 발생하는 SSR 이슈 상황"
 author: "심정아"
-categories: "기술블로그"
 banner:
   image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq3Lba7HhrxkJyr_64dq6SeXaOpNFbSrv8Zg&s"
   background: "#000"
