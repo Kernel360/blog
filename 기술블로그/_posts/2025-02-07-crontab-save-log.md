@@ -2,7 +2,6 @@
 layout: post  
 title: "crontab으로 로그 저장하기"
 author: "김규영"
-categories: "기술블로그"
 banner:
   background: "#000"
   height: "100vh"
