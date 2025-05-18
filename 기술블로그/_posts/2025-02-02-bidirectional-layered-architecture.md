@@ -2,7 +2,6 @@
 layout: post  
 title: "안티패턴 - 양방향 레이어드 아키텍처"
 author: "김도훈"
-categories: "기술 블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
