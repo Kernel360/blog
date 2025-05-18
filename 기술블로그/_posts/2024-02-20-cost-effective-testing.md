@@ -2,7 +2,6 @@
 layout: post  
 title: 가성비 있는 단위테스트
 author: 김현지
-categories: 기술세미나
 banner:
   image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0220/costEffective.jpg
   background: "#000"
