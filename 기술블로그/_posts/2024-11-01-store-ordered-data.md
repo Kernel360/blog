@@ -2,7 +2,6 @@
 layout: post  
 title: 'RDB에 순서가 있는 데이터를 저장하는 방법'
 author: '박수형'
-categories: '기술세미나'
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
