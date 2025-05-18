@@ -2,7 +2,6 @@
 layout: post
 title: 스프링과 데이터 영속성(Persistence)
 author: 김원상
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2023/1117/database_picture.jpg?raw=true
   background: "#000"
