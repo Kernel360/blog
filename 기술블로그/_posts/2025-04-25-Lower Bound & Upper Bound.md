@@ -5,12 +5,12 @@ title: "Lower Bound & Upper Bound란?"
 author: "조형준"
 categories: "기술블로그"
 banner:
-  image: 
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`알고리즘`, `이진탐색`, `Lower Bound & Upper Bound`]
+  tags: ["알고리즘", "이진탐색", "Lower Bound & Upper Bound"]
 ---
 
 # Lower Bound & Upper Bound란?
