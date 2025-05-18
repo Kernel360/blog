@@ -2,7 +2,6 @@
 layout: post  
 title: "문제를 추적하는 로그 기록의 기본"
 author: "윤지수"
-categories: "기술블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
