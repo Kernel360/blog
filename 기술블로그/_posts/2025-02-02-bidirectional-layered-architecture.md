@@ -9,8 +9,9 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: [layeredArchitecture]
+tags: ["layeredArchitecture"]
 ---
+
 # 안티패턴 - 양방향 레이어드 아키텍처
 
 개발에는 정답이 없지만 유지보수성과 확장성 측면에서 좋지 않은 것으로 알려진 '안티패턴'이 존재합니다. 이번 글에서는 그중에서도 '양방향 레이어드 아키텍처(Bidirectional Layered Architecture)'에 대해 살펴보겠습니다.
