@@ -2,7 +2,6 @@
 layout: post  
 title: "AOP를 활용한 로깅 처리"
 author: "정소현"
-categories: "기술 블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
