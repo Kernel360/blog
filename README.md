@@ -1,200 +1,88 @@
-<div align="center">
-  <br>
+📝 [Docs] Kernel360 Crew Blog 가이드라인
 
-  <a href="https://github.com/jeffreytse/jekyll-theme-yat">
-    <img alt="jekyll-theme-yat →~ jekyll" src="https://user-images.githubusercontent.com/9413601/106478481-346fdf00-64e4-11eb-9385-1ab5329c3234.png" width="600">
-  </a>
+## ✨ 제출 방법
 
-  <h1>JEKYLL YAT THEME</h1>
+[공통]
 
-</div>
+- **파일 생성 시, 작성하시고자 하는 포스트의 카테고리와 일치하는 카테고리 구조 내의 `_posts` 폴더 내에 생성**해 주세요.
 
-<h4 align="center">
-  <a href="https://jekyllrb.com/" target="_blank"><code>Jekyll</code></a> theme for elegant writers.
-</h4>
+**[백엔드 개발 과정]**
 
-<p align="center">
-  <a href="https://jeffreytse.github.io/jekyll-theme-yat">
-    <img src="https://github.com/jeffreytse/jekyll-theme-yat/workflows/Github%20Pages/badge.svg"
-      alt="Github Pages" />
-  </a>
+0. 기술블로그 초안 작성하기 (선택사항)
+1. 브랜치 컨벤션에 맞게 생성하기 
+2. 생성한 브랜치에서 Git 마크다운 형식으로 테스트 글 작성하기
+3. 테스트 글 Commit 하고 Main으로 PR 날리기
+4. 셀원에게 PR 리뷰 신청하고 셀원들에게 Approve 받기
+5. Main으로 Merge 하여 최종 기술블로그 업로드하기
 
-  <a href="https://badge.fury.io/rb/jekyll-theme-yat">
-    <img src="https://badge.fury.io/rb/jekyll-theme-yat.svg"
-      alt="Gem Version" />
-  </a>
+**[프론트엔드 개발 과정]**
 
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-brightgreen.svg"
-      alt="License: MIT" />
-  </a>
+0. 기술블로그 초안 작성하기 (선택사항)
+1. 브랜치 컨벤션에 맞게 생성하기 
+2. 생성한 브랜치에서 Git 마크다운 형식으로 테스트 글 작성하기
+3. 테스트 글 Commit 하고 Main으로 PR 날리기
+4. 크루 및 디렉터에게 PR 리뷰 신청하고 Approve 받기
+5. Main으로 Merge 하여 최종 기술블로그 업로드하기
 
-  <a href="https://liberapay.com/jeffreytse">
-    <img src="https://img.shields.io/liberapay/goal/jeffreytse.svg?logo=liberapay"
-      alt="Donate (Liberapay)" />
-  </a>
+## ✅ Commit & Branch 생성 규칙 
+다음의 규칙을 따라서 Branch 생성 및 commit을 진행해주세요.
+### 1️⃣ Commit
+- 게시글 올릴 때
+   - ex. feat: 20231106_가비지 콜렉션_박석희
 
-  <a href="https://patreon.com/jeffreytse">
-    <img src="https://img.shields.io/badge/support-patreon-F96854.svg?style=flat-square"
-      alt="Donate (Patreon)" />
-  </a>
+### 2️⃣ Branch
+main에서 발표날짜와 주제명을 기반으로 **`영어로`** 브랜치를 생성합니다. 
+- ex. `20231106/garbage-collection`
 
-  <a href="https://ko-fi.com/jeffreytse">
-  <img height="20" src="https://www.ko-fi.com/img/githubbutton_sm.svg"
-  alt="Donate (Ko-fi)" />
-  </a>
-</p>
 
-<div align="center">
-  <sub>Built with ❤︎ by
-  <a href="https://jeffreytse.net">jeffreytse</a> and
-  <a href="https://github.com/jeffreytse/jekyll-theme-yat/graphs/contributors">contributors </a>
-  </sub>
-</div>
+## ✏️ 게시글 작성 규칙 
+다음의 규칙을 따라서 게시글을 작성해주세요.
+### 1️⃣ 기술블로그 카테고리 작성 규칙
+게시글의 유형에 맞는 카테고리를 선택해주세요. 카테고리 적용은 카테고리 명 폴더 안에 _post 폴더를 만든 후, 그 안에 포스트를 작성하는 방법으로도 적용이 가능합니다.
+- "기술세미나"
+   ex. 기술 세미나 발표 내용을 기반으로 작성한 게시글
+- "프론트엔드 기술블로그"
+   ex. 프로젝트를 하며 새롭게 배운 내용, 트러블 슈팅 등을 작성하여 공유하는 게시글
+- "Kernel360 후기"
+   ex. Kernel360에서 진행한 활동, 행사, 일상에 대한 후기
+- "지식공유"
+   ex. Kernel360 과정 내에서 진행한 프로젝트에서 알게된 지식들을 공유하는 게시글
+- "자유 주제"
+   ex. 운영진 소개, 주변 맛집 소개, 내가 만든 사이드프로젝트, 그룹스터디 후기, 은종 디렉터님 유튜브 출연 
 
-<br>
+### 2️⃣ 기술블로그 게시글 작성방법
+1.  `기술블로그/_posts` 폴더에서 `날짜-주제.md`으로 파일을 생성해주세요.
+ 
+2. md 파일 상단에 다음의 양식을 먼저 채워줍니다.
+    태그의 경우 직군별로 고정 태그를 하나 선택해서 기입한뒤, 나만의 태그를 추가해주세요.
+``` markdown
 
-Hey, nice to meet you, you found this [Jekyll][jekyll] theme. Here the
-_YAT (Yet Another Theme)_ is a modern responsive theme. It's quite
-clear, clean and neat for writers and posts. **If you are an elegant
-writer and focus on content, don't miss it.**
+---
+layout: post  
+title: "게시글 제목"
+author: "작성자 이름"
+banner:
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+  tags: ["프론트엔드", "백엔드", "나만의 태그"]
+---
 
-<p align="center">
-Like this elegant theme? You can give it a star or sponsor me!<br>
-I will respect your crucial support and say THANK YOU!
-</p>
-
-<p align="center">
-
-  <img src="https://user-images.githubusercontent.com/9413601/91842897-6a840b00-ec87-11ea-95ca-52abcc1ac063.png" alt="demo-screenshot" width="100%"/>
-
-</p>
-
-<h4 align="center">BANNER</h4>
-
-<p align="center">
-
-  <img src="https://user-images.githubusercontent.com/9413601/123897812-ae729a00-d996-11eb-96b8-b76ba926f555.gif" alt="demo-screenshot" width="100%"/>
-
-</p>
-
-## Features
-
-- Support beautiful **Night Mode**.
-- Modern responsive web design.
-- Full layouts `home`, `post`, `tags`, `archive` and `about`.
-- Uses font awesome 5 for icons.
-- Beautiful page banner with image and video.
-- Beautiful Syntax Highlight using [highlight.js][highlight-js].
-- RSS support using [Jekyll Feed][jekyll-feed] gem.
-- Optimized for search engines using [Jekyll Seo Tag][jekyll-seo-tag] gem.
-- Sitemap support using [Jekyll Sitemap][jekyll-sitemap] gem.
-- Complex and flexible table support using [Jekyll Spaceship][jekyll-spaceship] gem.
-- MathJAX and LaTeX optional support using [Jekyll Spaceship][jekyll-spaceship] gem.
-- Media (Youtube, Spotify, etc.) support using [Jekyll Spaceship][jekyll-spaceship] gem.
-- Diagram (PlantUML, Mermaid) support using [Jekyll Spaceship][jekyll-spaceship] gem.
-- Google Translation support.
-- New post tag support.
-
-Also, visit the [Live Demo][yat-live-demo] site for the theme.
-
-## Installation
-
-There are three ways to install:
-
-- As a [gem-based theme](https://jekyllrb.com/docs/themes/#understanding-gem-based-themes).
-- As a [remote theme](https://blog.github.com/2017-11-29-use-any-theme-with-github-pages/) (GitHub Pages compatible).
-- Forking/directly copying all of the theme files into your project.
-
-### Gem-based Theme Method
-
-Add this line to your Jekyll site's `Gemfile`:
-
-```ruby
-gem "jekyll-theme-yat"
 ```
 
-And add this line to your Jekyll site's `_config.yml`:
+**3. Git 마크다운을 사용하여 자유롭게 게시글을 작성합니다.** 
 
-```yaml
-theme: jekyll-theme-yat
-```
 
-And then execute:
+### 3️⃣ 기술블로그 이미지 파일 관리 규칙
+1. [게시글 이미지 저장소](https://github.com/Kernel360/blog-image) 에 발표 날짜를 바탕으로 폴더를 생성한 후 해당 폴더에 이미지 파일을 저장합니다.
+    - 폴더명 ex. `2023/1114`
 
-```bash
-$ bundle
-```
+2. 이미지 파일 링크를 따서 게시글의 삽입하고자 하는 곳에 사용합니다.
 
-Or install it yourself as:
 
-```bash
-$ gem install jekyll-theme-yat
-```
-
-### Remote Theme Method with GitHub Pages
-
-Remote themes are similar to Gem-based themes, but do not require `Gemfile` changes or whitelisting making them ideal for sites hosted with GitHub Pages.
-
-To install:
-
-Add this line to your Jekyll site's `Gemfile`:
-
-```ruby
-gem "github-pages", group: :jekyll_plugins
-```
-
-And add this line to your Jekyll site's `_config.yml`:
-
-```yaml
-# theme: owner/name --> Don't forget to remove/comment the gem-based theme option
-remote_theme: "jeffreytse/jekyll-theme-yat"
-```
-
-And then execute:
-
-```bash
-$ bundle
-```
-
-### GitHub Pages without limitation
-
-GitHub Pages runs in `safe` mode and only allows [a set of whitelisted plugins/themes](https://pages.github.com/versions/). **In other words, the third-party gems will not work normally**.
-
-To use the third-party gem in GitHub Pages without limitation:
-
-Here is a GitHub Action named [jekyll-deploy-action](https://github.com/jeffreytse/jekyll-deploy-action) for Jekyll site deployment conveniently. 👍
-
-## Usage
-
-Add or update your available layouts, includes, sass and/or assets.
-
-## Development
-
-To set up your environment to develop this theme, run `bundle install`.
-
-Your theme is setup just like a normal Jekyll site! To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
-
-When your theme is released, only the files in `_data`, `_layouts`, `_includes`, `_sass` and `assets` tracked with Git will be bundled.
-To add a custom directory to your theme-gem, please edit the regexp in `jekyll-theme-yat.gemspec` accordingly.
-
-## Contributing
-
-Issues and Pull Requests are greatly appreciated. If you've never contributed to an open source project before I'm more than happy to walk you through how to create a pull request.
-
-You can start by [opening an issue](https://github.com/jeffreytse/jekyll-theme-yat/issues/new) describing the problem that you're looking to resolve and we'll go from there.
-
-## License
-
-This theme is licensed under the [MIT license](https://opensource.org/licenses/mit-license.php) © JeffreyTse.
-
-<!-- External links -->
-
-[jekyll]: https://jekyllrb.com/
-[yat-git-repo]: https://github.com/jeffreytse/jekyll-theme-yat/
-[yat-live-demo]: https://jeffreytse.github.io/jekyll-theme-yat/
-[jekyll-spaceship]: https://github.com/jeffreytse/jekyll-spaceship
-[jekyll-seo-tag]: https://github.com/jekyll/jekyll-seo-tag
-[jekyll-sitemap]: https://github.com/jekyll/jekyll-sitemap
-[jekyll-feed]: https://github.com/jekyll/jekyll-feed
-[highlight-js]: https://github.com/highlightjs/highlight.js
+## 💬 블로그 리뷰 방법
+1. 오탈자, 마크다운 문법에 대해 틀린 부분이 없는지 확인하기
+2. 게시글 내용에 잘못된 정보가 없는지 확인하기
+4. 성의있는 리뷰를 통해 approve 부여하기
