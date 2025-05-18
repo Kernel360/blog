@@ -2,7 +2,6 @@
 layout: post
 title: 생산성을 도와줄 프로그램들
 author: 이종찬
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2024/0118/1.png?raw=true
   background: "#000"
