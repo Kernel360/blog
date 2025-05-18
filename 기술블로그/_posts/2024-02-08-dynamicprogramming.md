@@ -2,7 +2,6 @@
 layout: post  
 title: 다이나믹 프로그래밍
 author: 김원상
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2024/0208/1.png?raw=true
   background: "#000"
