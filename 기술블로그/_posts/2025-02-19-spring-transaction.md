@@ -4,13 +4,14 @@ title: "Spring Transaction"
 author: "윤지윤"
 categories: "기술블로그"
 banner:
-image: 
-background: "#000"
-height: "100vh"
-min_height: "38vh"
-heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: [`transaction`, `@Transactional`, `propagation`]
+ image: "assets/images/post/2023-11-05.webp"
+ background: "#000"
+ height: "100vh"
+ min_height: "38vh"
+ heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: ["transaction", "@Transactional", "propagation"]
 ---
+
 
 # Spring Transaction
 

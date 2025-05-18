@@ -4,7 +4,7 @@ title: "스프링 시큐리티"
 author: "김자성"
 categories: "기술세미나"
 banner:
-  image:
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"

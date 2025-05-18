@@ -4,12 +4,12 @@ title: "람다를 사용하는 이유"
 author: "남유람"
 categories: "기술블로그"
 banner:
-  image: 썸네일로 넣고 싶은 이미지 링크
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`java`, `lambda`, `method_reference`]
+  tags: ["java", "lambda", "method_reference"]
 ---
 
 # 람다에 대하여

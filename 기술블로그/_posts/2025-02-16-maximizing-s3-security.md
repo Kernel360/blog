@@ -4,12 +4,12 @@ title: "Amazon S3 보안 향상시키기"
 author: "박예슬"  
 categories: "기술세미나"  
 banner:
-  image: ""
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`Amazon S3`, `S3`, `보안`, `AWS`, `클라우드`, `데이터 보호`, `IT 보안`]
+  tags: ["Amazon S3", "S3", "보안", "AWS", "클라우드", "데이터 보호", "IT 보안"]
 ---
 
 

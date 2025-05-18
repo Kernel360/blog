@@ -4,12 +4,14 @@ title: "Closure Table을 활용한 계층형 데이터 관리"
 author: "윤정아"
 categories: "기술블로그"
 banner:
-background: "#000"
-height: "100vh"
-min_height: "38vh"
-heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: [`DB`, `Hierarchy`, `ClosureTable`, `Java`]
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: ["DB", "Hierarchy", "ClosureTable", "Java"]
 ---
+
 
 ## 주제를 선정하게 된 배경
 이번 프로젝트에서 MySQL을 사용하는 환경에서 계층형 구조의 게시판을 구현하고자 했습니다.

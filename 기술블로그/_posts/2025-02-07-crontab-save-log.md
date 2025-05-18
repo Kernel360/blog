@@ -2,13 +2,13 @@
 layout: post  
 title: "crontab으로 로그 저장하기"
 author: "김규영"
-categories: "기술 블로그"
+categories: "기술블로그"
 banner:
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`crontab`, `docker`]
+  tags: ["crontab", "docker"]
 ---
 ### 시작
 > 앱의 로그를 파일로 관리하라는 피드백을 받았습니다.

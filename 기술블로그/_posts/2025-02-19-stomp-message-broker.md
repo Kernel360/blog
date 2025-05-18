@@ -4,14 +4,13 @@ title: "STOMP(WebSocket)에서 내부 브로커와 외부 브로커의 차이"
 author: "최윤서"
 categories: "기술블로그"
 banner:
-  image: 
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [웹소켓, stomp, 메세지브로커 ]
+  tags: ["웹소켓", "stomp", "메세지브로커" ]
 ---
-
 
 웹 애플리케이션에서 **STOMP(Simple Text Oriented Messaging Protocol)** 를 이용해 웹소켓 통신을 구현할 때, 내부 브로커(in-memory broker)와 외부 브로커(external broker)를 선택할 수 있습니다.
 

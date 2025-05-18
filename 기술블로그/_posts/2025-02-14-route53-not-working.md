@@ -1,3 +1,17 @@
+---
+layout: post
+title: "Route53-not-working 해결기"
+author: ""
+categories: "기술블로그"
+banner:
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: ["Route53"]
+---
+
 [카프카1]
 
 ![image.png](attachment:630bda56-dd00-4f71-9331-8bc271fe5bab:image.png)

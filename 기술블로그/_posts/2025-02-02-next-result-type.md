@@ -9,7 +9,7 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`next.js`, `result type`, `result pattern`, `typescript`]
+  tags: ["next.js", "result type", "result pattern", "typescript"]
 ---
 
 # 서론

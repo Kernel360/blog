@@ -9,7 +9,7 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [enum, 열거타입, 정수 상수, 상수]
+  tags: ["enum", "열거타입", "정수 상수", "상수"]
 ---
 
 # **상수를 정의할 때 열거 타입(`enum`)을 사용해야 하는 이유**

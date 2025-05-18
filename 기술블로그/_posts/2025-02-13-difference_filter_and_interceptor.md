@@ -1,16 +1,15 @@
 ---
 layout: post
-title: Spring filter와 interceptor의 작동 방식과 사용 목적 차이
-author: 오승민
+title: "Spring filter와 interceptor의 작동 방식과 사용 목적 차이"
+author: "오승민"
 banner:
-  image:
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [Spring, filter, interceptor, 기술세미나]
+  tags: ["Spring", "filter", "interceptor", "기술세미나"]
 ---
-
 
 ## Spring filter와 interceptor의 작동 방식과 사용 목적 차이
 
