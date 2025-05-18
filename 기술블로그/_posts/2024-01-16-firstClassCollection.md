@@ -2,7 +2,6 @@
 layout: post
 title: 일급 컬렉션이란?
 author: 박석희
-categories: 기술세미나
 banner:
   image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0116/thumb_first_class.png
   background: "#000"
