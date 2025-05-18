@@ -9,7 +9,7 @@ banner:
   height: "100vh"
   min_height: "40vh"
   heading_style: "font-size: 4em; font-weight: bold; text-decoration: underline"
-  tags: ["Spring", "Java", "Transaction", "Async", "Race Condition"]
+tags: ["Spring", "Java", "Transaction", "Async", "Race Condition"]
 ---
 
 # Race Condition 해결기: 트랜잭션 커밋 이후 알림 전송 보장하기
