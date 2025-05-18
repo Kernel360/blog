@@ -2,7 +2,6 @@
 layout: post  
 title: "람다를 사용하는 이유"
 author: "남유람"
-categories: "기술블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
