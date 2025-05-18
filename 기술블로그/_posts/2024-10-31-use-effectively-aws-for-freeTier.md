@@ -2,7 +2,6 @@
 layout: post  
 title: AWS 프리티어 효율적으로 사용하기
 author: 이강민
-categories: 기술세미나
 banner: 
   image: assets/images/post/2023-11-05.webp
   background: "#000"
