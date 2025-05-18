@@ -2,7 +2,6 @@
 layout: post  
 title: '세션과 JWT'
 author: '이선우'
-categories: '기술세미나'
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
