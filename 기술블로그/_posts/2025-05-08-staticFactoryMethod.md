@@ -1,8 +1,7 @@
 ---
 layout: post  
-title: ""
-author: ""
-categories: "기술 블로그"
+title: "정적팩토리메소드"
+author: "차의진"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
