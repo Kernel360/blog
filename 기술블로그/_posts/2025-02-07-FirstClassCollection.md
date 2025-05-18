@@ -2,7 +2,6 @@
 layout: post  
 title: "일급 컬랙션"
 author: "김규영"
-categories: "기술블로그"
 banner:
   background: "#000"
   height: "100vh"
