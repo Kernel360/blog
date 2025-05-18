@@ -2,7 +2,6 @@
 layout: post  
 title: "AWS를 통한 모니터링"
 author: "송예진"
-categories: "기술세미나"
 banner:
   image: "https://github.com/yejincode/blog/assets/69861207/e0960f4a-459e-4ec7-b694-10002c258809"
   background: "#000"
