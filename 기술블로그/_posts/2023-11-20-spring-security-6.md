@@ -2,7 +2,6 @@
 layout: post
 title: Spring Security Authentication 구조 훑어보기
 author: 안소현
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2023/1120/11.png?raw=true
   background: "#000"
