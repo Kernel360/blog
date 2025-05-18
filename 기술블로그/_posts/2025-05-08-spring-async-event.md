@@ -4,12 +4,12 @@ title: "스프링 이벤트를 활용한 비동기 처리 방법 (ex. 프로젝�
 author: "정서연"
 categories: "기술블로그"
 banner:
-  image: 썸네일로 넣고 싶은 이미지 링크
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`Spring`, `event`, `Java`, `Async`]
+tags: ["Spring", "event", "Java", "Async"]
 ---
 
 # SODA 프로젝트: 스프링 이벤트와 비동기 처리로 프로젝트 생성 통계 구현하기
