@@ -2,7 +2,6 @@
 layout: post  
 title: "STOMP(WebSocket)에서 내부 브로커와 외부 브로커의 차이"
 author: "최윤서"
-categories: "기술블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
