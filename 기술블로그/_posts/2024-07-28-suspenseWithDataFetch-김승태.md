@@ -2,7 +2,6 @@
 layout: post
 title: "Suspense를 사용하여 Data Fetching 처리하기"
 author: "김승태"
-categories: "프론트엔드 기술블로그"
 banner:
   background: "#000"
   height: "100vh"
