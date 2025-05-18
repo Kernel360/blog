@@ -1,3 +1,17 @@
+---
+layout: post  
+title: ""
+author: ""
+categories: "기술 블로그"
+banner:
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: ["layeredArchitecture"]
+---
+
 # 🧭 Java에서 객체를 생성할 때, 왜 정적 팩토리 메서드를 선택할까?
 
 Java에서는 객체를 생성하는 방식으로 `@Setter`, `@Builder`, 그리고 정적 팩토리 메서드(Static Factory Method) 등이 존재합니다. 많은 개발자들이 Lombok의 `@Setter`나 `@Builder`를 선호하지만, 저는 **정적 팩토리 메서드**를 더 선호합니다.
