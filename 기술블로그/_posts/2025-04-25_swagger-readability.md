@@ -4,12 +4,12 @@ title: "깔끔하게 비즈니스 로직과 Swagger 관련 코드 분리하기"
 author: "채지원"
 categories: "기술블로그"
 banner:
-  image: ""
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`Swagger`, `문서화`]
+tags: ["Swagger", "문서화"]
 ---
 
 <br/>
