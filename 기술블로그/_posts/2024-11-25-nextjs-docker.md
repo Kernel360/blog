@@ -2,7 +2,6 @@
 layout: post
 title: "yarn berry pnp일 때 nextjs docker image 만들기"
 author: "김승태"
-categories: "프론트엔드 기술블로그"
 banner:
   image: assets/images/post/2023-11-05.webp
   background: "#000"
