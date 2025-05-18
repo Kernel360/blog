@@ -2,7 +2,6 @@
 layout: post
 title: "JWT 기반 인증: 액세스 토큰과 리프레시 토큰"
 author: "박성민"
-categories: "백엔드 기술블로그"
 banner:
   image: assets/images/post/2023-11-10.webp
   background: "#000"
