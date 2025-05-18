@@ -1,10 +1,15 @@
 ---
-layout: post
-title: 젠킨스에서 GitHub Actions로의 전환: 현대적 CI/CD 트렌드
-subheading: 코드와 함께 있는 워크플로우, 더 간편해진 CI/CD 파이프라인
-author: changil.kim
-categories: DevOps
-tags: ['CI/CD', 'GitHub Actions', 'Jenkins', 'DevOps', '개발 트렌드']
+layout: post  
+title: "젠킨스에서 GitHub Actions로의 전환: 현대적 CI/CD 트렌드"
+author: "김창일"
+categories: "기술 블로그"
+banner:
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: ["CI/CD", "GitHub Actions", "Jenkins", "DevOps", "개발 트렌드"]
 ---
 
 ## 들어가며
