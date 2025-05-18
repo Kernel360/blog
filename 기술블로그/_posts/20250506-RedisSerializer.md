@@ -2,14 +2,14 @@
 layout: post
 title: "Redis 직렬화 문제 해결기: serialVersionUID에서 GenericJackson2JsonRedisSerializer로"
 author: "이영석"
-categories: "백엔드 기술블로그"
+categories: "기술블로그"
 banner:
-  image: 
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: [`Redis`, `직렬화`, `Spring`, `트러블슈팅`, `Java`, `Spring Security`]
+tags: ["Redis", "직렬화", "Spring", "트러블슈팅", "Java", "Spring Security"]
 ---
 
 안녕하세요! 오늘은 HouseHub 프로젝트를 진행하면서 겪었던 Redis 직렬화 문제와 그 해결 과정을 공유하고자 합니다.
