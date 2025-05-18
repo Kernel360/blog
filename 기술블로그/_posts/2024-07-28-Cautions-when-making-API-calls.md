@@ -2,7 +2,6 @@
 layout: post
 title: Cautions when making API calls
 author: 양하연
-categories: [기술세미나]
 banner:
   image: "https://github.com/Kernel360/blog/blob/4c946de0eeb5658cc0307cb1a61e98f51bfeba60/assets/images/post/2023-11-05.webp"
   background: "#000"
