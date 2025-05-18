@@ -2,7 +2,6 @@
 layout: post
 title: Fixture Monkey
 author: 손현준
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2024/0130/0.png?raw=true?raw=true
   background: "#000"
