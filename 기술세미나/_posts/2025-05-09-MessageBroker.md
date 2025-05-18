@@ -1,15 +1,15 @@
 ---
 layout: post  
-title: "게시글 제목"
-author: "작성자 이름"
+title: "MessageBroker"
+author: "유재경"
 categories: "기술세미나"
 banner:
-  image: 썸네일로 넣고 싶은 이미지 링크
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`MessageBroker`, `MessageQueue`, `RabbitMQ`, `Kafka`, `AWS SQS`, `Redis`]
+  tags: ["MessageBroker", "MessageQueue", "RabbitMQ", "Kafka", "AWS SQS", "Redis"]
 ---
 
 # 메시지 브로커(Message Broker), 알고 쓰자!  
