@@ -2,7 +2,7 @@
 layout: post
 title: 메시지 지향 미들웨어
 author: 고병룡
-categories: 기술세미나
+categories: 기술블로그
 banner:
   image: https://docs.oracle.com/cd/E19340-01/820-6424/images/to_MOM.gif
   background: "#000"
