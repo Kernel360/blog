@@ -2,7 +2,6 @@
 layout: post  
 title: OpenAPI TypeScript로 API 타입 관리 자동화하기
 author: 윤예진
-categories: 프론트엔드 기술블로그
 banner:
   image: assets/images/post/2023-11-05.webp
   background: "#000"
