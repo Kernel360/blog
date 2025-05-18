@@ -2,7 +2,6 @@
 layout: post  
 title: "깔끔하게 비즈니스 로직과 Swagger 관련 코드 분리하기"
 author: "채지원"
-categories: "기술블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
