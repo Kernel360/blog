@@ -2,7 +2,6 @@
 layout: post  
 title: STOMP 웹소켓 프로그래밍
 author: 문찬욱
-categories: 기술세미나
 banner:
   image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2024/0126/thumb.png
   background: "#000"
