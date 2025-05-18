@@ -2,7 +2,6 @@
 layout: post
 title: "이커머스 DB 스키마 구성 전략: Olist 사례 분석"
 author: "허용석"
-categories: "기술세미나"
 banner:
   image: https://github.com/Kernel360/blog-image/raw/main/2025/0508/db-schema-banner.jpg
   background: "#000"
