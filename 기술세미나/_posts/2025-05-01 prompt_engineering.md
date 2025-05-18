@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: prompt engineering
+title: "prompt engineering"
 author: 김현호
 categories: 기술세미나
 banner:
