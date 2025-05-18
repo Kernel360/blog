@@ -2,7 +2,6 @@
 layout: post  
 title: 시간 복잡도
 author: 문찬욱
-categories: 기술세미나
 banner:
   image: https://raw.githubusercontent.com/Kernel360/blog-image/main/2023/1116/thumb.jpg
   background: "#000"
