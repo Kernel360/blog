@@ -2,7 +2,6 @@
 layout: post  
 title: "데이터베이스 커넥션의 원리와 핵심 개념"  
 author: "이의준"  
-categories: "기술블로그"  
 banner:  
   image: 
   background: "#2a9d8f"  
