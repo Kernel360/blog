@@ -9,7 +9,7 @@ banner:
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`DataBase`]
+tags: ["DataBase"]
 ---
 
 # 데이터베이스 격리 수준 (Isolation Level)
