@@ -2,7 +2,6 @@
 layout: post
 title: "도커 컨테이너"
 author: "김민규"
-categories: "기술세미나"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
