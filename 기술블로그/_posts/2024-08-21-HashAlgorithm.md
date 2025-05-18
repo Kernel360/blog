@@ -2,7 +2,6 @@
 layout: post  
 title: 해시 알고리즘 쉽게 배우기
 author: 임건우
-categories: 기술세미나
 banner: 
   image: assets/images/post/2023-11-05.webp
   background: "#000"
