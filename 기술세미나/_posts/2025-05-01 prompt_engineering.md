@@ -4,7 +4,7 @@ title: "prompt engineering"
 author: "김현호"
 categories: "기술세미나"
 banner:
-  image: "https://raw.githubusercontent.com/Kernel360/blog-image/main/2023/1110/1.png"
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
