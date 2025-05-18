@@ -4,12 +4,12 @@ title: "스프링 부트에서 대용량 엑셀 업로드 검증 전략: 서비�
 author: "이영석"
 categories: "기술블로그"
 banner:
-  image: https://github.com/Kernel360/blog-image/blob/main/2025/0425/BeanValidation.png?raw=true
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`유효성 검증`, `Validation`, `Excel`, `Argument Resolver`, `@Valid`]
+  tags: ["유효성 검증", "Validation", "Excel", "Argument Resolver", "@Valid"]
 ---
 
 # 스프링 부트에서 대용량 엑셀 업로드 검증 전략: 서비스 레이어 vs Argument Resolver
