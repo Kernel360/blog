@@ -4,12 +4,12 @@ title: "COMPILER and INTERPRETER"
 author: "박준서"
 categories: "기술세마나"
 banner:
-  image:
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [ "JAVA" ]
+  tags: ["JAVA"]
 ---
 
 ## 주제: COMPILER and INTERPRETER
