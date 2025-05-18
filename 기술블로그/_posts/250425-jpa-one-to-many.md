@@ -4,13 +4,14 @@ title: "JPA @OneToMany 삽질기: 분명 저장했는데 왜 Response에는 없�
 author: "정서연"
 categories: "기술블로그"
 banner:
-  image: 썸네일로 넣고 싶은 이미지 링크
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`JPA`, `@OneToMany`, `Java`]
+  tags: ["JPA", "@OneToMany", "Java"]
 ---
+
 
 
 # JPA @OneToMany 삽질기: 분명 저장했는데 왜 Response에는 없을까? (feat. 양방향 연관관계)
