@@ -2,7 +2,6 @@
 layout: post
 title: 더 나은 테스트로 인도해줄 친구들
 author: 조형준
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2024/0110/1.png?raw=true
   background: "#000"
