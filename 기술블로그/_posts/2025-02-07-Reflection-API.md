@@ -2,7 +2,6 @@
 layout: post  
 title: "JPA 엔티티 설계에서 기본 생성자가 필요한 이유 : Reflection API와 접근제어자의 역할"
 author: "김대현"
-categories: "기술블로그"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
