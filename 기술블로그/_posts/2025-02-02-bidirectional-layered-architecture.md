@@ -4,12 +4,12 @@ title: "안티패턴 - 양방향 레이어드 아키텍처"
 author: "김도훈"
 categories: "기술 블로그"
 banner:
-image: 
-background: "#000"
-height: "100vh"
-min_height: "38vh"
-heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: [`layeredArchitecture`]
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: [layeredArchitecture]
 ---
 # 안티패턴 - 양방향 레이어드 아키텍처
 
