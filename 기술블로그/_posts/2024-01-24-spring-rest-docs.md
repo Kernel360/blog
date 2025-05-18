@@ -2,7 +2,6 @@
 layout: post
 title: 이번엔 Spring REST Docs를 써볼까?
 author: 김영롱
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2024/0124/spring-rest-docs.png?raw=true
   background: "#000"
