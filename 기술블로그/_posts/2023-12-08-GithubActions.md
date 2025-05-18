@@ -2,7 +2,6 @@
 layout: post
 title: Github Actions
 author: 이종찬
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2023/1208/1.png?raw=true
   background: "#000"
