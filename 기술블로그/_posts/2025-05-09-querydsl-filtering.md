@@ -4,12 +4,12 @@ title: "QueryDSL을 활용한 조건 기반 검색 기능 구현기"
 author: "조수연"
 categories: "기술블로그"
 banner:
-  image: ""
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`QueryDSL`, `검색 기능`, `조건 검색`, `Spring`, `JPA`]
+tags: ["QueryDSL", "검색 기능", "조건 검색", "Spring", "JPA"]
 ---
 
 ## 🔍 들어가며
