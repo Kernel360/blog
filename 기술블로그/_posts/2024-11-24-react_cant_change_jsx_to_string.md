@@ -2,7 +2,6 @@
 layout: post  
 title: 클라이언트 환경에서 파일을 문자열로 변환할 수 없는 이유
 author: 윤예진
-categories: 프론트엔드 기술블로그
 banner:
   image: assets/images/post/2023-11-05.webp
   background: "#000"
