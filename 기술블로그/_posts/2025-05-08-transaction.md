@@ -2,7 +2,6 @@
 layout: post  
 title: "트랜잭션 완전 정복: DB부터 Spring까지"  
 author: "권승목"  
-categories: "기술세미나"  
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
