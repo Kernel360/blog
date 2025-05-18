@@ -2,7 +2,6 @@
 layout: post
 title: 주저하는 개발자들을 위해 - 코딩 테스트
 author: 고병룡
-categories: 기술세미나
 banner:
   image: https://www.hanbit.co.kr/data/editor/20200918163925_xyypndmo.png
   background: "#000"
