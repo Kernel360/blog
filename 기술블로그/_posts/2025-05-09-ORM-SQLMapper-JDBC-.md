@@ -5,12 +5,12 @@ title: "ORM, SQLMapper, JDBC"
 author: "김찬호"
 categories: "기술블로그"
 banner:
-image:
-background: "#000"
-height: "100vh"
-min\_height: "38vh"
-heading\_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-tags: \[ "JAVA" ]
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: ["Java"]
 -----------------
 
 ## 주제: JDBC, ORM, SQLMapper
