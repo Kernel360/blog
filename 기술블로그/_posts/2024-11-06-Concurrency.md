@@ -2,7 +2,6 @@
 layout: post  
 title: "동시성 문제를 겪으며 해결한 경험"
 author: "양상원"
-categories: "기술세미나"
 banner:
   image: "assets/images/post/2023-11-05.webp"
   background: "#000"
