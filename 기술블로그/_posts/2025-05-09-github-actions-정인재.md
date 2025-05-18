@@ -1,3 +1,17 @@
+---
+layout: post  
+title: "GitHub actions"
+author: "정인재"
+categories: "기술 블로그"
+banner:
+  image: "assets/images/post/2023-11-05.webp"
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+tags: ["기술블로그"]
+---
+
 # GitHub Actions + ECR + EventBridge + Lambda를 활용한 무중단 ECS 배포 자동화
 
 ## 📝 개요
