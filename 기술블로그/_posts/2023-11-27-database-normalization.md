@@ -2,7 +2,6 @@
 layout: post
 title: 데이터베이스 정규화 초급
 author: 신종민
-categories: 기술세미나
 banner:
   image: https://github.com/Kernel360/blog-image/blob/main/2023/1127/Cover.jpeg?raw=true
   background: "#000"
