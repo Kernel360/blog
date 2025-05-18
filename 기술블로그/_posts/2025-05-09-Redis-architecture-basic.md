@@ -4,12 +4,12 @@ title: "Redis 아키텍처 기초"
 author: "신윤상"
 categories: "기술블로그"
 banner:
-  image:
+  image: "assets/images/post/2023-11-05.webp"
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
-  tags: [`Redis`]
+  tags: ["Redis"]
 ---
 
 # Redis 개념과 고가용성 아키텍처 정리
