@@ -2,7 +2,6 @@
 layout: post  
 title: 인터페이스를 활용하여 조건분기 개선하기
 author: 이강민
-categories: 기술세미나
 banner: 
   image: assets/images/post/2023-11-05.webp
   background: "#000"
