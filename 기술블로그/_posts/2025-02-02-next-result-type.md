@@ -2,7 +2,6 @@
 layout: post  
 title: "Next.js에서 Result 패턴을 활용한 HTTP 요청 에러 핸들링"
 author: "오송민"
-categories: "프론트엔드 기술블로그"
 banner:
   image: assets/images/post/2023-11-05.webp
   background: "#000"
